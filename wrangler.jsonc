@@ -1,0 +1,16 @@
+{
+  // Site estático do Astro servido por Cloudflare Workers (assets estáticos, sem código de servidor).
+  // Deploy: npm run deploy  (gera dist/ e publica via API com o Wrangler)
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "martinelle-chaveiros",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  }
+}

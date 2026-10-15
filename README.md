@@ -19,7 +19,17 @@ Requer Node 22+.
 
 ## Publicação
 
-O build gera arquivos estáticos em `dist/`. Funciona em qualquer hospedagem estática com HTTPS:
+**Atual: Cloudflare Workers (assets estáticos)** — Worker `martinelle-chaveiros`, conta Contato P12.
+URL provisória: https://martinelle-chaveiros.contato-097.workers.dev
+
+```bash
+npm run deploy     # astro build + wrangler deploy (config em wrangler.jsonc)
+```
+
+O Wrangler usa a variável de ambiente `CLOUDFLARE_API_TOKEN` (ou `npx wrangler login`). Rollback: `npx wrangler rollback`.
+Para usar o domínio oficial: Workers & Pages → martinelle-chaveiros → Settings → Domains & Routes → adicionar `martinellichaves.com.br` (o DNS precisa estar na Cloudflare). Até lá, o canonical aponta para o domínio oficial, evitando conteúdo duplicado da URL provisória.
+
+O build gera arquivos estáticos em `dist/` e também funciona em outras hospedagens com HTTPS:
 
 - **Cloudflare Pages / Netlify:** comando `npm run build`, pasta `dist`. O arquivo `public/_headers` já define cache longo para `/_astro/*` e cabeçalhos de segurança.
 - **Vercel:** framework "Astro", saída `dist`.

@@ -25,18 +25,16 @@ Testes automatizados com Chrome headless (puppeteer) e Lighthouse 12, em 15/10/2
 
 Suíte funcional: **47/47 testes aprovados.**
 
-## Lighthouse (servidor local com brotli)
+## Lighthouse — site publicado (https://martinelle-chaveiros.contato-097.workers.dev)
 
 | Página | Performance | Acessibilidade | Boas práticas | SEO |
 |---|---|---|---|---|
-| Home — desktop | 100 | 100 | 81† | 100 |
-| Home — mobile | 86* | 100 | 82† | 100 |
-| Páginas de serviço — mobile | 92 a 94 | 100 | 82† | 100 |
-| Política de privacidade — mobile | 98 | 100 | 82† | 100 |
+| Home — mobile | 97 | 100 | 100 | 100 |
+| Home — desktop | 100 | 100 | 100 | 100 |
 
-\* O antivírus Kaspersky da máquina de testes intercepta o tráfego HTTP do Chrome e remove a compressão: o Lighthouse recebeu a home com 297 KB em vez de 36 KB (brotli). Em produção esse efeito não existe. **Confirmar no PageSpeed Insights após publicar.**
+Home mobile: FCP 1,4 s · LCP 2,0 s · CLS 0 · TBT 20 ms. Suíte funcional executada também no site publicado: 47/47.
 
-† O único item reprovado em Boas Práticas é "não usa HTTPS" (servidor local). Em produção com HTTPS, o item passa.
+Medições locais anteriores (servidor sem HTTPS, com antivírus removendo a compressão): páginas de serviço 92–94 e política 98 no mobile, acessibilidade e SEO 100 em todas.
 
 ## Acessibilidade (WCAG 2.2 AA como referência)
 
