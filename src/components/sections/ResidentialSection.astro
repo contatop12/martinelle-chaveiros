@@ -1,0 +1,65 @@
+---
+/** Bloco 10 — Chaveiro residencial e comercial, organizado por categoria */
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
+import { RESIDENTIAL_CATEGORIES } from '@/data/services';
+---
+
+<section id="chaveiro-residencial" class="section surface-white" aria-labelledby="residencial-titulo">
+  <div class="container-x">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading id="residencial-titulo" title="Chaveiro Residencial e Comercial em Indaiatuba">
+        Para casas, apartamentos e comércios. Cópias no quiosque do Sumerbol e serviços no local, conforme disponibilidade.
+      </SectionHeading>
+      <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+        <WhatsAppCta label="Solicitar Serviço de Chaveiro" messageKey="residencial" service="chaveiro_residencial" location="secao_residencial" />
+      </div>
+    </div>
+
+    <ul class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        RESIDENTIAL_CATEGORIES.map((c, i) => (
+          <li class="res-card" data-reveal style={`--i:${i}`}>
+            <span class="icon-box bg-ink-900 text-gold-light">
+              <Icon name={c.icon} />
+            </span>
+            <h3 class="h-card mt-6 text-lg text-ink-900">{c.title}</h3>
+            <ul class="mt-4 grid gap-2.5 text-[0.9375rem] text-steel-600">
+              {c.items.map((it) => (
+                <li class="flex items-start gap-2.5">
+                  <Icon name="Check" class="mt-1 size-4 shrink-0 text-gold-ink" strokeWidth={2.25} />
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 flex items-center gap-3 text-sm text-steel-600">
+      <Icon name="ShieldCheck" class="size-5 shrink-0 text-gold-ink" />
+      Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.
+    </p>
+    <div class="mt-6 sm:hidden">
+      <PhoneCta service="chaveiro_residencial" location="secao_residencial" block />
+    </div>
+  </div>
+</section>
+
+<style>
+  .res-card {
+    border-radius: 20px;
+    padding: 1.75rem 1.5rem;
+    background: var(--color-mist);
+    border: 1px solid rgb(16 18 20 / 0.06);
+    transition:
+      border-color 0.3s,
+      transform 0.35s var(--ease-out-quart);
+  }
+  .res-card:hover {
+    border-color: rgb(212 163 74 / 0.5);
+  }
+</style>

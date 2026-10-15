@@ -1,0 +1,244 @@
+---
+/** Bloco 11 — Trabalhos realizados: fotos reais, filtros e lightbox acessível. */
+import { Picture, getImage } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { GALLERY, GALLERY_FILTERS, GALLERY_INITIAL, type GalleryCategory } from '@/data/photos';
+import { LINKS } from '@/config/site';
+
+interface Props {
+  /** Em páginas de serviço: mostra só uma categoria, sem filtros */
+  category?: GalleryCategory | null;
+  title?: string;
+  id?: string;
+}
+
+const { category = null, title = 'Conheça Alguns Trabalhos Realizados pela Martinelli Chaves', id = 'servicos-realizados' } = Astro.props;
+const list = category ? GALLERY.filter((g) => g.categories.includes(category)) : GALLERY;
+const initial = category ? 8 : GALLERY_INITIAL;
+
+const items = await Promise.all(
+  list.map(async (g) => {
+    const full = await getImage({ src: g.src, width: Math.min(1400, g.src.width), format: 'webp', quality: 82 });
+    return { ...g, full: full.src, fw: full.attributes.width as number, fh: full.attributes.height as number };
+  }),
+);
+---
+
+<section id={id} class="section surface-deep" aria-labelledby={`${id}-titulo`}>
+  <div class="container-x" data-gallery data-initial={initial}>
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading id={`${id}-titulo`} title={title}>
+        Fotos reais de chaves feitas, programadas e reparadas pela Martinelli em carros nacionais e importados.
+      </SectionHeading>
+      <a
+        href={LINKS.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-line shrink-0 self-start lg:self-auto"
+        data-track="instagram_click"
+        data-location="galeria"
+      >
+        <Icon brand="instagram" /> Veja Mais Trabalhos no Instagram
+      </a>
+    </div>
+
+    {
+      !category && (
+        <div class="filters mt-10 flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Filtrar trabalhos">
+          {GALLERY_FILTERS.map((f, i) => (
+            <button type="button" class="filter-btn" data-filter={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {f.label}
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    <ul class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {
+        items.map((g, i) => (
+          <li data-item data-cats={g.categories.join(' ')} style={`view-transition-name: g-${g.id}`} hidden={i >= initial}>
+            <button
+              type="button"
+              class="g-item group"
+              data-full={g.full}
+              data-w={g.fw}
+              data-h={g.fh}
+              data-title={g.title}
+              data-caption={g.caption}
+              data-alt={g.alt}
+            >
+              <span class="sr-only">Ampliar foto: </span>
+              <Picture
+                src={g.src}
+                alt={g.alt}
+                formats={['webp']}
+                widths={[240, 360, 480]}
+                sizes="(min-width: 1024px) 18rem, (min-width: 768px) 31vw, 47vw"
+                loading="lazy"
+                class="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <span class="g-cap">
+                <span class="block font-semibold text-white">{g.title}</span>
+                <span class="block text-xs text-steel-300 sm:text-sm">{g.caption}</span>
+              </span>
+              <span class="g-zoom" aria-hidden="true">
+                <Icon name="Expand" class="size-4" />
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 rounded-2xl border border-white/[0.08] bg-ink-850 p-6 text-steel-300" data-empty hidden>
+      As fotos desta categoria estão sendo organizadas. Veja os trabalhos mais recentes no
+      <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" class="text-link text-white" data-track="instagram_click" data-location="galeria_vazia">Instagram da Martinelli</a>.
+    </p>
+
+    {
+      items.length > initial && (
+        <div class="mt-10 flex justify-center">
+          <button type="button" class="btn btn-gold" data-more>
+            <Icon name="Images" />
+            <span>Mostrar mais trabalhos (<span data-count>{items.length - initial}</span>)</span>
+          </button>
+        </div>
+      )
+    }
+
+    <dialog class="lightbox" aria-label="Foto ampliada">
+      <div class="flex h-full w-full flex-col items-center justify-center gap-4 p-4 sm:p-8">
+        <div class="flex w-full max-w-5xl items-center justify-between gap-4 text-sm text-steel-300">
+          <span data-lb-counter></span>
+          <button type="button" class="grid size-11 place-items-center rounded-full border border-white/20 text-white hover:border-gold" data-lb-close aria-label="Fechar">
+            <Icon name="X" class="size-5" />
+          </button>
+        </div>
+        <figure class="relative flex min-h-0 w-full max-w-5xl flex-1 flex-col items-center justify-center">
+          <img class="lb-img max-h-[calc(100dvh-14rem)] w-auto max-w-full rounded-2xl object-contain" alt="" />
+          <figcaption class="mt-4 text-center">
+            <span class="block font-display text-lg font-semibold text-white [font-stretch:110%]" data-lb-title></span>
+            <span class="block text-sm text-steel-400" data-lb-caption></span>
+          </figcaption>
+        </figure>
+        <div class="flex gap-3">
+          <button type="button" class="grid size-12 place-items-center rounded-full border border-white/20 text-white hover:border-gold" data-lb-prev aria-label="Foto anterior">
+            <Icon name="ChevronLeft" class="size-5" />
+          </button>
+          <button type="button" class="grid size-12 place-items-center rounded-full border border-white/20 text-white hover:border-gold" data-lb-next aria-label="Próxima foto">
+            <Icon name="ChevronRight" class="size-5" />
+          </button>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</section>
+
+<style>
+  .filters {
+    scrollbar-width: none;
+  }
+  .filter-btn {
+    flex: none;
+    min-height: 2.75rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    color: var(--color-steel-300);
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s;
+  }
+  .filter-btn:hover {
+    border-color: var(--color-gold);
+    color: var(--color-paper);
+  }
+  .filter-btn[aria-pressed='true'] {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-ink-950);
+  }
+
+  .g-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--color-ink-800);
+    text-align: left;
+    cursor: zoom-in;
+  }
+  .g-item :global(picture) {
+    display: block;
+  }
+  .g-cap {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 2.5rem 0.875rem 0.875rem;
+    background: linear-gradient(to top, rgb(8 10 12 / 0.92), transparent);
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
+  .g-zoom {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: rgb(8 10 12 / 0.65);
+    color: var(--color-gold-light);
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity 0.3s,
+      transform 0.3s var(--ease-out-quart);
+  }
+  .g-item:hover .g-zoom,
+  .g-item:focus-visible .g-zoom {
+    opacity: 1;
+    transform: none;
+  }
+
+  .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgb(8 10 12 / 0.96);
+    color: var(--color-paper);
+  }
+  .lightbox::backdrop {
+    background: rgb(8 10 12 / 0.7);
+    backdrop-filter: blur(6px);
+  }
+  .lb-img {
+    opacity: 0;
+    transition: opacity 0.35s;
+    height: auto;
+  }
+  .lb-img:global(.is-loaded) {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox[open] {
+      animation: lb-in 0.35s var(--ease-out-quart);
+    }
+  }
+  @keyframes lb-in {
+    from {
+      opacity: 0;
+    }
+  }
+</style>

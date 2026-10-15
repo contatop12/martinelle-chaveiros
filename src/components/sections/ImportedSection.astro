@@ -1,0 +1,63 @@
+---
+/** Bloco 6 — Carros importados e premium */
+import { Picture } from 'astro:assets';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import BrandGrid from '@/components/ui/BrandGrid.astro';
+import ProofVideo from '@/components/ui/ProofVideo.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import { GALLERY, PREMIUM_STRIP } from '@/data/photos';
+
+const strip = PREMIUM_STRIP.map((id) => GALLERY.find((g) => g.id === id)!).filter(Boolean);
+---
+
+<section id="carros-importados" class="section surface-deep relative overflow-hidden" aria-labelledby="importados-titulo">
+  <div class="lux-lines pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="container-x relative">
+    <SectionHeading id="importados-titulo" title="Chaves para Carros Importados e de Luxo">
+      Atendimento especializado para sistemas de chaves e controles automotivos de diferentes marcas e tecnologias.
+    </SectionHeading>
+
+    <div class="mt-14 grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <ProofVideo />
+
+      <div>
+        <h3 class="h-card text-lg text-white">Marcas que já passaram pela Martinelli</h3>
+        <p class="mt-2 mb-6 text-[0.9375rem] text-steel-400">Selecionadas a partir de trabalhos registrados em fotos.</p>
+        <BrandGrid />
+        <div class="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+          <WhatsAppCta label="Consultar Chave para Meu Importado" messageKey="importados" service="carros_importados" location="secao_importados" />
+        </div>
+      </div>
+    </div>
+
+    <ul class="lux-strip mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:overflow-visible" aria-label="Trabalhos em veículos premium" tabindex="0">
+      {
+        strip.map((p, i) => (
+          <li class="w-[72%] shrink-0 snap-start sm:w-[44%] lg:w-auto">
+            <figure>
+              <div class="photo-frame aspect-[3/4]" data-reveal="wipe" style={`--i:${i}`}>
+                <Picture src={p.src} alt={p.alt} formats={['avif', 'webp']} widths={[320, 480, 640]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 44vw, 72vw" loading="lazy" />
+              </div>
+              <figcaption class="mt-3 text-sm">
+                <span class="font-semibold text-white">{p.title}</span>
+                <span class="block text-steel-400">{p.caption}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .lux-lines {
+    background:
+      radial-gradient(ellipse 60% 50% at 10% 20%, rgb(212 163 74 / 0.09), transparent 70%),
+      repeating-linear-gradient(115deg, transparent 0 46px, rgb(255 255 255 / 0.018) 46px 47px);
+  }
+  .lux-strip {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-600) transparent;
+  }
+</style>

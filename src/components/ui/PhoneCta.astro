@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { telLink } from '@/lib/contact';
+import { CONTACT } from '@/config/site';
+
+interface Props {
+  label?: string;
+  service: string;
+  location: string;
+  variant?: 'line' | 'gold';
+  size?: 'md' | 'sm' | 'lg';
+  class?: string;
+  block?: boolean;
+  showNumber?: boolean;
+}
+
+const {
+  label = 'Ligar Agora',
+  service,
+  location,
+  variant = 'line',
+  size = 'md',
+  class: className = '',
+  block = false,
+  showNumber = false,
+} = Astro.props;
+---
+
+<a
+  href={telLink}
+  class:list={[
+    'btn',
+    variant === 'gold' ? 'btn-gold' : 'btn-line',
+    size === 'sm' && 'btn-sm',
+    size === 'lg' && 'min-h-14 px-6 text-[1.0625rem]',
+    block && 'w-full',
+    className,
+  ]}
+  data-track="phone_click"
+  data-service={service}
+  data-location={location}
+>
+  <Icon name="Phone" />
+  <span>{label}<span class={showNumber ? 'font-semibold opacity-80' : 'sr-only'}> {CONTACT.phoneDisplay}</span></span>
+</a>

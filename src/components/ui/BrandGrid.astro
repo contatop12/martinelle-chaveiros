@@ -1,0 +1,60 @@
+---
+/** Grade de marcas com evidência de atendimento. Logotipos monocromáticos, sem sugerir parceria. */
+import { VERIFIED_BRANDS } from '@/data/brands';
+---
+
+<ul class="brand-grid grid grid-cols-3 gap-px overflow-hidden rounded-[20px] border border-white/[0.07] bg-white/[0.07]" aria-label="Marcas de veículos já atendidas">
+  {
+    VERIFIED_BRANDS.map((b, i) => (
+      <li class="brand-tile" data-reveal style={`--i:${i % 3}`}>
+        <span class="brand-logo size-9 sm:size-10" style={`--logo:url(${b.logo})`} aria-hidden="true"></span>
+        <span class="brand-name">{b.name}</span>
+      </li>
+    ))
+  }
+</ul>
+<p class="mt-4 text-xs leading-relaxed text-steel-400">
+  As marcas mencionadas pertencem aos seus respectivos titulares e são utilizadas exclusivamente para identificar veículos atendidos.
+</p>
+
+<style>
+  .brand-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    aspect-ratio: 1.25;
+    background: var(--color-ink-950);
+    color: var(--color-steel-400);
+    transition:
+      color 0.35s,
+      background-color 0.35s;
+  }
+  .brand-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgb(212 163 74 / 0.14), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .brand-tile:hover {
+    color: var(--color-gold-light);
+  }
+  .brand-tile:hover::before {
+    opacity: 1;
+  }
+  .brand-logo {
+    display: block;
+    background: currentColor;
+    -webkit-mask: var(--logo) center / contain no-repeat;
+    mask: var(--logo) center / contain no-repeat;
+  }
+  .brand-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-steel-400);
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+/** Sprite único com todos os ícones usados no site (referenciados por Icon.astro). */
+import { ICONS, BRAND_ICONS } from '@/lib/icons';
+
+const inner = (svg: string) =>
+  svg
+    .replace(/<!--.*?-->/gs, '')
+    .replace(/^[\s\S]*?<svg[^>]*>/, '')
+    .replace(/<\/svg>\s*$/, '')
+    .trim();
+
+const symbols = [
+  ...Object.entries(ICONS).map(([name, svg]) => `<symbol id="i-${name}" viewBox="0 0 24 24">${inner(svg)}</symbol>`),
+  ...Object.entries(BRAND_ICONS).map(([name, path]) => `<symbol id="b-${name}" viewBox="0 0 24 24"><path d="${path}"/></symbol>`),
+].join('');
+---
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs set:html={symbols} /></svg>

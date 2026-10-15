@@ -1,0 +1,132 @@
+---
+/**
+ * Política de Privacidade — descreve o tratamento real de dados deste site (LGPD, Lei 13.709/2018).
+ * Revisar com o cliente/assessoria jurídica antes da publicação (docs/PENDENCIAS.md).
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BittingLine from '@/components/ui/BittingLine.astro';
+import { ADDRESS, CONTACT, COMPANY, SITE } from '@/config/site';
+import { TRACKING_ENABLED } from '@/config/tracking';
+
+const updated = '15 de outubro de 2026';
+---
+
+<BaseLayout
+  title="Política de Privacidade | Martinelli Chaves"
+  description="Como a Martinelli Chaves trata os dados de quem visita o site e entra em contato pelo WhatsApp ou telefone, conforme a LGPD."
+  path="/politica-de-privacidade/"
+>
+  <article class="section surface-white">
+    <div class="container-x max-w-3xl">
+      <BittingLine class="mb-5" />
+      <h1 class="h-display text-[clamp(2rem,1.2rem+3vw,3.25rem)]">Política de Privacidade</h1>
+      <p class="mt-4 text-steel-600">Atualizada em {updated}.</p>
+
+      <div class="prose-legal mt-10">
+        <h2>1. Quem somos</h2>
+        <p>
+          Este site pertence à {COMPANY.legal.legalName ?? SITE.name}{COMPANY.legal.cnpj && `, CNPJ ${COMPANY.legal.cnpj}`}, localizada no
+          {ADDRESS.venue}, {ADDRESS.street}, {ADDRESS.unit}, {ADDRESS.city}/{ADDRESS.state}. Para qualquer assunto sobre seus dados,
+          fale conosco pelo telefone ou WhatsApp {CONTACT.phoneDisplay}.
+        </p>
+
+        <h2>2. Dados que este site coleta</h2>
+        <p>
+          Este site não tem cadastro, login ou área de cliente e não armazena em servidor as informações digitadas no formulário de
+          orçamento. O formulário apenas monta uma mensagem e abre o seu WhatsApp; você decide se envia.
+        </p>
+        <p>
+          Quando você nos envia uma mensagem pelo WhatsApp ou nos liga, recebemos as informações que você escolhe compartilhar
+          (por exemplo, seu número de telefone, a descrição do problema, os dados do veículo e a sua localização). Usamos esses
+          dados somente para responder, fazer orçamento e prestar o serviço solicitado.
+        </p>
+
+        <h2>3. Verificação de propriedade</h2>
+        <p>
+          Para abertura de veículos ou imóveis e para confecção de chaves, conferimos no atendimento documentos que comprovem a
+          propriedade ou a autorização. Essa conferência protege você e terceiros e não é feita por este site.
+        </p>
+
+        <h2>4. Cookies e medição de anúncios</h2>
+        <p>
+          Podemos usar ferramentas do Google (Google Tag Manager, Google Analytics 4 e Google Ads) para entender quais anúncios
+          trazem visitantes e quais botões de contato são usados. Essas ferramentas só gravam cookies de medição depois que você
+          aceita no aviso de cookies. Você pode recusar sem perder nenhuma função do site.
+        </p>
+        <p>
+          Os eventos registrados indicam, por exemplo, que um botão de WhatsApp ou de ligação foi clicado, em qual página e qual
+          serviço estava em destaque, além da origem da campanha (parâmetros UTM e identificadores de clique do Google Ads, como
+          GCLID). Não registramos nome, telefone ou conteúdo de mensagens nesses eventos.
+        </p>
+        {
+          !TRACKING_ENABLED && (
+            <p>No momento, nenhuma dessas ferramentas está ativa neste site.</p>
+          )
+        }
+        <p>
+          Durante a visita, a origem da campanha fica guardada apenas no armazenamento temporário do seu navegador
+          (sessionStorage), apagado quando a aba é fechada.
+        </p>
+
+        <h2>5. Mapa do Google e links externos</h2>
+        <p>
+          O mapa do Google só é carregado quando você clica em "Ver mapa interativo". A partir daí, e ao abrir links para WhatsApp,
+          Instagram ou Google Maps, o tratamento de dados segue as políticas desses serviços.
+        </p>
+
+        <h2>6. Bases legais</h2>
+        <p>
+          Tratamos dados para atender a sua solicitação e prestar o serviço (art. 7º, V, da LGPD), para cumprir obrigações legais
+          (art. 7º, II) e, no caso dos cookies de medição, com o seu consentimento (art. 7º, I), que pode ser revogado a qualquer
+          momento limpando os dados do site no navegador.
+        </p>
+
+        <h2>7. Compartilhamento</h2>
+        <p>
+          Não vendemos dados. Eles podem ser processados pelos serviços que você escolhe usar para falar conosco (WhatsApp/Meta,
+          operadora de telefonia) e, se você aceitar os cookies, pelo Google, para medição de anúncios.
+        </p>
+
+        <h2>8. Por quanto tempo guardamos</h2>
+        <p>
+          Mantemos as conversas e informações de atendimento pelo tempo necessário para prestar o serviço, dar garantia e cumprir
+          obrigações legais. Depois disso, elas são excluídas ou anonimizadas.
+        </p>
+
+        <h2>9. Seus direitos</h2>
+        <p>
+          Você pode pedir confirmação do tratamento, acesso, correção, anonimização, portabilidade ou exclusão dos seus dados, além
+          de informações sobre compartilhamento e a revogação do consentimento (art. 18 da LGPD). Faça o pedido pelo WhatsApp ou
+          telefone {CONTACT.phoneDisplay}.
+        </p>
+
+        <h2>10. Segurança</h2>
+        <p>
+          O site é publicado com conexão segura (HTTPS) e não guarda formulários em banco de dados. Ainda assim, nenhum sistema é
+          totalmente imune a falhas; caso ocorra algum incidente relevante, comunicaremos conforme a lei.
+        </p>
+
+        <h2>11. Alterações</h2>
+        <p>Esta política pode ser atualizada. A data no início da página indica a versão em vigor.</p>
+
+        <p class="mt-10">
+          <a href="/" class="text-link">Voltar para o site</a>
+        </p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-legal :global(h2) {
+    margin-top: 2.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-ink-900);
+  }
+  .prose-legal :global(p) {
+    margin-top: 0.875rem;
+    color: var(--color-steel-700);
+    line-height: 1.7;
+  }
+</style>

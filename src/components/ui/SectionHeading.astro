@@ -1,0 +1,25 @@
+---
+import BittingLine from './BittingLine.astro';
+
+interface Props {
+  title: string;
+  id?: string;
+  as?: 'h1' | 'h2';
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { title, id, as: Tag = 'h2', align = 'left', class: className = '' } = Astro.props;
+---
+
+<header class:list={['max-w-3xl', align === 'center' && 'mx-auto text-center', className]} data-observe>
+  <BittingLine class={align === 'center' ? 'mx-auto mb-5' : 'mb-5'} />
+  <Tag id={id} class="h-section">{title}</Tag>
+  {
+    Astro.slots.has('default') && (
+      <div class:list={['lead muted mt-5', align === 'center' && 'mx-auto']}>
+        <slot />
+      </div>
+    )
+  }
+</header>

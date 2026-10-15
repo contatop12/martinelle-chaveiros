@@ -1,0 +1,102 @@
+---
+/** Bloco 3 — "Qual problema você precisa resolver?" Cada card abre o WhatsApp com mensagem do problema. */
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { PROBLEMS } from '@/data/services';
+import { waLink } from '@/lib/contact';
+
+interface Props {
+  ids?: string[];
+}
+const { ids } = Astro.props;
+const items = ids ? PROBLEMS.filter((p) => ids.includes(p.id)) : PROBLEMS;
+---
+
+<section id="solucoes" class="section surface-light" aria-labelledby="solucoes-titulo">
+  <div class="container-x">
+    <SectionHeading id="solucoes-titulo" title="Qual problema você precisa resolver?">
+      Escolha a situação e fale direto com a Martinelli. A mensagem já vai pronta no WhatsApp.
+    </SectionHeading>
+
+    <ul class="mt-12 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+      {
+        items.map((p, i) => (
+          <li data-reveal style={`--i:${i % 4}`}>
+            <a
+              href={waLink(p.message)}
+              target="_blank"
+              rel="noopener"
+              class="problem-card group"
+              data-track="whatsapp_click"
+              data-service={p.service}
+              data-location="cards_problemas"
+            >
+              <span class="icon-box bg-ink-900 text-gold-light transition-transform duration-500 group-hover:-rotate-6">
+                <Icon name={p.icon} />
+              </span>
+              <span class="min-w-0">
+                <h3 class="h-card text-[1.0625rem] text-ink-900">{p.title}</h3>
+                <span class="mt-1.5 block text-[0.9375rem] leading-relaxed text-steel-600">{p.text}</span>
+                <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-ink-900">
+                  <Icon brand="whatsapp" class="size-4 text-[#128c4a]" />
+                  Pedir ajuda pelo WhatsApp
+                  <Icon name="ChevronRight" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </span>
+              <svg class="card-cut" viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true">
+                <path pathLength="1" d="M0 7H30L34 2H38L42 7H58L61 3H65L68 7H84L88 1H92L96 7H120" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .problem-card {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    padding: 1.25rem 1.25rem 1.5rem;
+    border-radius: 20px;
+    background: var(--color-paper);
+    border: 1px solid rgb(16 18 20 / 0.08);
+    box-shadow: 0 1px 2px rgb(16 18 20 / 0.04);
+    transition:
+      transform 0.35s var(--ease-out-quart),
+      box-shadow 0.35s var(--ease-out-quart),
+      border-color 0.35s;
+    overflow: hidden;
+  }
+  @media (width >= 40rem) {
+    .problem-card {
+      flex-direction: column;
+      padding: 1.5rem 1.5rem 1.75rem;
+    }
+  }
+  .problem-card:hover {
+    transform: translateY(-3px);
+    border-color: rgb(212 163 74 / 0.55);
+    box-shadow: 0 18px 40px -22px rgb(16 18 20 / 0.35);
+  }
+  .card-cut {
+    position: absolute;
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 0.6rem;
+    height: 8px;
+    color: var(--color-gold);
+  }
+  .card-cut path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.8s var(--ease-in-out-quart);
+  }
+  .problem-card:hover .card-cut path,
+  .problem-card:focus-visible .card-cut path {
+    stroke-dashoffset: 0;
+  }
+</style>

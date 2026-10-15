@@ -1,0 +1,52 @@
+---
+/** Bloco 9 — Eletrônica automotiva. Exibe SOMENTE serviços confirmados (confirmed: true). */
+import { Picture } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import { ELECTRONIC_SERVICES } from '@/data/services';
+import { FEATURE_PHOTOS } from '@/data/photos';
+
+const confirmed = ELECTRONIC_SERVICES.filter((s) => s.confirmed);
+---
+
+<section id="eletronica-automotiva" class="section surface-graphite overflow-hidden" aria-labelledby="eletronica-titulo">
+  <div class="container-x grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+    <div class="order-2 grid grid-cols-2 gap-4 pb-10 lg:order-1">
+      <figure class="photo-frame aspect-[3/5] translate-y-10" data-reveal="wipe">
+        <Picture src={FEATURE_PHOTOS.eletronica.src} alt={FEATURE_PHOTOS.eletronica.alt} formats={['avif', 'webp']} widths={[300, 460, 620]} sizes="(min-width: 1024px) 20vw, 45vw" loading="lazy" />
+      </figure>
+      <figure class="photo-frame aspect-[3/5] -translate-y-2" data-reveal="wipe" style="--i:1">
+        <Picture src={FEATURE_PHOTOS.eletronica2.src} alt={FEATURE_PHOTOS.eletronica2.alt} formats={['avif', 'webp']} widths={[300, 460, 620]} sizes="(min-width: 1024px) 20vw, 45vw" loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <SectionHeading id="eletronica-titulo" title="Diagnóstico e Soluções em Eletrônica Automotiva">
+        Quando o problema não é só a chave: reparo das partes eletrônicas de chaves e controles e dos sistemas de travamento do
+        veículo.
+      </SectionHeading>
+      <ul class="mt-10 grid gap-4">
+        {
+          confirmed.map((s, i) => (
+            <li class="flex gap-4 rounded-2xl border border-white/[0.07] bg-ink-850 p-5" data-reveal style={`--i:${i}`}>
+              <span class="icon-box bg-ink-700 text-gold-light">
+                <Icon name="CircuitBoard" />
+              </span>
+              <span>
+                <h3 class="h-card text-base text-white">{s.title}</h3>
+                <span class="mt-1 block text-[0.9375rem] text-steel-400">{s.text}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 text-[0.9375rem] text-steel-400">
+        Outro problema na parte eletrônica da chave ou do travamento? Descreva pelo WhatsApp e confirmamos se é possível atender.
+      </p>
+      <div class="mt-8">
+        <WhatsAppCta label="Consultar Serviço Eletrônico" messageKey="eletronica" service="eletronica_automotiva" location="secao_eletronica" />
+      </div>
+    </div>
+  </div>
+</section>

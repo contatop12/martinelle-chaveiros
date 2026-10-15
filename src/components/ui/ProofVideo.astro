@@ -1,0 +1,54 @@
+---
+/**
+ * Vídeo real enviado pela Martinelli: teste de chave presencial em BMW.
+ * preload="none" + carregamento só quando visível; sem som; respeita movimento reduzido e economia de dados.
+ */
+import Icon from '@/components/ui/Icon.astro';
+---
+
+<figure class="proof-video" data-proof-video data-playing="false">
+  <div class="phone relative mx-auto aspect-[392/848] w-full max-w-[17rem] overflow-hidden rounded-[2.2rem] border border-white/15 bg-ink-800 p-1.5 shadow-[0_40px_90px_-40px_rgb(212_163_74/0.45)]">
+    <video
+      class="h-full w-full rounded-[1.8rem] object-cover"
+      muted
+      playsinline
+      loop
+      preload="none"
+      poster="/video/teste-chave-presencial-bmw.webp"
+      data-src="/video/teste-chave-presencial-bmw.mp4"
+      width="392"
+      height="848"
+      aria-label="Vídeo: teste de chave presencial em um BMW, com abertura da porta e partida"
+    ></video>
+    <button
+      type="button"
+      class="video-toggle absolute inset-0 grid place-items-center rounded-[2rem] text-white"
+      data-video-toggle
+      aria-label="Reproduzir vídeo"
+    >
+      <span class="play grid size-16 place-items-center rounded-full bg-ink-950/70 backdrop-blur">
+        <Icon name="Play" class="ml-1 size-7" />
+      </span>
+    </button>
+  </div>
+  <figcaption class="mx-auto mt-4 max-w-[17rem] text-center text-sm text-steel-400">
+    Teste real de chave presencial em BMW: o carro abre e dá partida com a chave no bolso.
+  </figcaption>
+</figure>
+
+<style>
+  .play {
+    transition:
+      opacity 0.3s,
+      transform 0.3s var(--ease-out-quart);
+  }
+  [data-playing='true'] .play {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  [data-playing='true'] .video-toggle:hover .play,
+  [data-playing='true'] .video-toggle:focus-visible .play {
+    opacity: 1;
+    transform: none;
+  }
+</style>

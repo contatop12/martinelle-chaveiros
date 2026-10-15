@@ -1,0 +1,36 @@
+---
+/**
+ * CTA de WhatsApp. Sempre um <a> real (funciona sem JS); o rastreamento é feito por delegação
+ * via data-track, sem bloquear nem atrasar a abertura do WhatsApp.
+ */
+import Icon from './Icon.astro';
+import { waLink, WA_MESSAGES, type WaMessageKey } from '@/lib/contact';
+
+interface Props {
+  label: string;
+  /** Mensagem pré-preenchida: chave do catálogo ou texto livre */
+  messageKey?: WaMessageKey;
+  message?: string;
+  service: string;
+  location: string;
+  size?: 'md' | 'sm' | 'lg';
+  class?: string;
+  block?: boolean;
+}
+
+const { label, messageKey = 'geral', message, service, location, size = 'md', class: className = '', block = false } = Astro.props;
+const href = waLink(message ?? WA_MESSAGES[messageKey]);
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener"
+  class:list={['btn btn-wa', size === 'sm' && 'btn-sm', size === 'lg' && 'min-h-14 px-6 text-[1.0625rem]', block && 'w-full', className]}
+  data-track="whatsapp_click"
+  data-service={service}
+  data-location={location}
+>
+  <Icon brand="whatsapp" />
+  <span>{label}</span>
+</a>

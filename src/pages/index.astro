@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import ServiceCards from '@/components/sections/ServiceCards.astro';
+import AutomotiveSection from '@/components/sections/AutomotiveSection.astro';
+import CodedKeysSection from '@/components/sections/CodedKeysSection.astro';
+import ImportedSection from '@/components/sections/ImportedSection.astro';
+import MotorcycleSection from '@/components/sections/MotorcycleSection.astro';
+import EmergencySection from '@/components/sections/EmergencySection.astro';
+import ElectronicsSection from '@/components/sections/ElectronicsSection.astro';
+import ResidentialSection from '@/components/sections/ResidentialSection.astro';
+import PortfolioGallery from '@/components/sections/PortfolioGallery.astro';
+import AboutSection from '@/components/sections/AboutSection.astro';
+import StoreSection from '@/components/sections/StoreSection.astro';
+import Testimonials from '@/components/sections/Testimonials.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+import QuoteForm from '@/components/sections/QuoteForm.astro';
+import LocationSection from '@/components/sections/LocationSection.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { SITE } from '@/config/site';
+---
+
+<BaseLayout title={SITE.defaultTitle} description={SITE.defaultDescription} path="/" isHome>
+  <Hero />
+  <ServiceCards />
+  <AutomotiveSection />
+  <CodedKeysSection />
+  <ImportedSection />
+  <MotorcycleSection />
+  <EmergencySection />
+  <div id="outros-servicos">
+    <ElectronicsSection />
+    <ResidentialSection />
+  </div>
+  <PortfolioGallery />
+  <AboutSection />
+  <StoreSection />
+  <Testimonials />
+  <FAQ />
+  <QuoteForm />
+  <LocationSection />
+  <FinalCta />
+</BaseLayout>

@@ -1,0 +1,86 @@
+---
+/** Bloco 4 — Chaveiro automotivo */
+import { Picture } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
+import { AUTOMOTIVE_SERVICES } from '@/data/services';
+import { FEATURE_PHOTOS } from '@/data/photos';
+---
+
+<section id="chaveiro-automotivo" class="section surface-white overflow-hidden" aria-labelledby="automotivo-titulo">
+  <div class="container-x grid items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-20">
+    <div>
+      <SectionHeading id="automotivo-titulo" title="Chaveiro Automotivo Especializado em Indaiatuba">
+        Do carro popular ao importado: cópia de chave de carro, chave nova quando a original se perdeu, programação e abertura
+        técnica, no quiosque do Sumerbol ou onde o veículo estiver.
+      </SectionHeading>
+
+      <ul class="mt-10 grid gap-x-8 gap-y-0 sm:grid-cols-2">
+        {
+          AUTOMOTIVE_SERVICES.map((s, i) => (
+            <li class="service-row" data-reveal style={`--i:${Math.floor(i / 2)}`}>
+              <svg viewBox="0 0 14 14" class="size-3.5 shrink-0 text-gold" aria-hidden="true">
+                <path d="M1 10H5L7 5L9 10H13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" />
+              </svg>
+              {s}
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-8 flex items-start gap-3 rounded-2xl bg-mist px-4 py-3.5 text-sm text-steel-600">
+        <Icon name="ShieldCheck" class="mt-0.5 size-5 shrink-0 text-gold-ink" />
+        Abertura de veículos e confecção de chaves são feitas somente após a verificação de propriedade ou autorização.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <WhatsAppCta label="Solicitar Chaveiro Automotivo" messageKey="automotivo" service="chaveiro_automotivo" location="secao_automotivo" />
+        <PhoneCta service="chaveiro_automotivo" location="secao_automotivo" />
+      </div>
+    </div>
+
+    <div class="relative pb-16 sm:pb-24 lg:pb-28">
+      <div class="photo-frame aspect-[4/5] w-[86%] shadow-[0_40px_80px_-40px_rgb(16_18_20/0.55)]" data-reveal="wipe">
+        <Picture
+          src={FEATURE_PHOTOS.automotivo.src}
+          alt={FEATURE_PHOTOS.automotivo.alt}
+          formats={['avif', 'webp']}
+          widths={[420, 640, 900]}
+          sizes="(min-width: 1024px) 36vw, 86vw"
+          loading="lazy"
+        />
+      </div>
+      <figure
+        class="photo-frame absolute right-0 bottom-0 aspect-[3/4] w-[46%] border-[6px] border-paper shadow-[0_30px_60px_-30px_rgb(16_18_20/0.6)]"
+        data-reveal="wipe"
+        style="--i:2"
+      >
+        <Picture
+          src={FEATURE_PHOTOS.automotivo2.src}
+          alt={FEATURE_PHOTOS.automotivo2.alt}
+          formats={['avif', 'webp']}
+          widths={[320, 480, 640]}
+          sizes="(min-width: 1024px) 20vw, 46vw"
+          loading="lazy"
+        />
+        <figcaption class="absolute inset-x-2 bottom-2 rounded-xl bg-ink-950/80 px-3 py-2 text-xs font-semibold text-white backdrop-blur">
+          Chevrolet Onix: confecção e programação de chave
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid rgb(16 18 20 / 0.08);
+    font-weight: 600;
+    font-size: 0.975rem;
+  }
+</style>

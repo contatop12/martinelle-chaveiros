@@ -1,0 +1,257 @@
+---
+/**
+ * Ilustrações em traço de cada tipo de chave (desenho próprio, não representa trabalho realizado).
+ * Animam ao passar o mouse/foco no card (.key-card) — desativadas com prefers-reduced-motion.
+ */
+interface Props {
+  art: 'transponder' | 'canivete' | 'smart' | 'presencial' | 'cartao' | 'fobik' | 'controle' | 'reparo';
+  class?: string;
+}
+const { art, class: className = '' } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 96 64"
+  class:list={['key-art', `art-${art}`, className]}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    art === 'transponder' && (
+      <>
+        <rect x="8" y="16" width="34" height="32" rx="11" />
+        <circle cx="15.5" cy="32" r="3" />
+        <rect class="chip" x="23" y="25" width="12" height="14" rx="2" />
+        <path d="M26 25v-3M29 25v-3M32 25v-3M26 39v3M29 39v3M32 39v3" />
+        <path d="M42 27H50L53 23H57L60 27H65L68 22H72L75 27H86L90 32L86 37H42" />
+      </>
+    )
+  }
+  {
+    art === 'canivete' && (
+      <>
+        <rect x="6" y="18" width="40" height="28" rx="10" />
+        <circle cx="16" cy="32" r="3" />
+        <circle cx="27" cy="32" r="3" />
+        <circle cx="39" cy="32" r="3.2" />
+        <g class="blade">
+          <path d="M43 29H55L58 25H62L65 29H70L73 25H77L80 29H87L90 32L87 35H43Z" />
+        </g>
+      </>
+    )
+  }
+  {
+    art === 'smart' && (
+      <>
+        <rect x="30" y="6" width="36" height="52" rx="14" />
+        <rect class="btn-a" x="40" y="16" width="16" height="7" rx="3.5" />
+        <rect class="btn-b" x="40" y="28.5" width="16" height="7" rx="3.5" />
+        <rect class="btn-c" x="40" y="41" width="16" height="7" rx="3.5" />
+      </>
+    )
+  }
+  {
+    art === 'presencial' && (
+      <>
+        <rect x="12" y="14" width="26" height="36" rx="11" />
+        <circle cx="25" cy="26" r="4" />
+        <path d="M21 39h8" />
+        <path class="arc a1" d="M46 26a9 9 0 0 1 0 12" />
+        <path class="arc a2" d="M52 21a16 16 0 0 1 0 22" />
+        <path class="arc a3" d="M58 16a23 23 0 0 1 0 32" />
+        <rect x="70" y="31" width="16" height="13" rx="3" />
+        <path class="shackle" d="M74 31v-4a4 4 0 0 1 8 0" />
+      </>
+    )
+  }
+  {
+    art === 'cartao' && (
+      <g class="card">
+        <rect x="16" y="12" width="64" height="40" rx="6" />
+        <rect class="chip" x="24" y="21" width="13" height="10" rx="2" />
+        <path d="M30.5 21v10M24 26h13" />
+        <path d="M24 41h26M24 45.5h16" />
+        <circle cx="69" cy="23" r="4" />
+      </g>
+    )
+  }
+  {
+    art === 'fobik' && (
+      <>
+        <g class="fob">
+          <path d="M12 20H50a8 8 0 0 1 8 8v8a8 8 0 0 1-8 8H12a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6Z" />
+          <path d="M58 27h10l4 3v4l-4 3H58" />
+          <circle cx="19" cy="32" r="3" />
+          <circle cx="30" cy="32" r="3" />
+          <circle cx="41" cy="32" r="3" />
+        </g>
+        <path class="slot" d="M82 22v20M78 22h8M78 42h8" />
+      </>
+    )
+  }
+  {
+    art === 'controle' && (
+      <>
+        <circle cx="48" cy="7" r="3.5" />
+        <rect x="35" y="11" width="26" height="44" rx="9" />
+        <circle class="btn-a" cx="48" cy="25" r="4.5" />
+        <circle class="btn-b" cx="48" cy="40" r="4.5" />
+        <path class="arc a1" d="M68 22a7 7 0 0 1 0 10" />
+        <path class="arc a2" d="M73 17a14 14 0 0 1 0 20" />
+      </>
+    )
+  }
+  {
+    art === 'reparo' && (
+      <>
+        <path class="half-a" d="M22 30v-8a10 10 0 0 1 10-10h30a10 10 0 0 1 10 10v8Z" />
+        <path class="half-b" d="M22 34v8a10 10 0 0 0 10 10h30a10 10 0 0 0 10-10v-8Z" />
+        <g class="board">
+          <rect x="38" y="29" width="18" height="6" rx="1" />
+        </g>
+        <path class="tool" d="M78 46l8 8M74 42l5 5" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .key-art {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .key-art :global(*) {
+    transform-box: fill-box;
+  }
+  .chip,
+  .btn-a,
+  .btn-b,
+  .btn-c {
+    fill: var(--color-gold);
+    fill-opacity: 0;
+    transition: fill-opacity 0.3s;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .blade {
+      transform-origin: 39px 32px;
+      transform-box: view-box !important;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .blade {
+      animation: flick 1s var(--ease-in-out-quart);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .art-transponder .chip {
+      animation: glow 1.2s ease-in-out infinite;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .art-smart .btn-a {
+      animation: press 1.5s ease-in-out infinite;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .art-smart .btn-b {
+      animation: press 1.5s ease-in-out 0.25s infinite;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .art-smart .btn-c {
+      animation: press 1.5s ease-in-out 0.5s infinite;
+    }
+    .arc {
+      opacity: 0.35;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .arc,
+    :global(.is-live) .art-presencial .arc {
+      animation: signal 1.6s ease-out infinite;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .a2,
+    :global(.is-live) .art-presencial .a2 {
+      animation-delay: 0.2s;
+    }
+    :global(.key-card:is(:hover, :focus-within)) .a3,
+    :global(.is-live) .art-presencial .a3 {
+      animation-delay: 0.4s;
+    }
+    .shackle {
+      transition: transform 0.4s var(--ease-out-quart);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .shackle,
+    :global(.is-live) .art-presencial .shackle {
+      animation: unlock 1.6s ease-in-out infinite;
+    }
+    .card,
+    .fob,
+    .half-a,
+    .half-b,
+    .tool {
+      transition: transform 0.6s var(--ease-out-quart);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .card {
+      transform: translate(3px, -2px) rotate(-4deg);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .fob {
+      transform: translateX(7px);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .half-a {
+      transform: translateY(-4px);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .half-b {
+      transform: translateY(4px);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .tool {
+      transform: translate(-4px, -4px);
+    }
+    :global(.key-card:is(:hover, :focus-within)) .art-controle .btn-a {
+      animation: press 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes flick {
+    0% {
+      transform: rotate(0);
+    }
+    45% {
+      transform: rotate(-172deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
+  }
+  @keyframes glow {
+    50% {
+      fill-opacity: 0.55;
+    }
+  }
+  @keyframes press {
+    0%,
+    60%,
+    100% {
+      fill-opacity: 0;
+    }
+    20% {
+      fill-opacity: 0.6;
+    }
+  }
+  @keyframes signal {
+    0% {
+      opacity: 0.15;
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.15;
+    }
+  }
+  @keyframes unlock {
+    0%,
+    35% {
+      transform: translateY(0);
+    }
+    55%,
+    90% {
+      transform: translateY(-3px);
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+/**
+ * Bloco 12 — Conheça a Martinelli Chaves.
+ * Sem nomes, história ou certificações inventados: campos em COMPANY.owners ficam ocultos até serem preenchidos.
+ */
+import { Picture } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { COMPANY } from '@/config/site';
+import { TEAM_PHOTOS, STORE_PHOTOS } from '@/data/photos';
+
+const facts = [
+  { icon: 'Store' as const, text: 'Quiosque próprio no Sumerbol Supermercados, em Indaiatuba' },
+  { icon: 'ShieldCheck' as const, text: `Equipe especializada com ${COMPANY.experience}` },
+  { icon: 'CarFront' as const, text: 'Carros nacionais, importados, motos, residências e comércios' },
+  { icon: 'Clock' as const, text: 'Atendimento emergencial 24 horas, todos os dias' },
+];
+---
+
+<section id="quem-somos" class="section surface-light overflow-hidden" aria-labelledby="quem-somos-titulo">
+  <div class="container-x grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+    <div class="relative mx-auto w-full max-w-md pb-10 lg:mx-0">
+      <figure class="photo-frame aspect-[3/4] w-[78%] shadow-[0_40px_80px_-40px_rgb(16_18_20/0.5)]" data-reveal="wipe">
+        <Picture src={TEAM_PHOTOS.atendimento.src} alt={TEAM_PHOTOS.atendimento.alt} formats={['avif', 'webp']} widths={[335]} sizes="335px" loading="lazy" />
+        {COMPANY.owners.names && <figcaption class="absolute inset-x-3 bottom-3 rounded-xl bg-ink-950/80 px-3 py-2 text-sm font-semibold text-white">{COMPANY.owners.names}</figcaption>}
+      </figure>
+      <figure class="photo-frame absolute right-0 bottom-0 aspect-[4/3] w-[58%] border-[6px] border-mist" data-reveal="wipe" style="--i:2">
+        <Picture src={STORE_PHOTOS.quiosque.src} alt={STORE_PHOTOS.quiosque.alt} formats={['avif', 'webp']} widths={[320, 480]} sizes="(min-width: 1024px) 16rem, 58vw" loading="lazy" />
+      </figure>
+    </div>
+
+    <div>
+      <SectionHeading id="quem-somos-titulo" title="Experiência, Tecnologia e Atendimento de Confiança" />
+      <div class="mt-6 grid max-w-2xl gap-4 text-[1.0625rem] leading-relaxed text-steel-600">
+        <p>
+          A Martinelli Chaves é um chaveiro de Indaiatuba com estrutura física no Sumerbol Supermercados e atendimento
+          especializado em chaves automotivas, do carro do dia a dia ao importado.
+        </p>
+        <p>
+          No quiosque, você encontra chaves, controles e acessórios. Fora dele, a equipe vai até o cliente em Indaiatuba e
+          região. Em todo serviço de abertura ou confecção de chave, a propriedade é verificada antes do atendimento.
+        </p>
+        {COMPANY.owners.story && <p>{COMPANY.owners.story}</p>}
+      </div>
+
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+        {
+          facts.map((f, i) => (
+            <li class="flex items-start gap-3 rounded-2xl bg-paper p-4 text-[0.9375rem] font-semibold text-ink-900" data-reveal style={`--i:${i}`}>
+              <span class="icon-box !size-10 bg-ink-900 text-gold-light">
+                <Icon name={f.icon} class="size-5" />
+              </span>
+              <span class="pt-2">{f.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

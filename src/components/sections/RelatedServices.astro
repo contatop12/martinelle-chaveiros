@@ -1,0 +1,54 @@
+---
+/** Links internos para serviços relacionados (SEO + navegação). */
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { SERVICE_PAGES } from '@/data/pages';
+
+interface Props {
+  slugs: string[];
+}
+const pages = Astro.props.slugs.map((s) => SERVICE_PAGES.find((p) => p.slug === s)!).filter(Boolean);
+---
+
+<section class="section surface-graphite" aria-labelledby="relacionados-titulo">
+  <div class="container-x">
+    <SectionHeading id="relacionados-titulo" title="Serviços relacionados" />
+    <ul class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        pages.map((p) => (
+          <li>
+            <a href={`/${p.slug}/`} class="related group">
+              <span class="h-card text-lg text-white">{p.h1}</span>
+              <span class="mt-2 block text-[0.9375rem] text-steel-400">{p.highlights.slice(0, 2).join(', ')}.</span>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-gold-light">
+                Ver serviço
+                <Icon name="ChevronRight" class="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-8 text-steel-400">
+      <a href="/" class="text-link">Voltar para a página principal da Martinelli Chaves</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .related {
+    display: block;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: var(--color-ink-850);
+    border: 1px solid rgb(255 255 255 / 0.07);
+    transition:
+      border-color 0.3s,
+      transform 0.35s var(--ease-out-quart);
+  }
+  .related:hover {
+    border-color: rgb(212 163 74 / 0.5);
+    transform: translateY(-2px);
+  }
+</style>

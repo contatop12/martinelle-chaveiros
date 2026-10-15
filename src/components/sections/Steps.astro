@@ -1,0 +1,29 @@
+---
+/** Etapas do atendimento — conteúdo sequencial, por isso numerado. */
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+interface Props {
+  steps: { title: string; text: string }[];
+  title?: string;
+}
+const { steps, title = 'Como funciona o atendimento' } = Astro.props;
+---
+
+<section class="section surface-light" aria-labelledby="etapas-titulo">
+  <div class="container-x">
+    <SectionHeading id="etapas-titulo" title={title} />
+    <ol class="steps mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((s, i) => (
+          <li class="step relative rounded-[20px] border border-ink-900/[0.08] bg-paper p-6" data-reveal style={`--i:${i}`}>
+            <span class="font-display text-4xl font-extrabold text-gold-ink [font-stretch:125%]" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="h-card mt-4 text-lg text-ink-900">{s.title}</h3>
+            <p class="mt-2 text-[0.9375rem] leading-relaxed text-steel-600">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

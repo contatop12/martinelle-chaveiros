@@ -1,0 +1,20 @@
+---
+/**
+ * Perfil de corte de uma chave (o "segredo"), usado como assinatura visual sob os títulos.
+ * Desenha-se ao entrar na tela (ver global.css), respeitando prefers-reduced-motion.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg class:list={['bitting', className]} viewBox="0 0 120 14" fill="none" aria-hidden="true" focusable="false">
+  <path
+    pathLength="1"
+    d="M0 12H18L22 5H27L31 12H38L43 2H48L52 12H60L63 7H67L70 12H79L84 3H89L93 12H104L108 8H112L115 12H120"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linejoin="round"
+    stroke-linecap="round"></path>
+</svg>

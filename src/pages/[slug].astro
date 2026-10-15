@@ -1,0 +1,83 @@
+---
+/**
+ * Páginas específicas por serviço — URLs finais reais para Google Ads:
+ * /chaveiro-automotivo-indaiatuba/, /chaves-codificadas-indaiatuba/, /chaveiro-carros-importados/,
+ * /chaveiro-motos-indaiatuba/, /chaveiro-24-horas-indaiatuba/, /chaveiro-residencial-indaiatuba/
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import ServiceCards from '@/components/sections/ServiceCards.astro';
+import AutomotiveSection from '@/components/sections/AutomotiveSection.astro';
+import CodedKeysSection from '@/components/sections/CodedKeysSection.astro';
+import ImportedSection from '@/components/sections/ImportedSection.astro';
+import MotorcycleSection from '@/components/sections/MotorcycleSection.astro';
+import EmergencySection from '@/components/sections/EmergencySection.astro';
+import ResidentialSection from '@/components/sections/ResidentialSection.astro';
+import StoreSection from '@/components/sections/StoreSection.astro';
+import PortfolioGallery from '@/components/sections/PortfolioGallery.astro';
+import Steps from '@/components/sections/Steps.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+import QuoteForm from '@/components/sections/QuoteForm.astro';
+import LocationSection from '@/components/sections/LocationSection.astro';
+import RelatedServices from '@/components/sections/RelatedServices.astro';
+import FinalCta from '@/components/sections/FinalCta.astro';
+import { SERVICE_PAGES, type ServicePage } from '@/data/pages';
+import { faqFor } from '@/data/faq';
+import { SITE } from '@/config/site';
+import { serviceSchema, breadcrumbSchema } from '@/lib/schema';
+
+export function getStaticPaths() {
+  return SERVICE_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+interface Props {
+  page: ServicePage;
+}
+const { page } = Astro.props;
+const path = `/${page.slug}/`;
+const url = `${SITE.url}${path}`;
+
+const galleryTitles: Record<string, string> = {
+  nacionais: 'Trabalhos Realizados em Carros Nacionais',
+  importados: 'Trabalhos Realizados em Carros Importados',
+  chaves: 'Chaves e Controles Feitos pela Martinelli',
+};
+
+const schema = [
+  serviceSchema({ name: page.h1, description: page.description, url, serviceType: page.h1.replace(' em Indaiatuba', '') }),
+  breadcrumbSchema([
+    { name: 'Início', url: `${SITE.url}/` },
+    { name: page.h1, url },
+  ]),
+];
+---
+
+<BaseLayout title={page.title} description={page.description} path={path} schema={schema}>
+  <PageHero page={page} />
+
+  {page.body === 'automotivo' && <AutomotiveSection />}
+  {page.body === 'automotivo' && <ServiceCards ids={['perdi-a-chave', 'chave-reserva', 'canivete-quebrou', 'chave-trancada']} />}
+
+  {page.body === 'codificadas' && <CodedKeysSection />}
+  {page.body === 'codificadas' && <ServiceCards ids={['codificada-parou', 'programar-smart-key', 'chave-reserva', 'canivete-quebrou']} />}
+
+  {page.body === 'importados' && <ImportedSection />}
+
+  {page.body === 'motos' && <MotorcycleSection />}
+
+  {page.body === '24h' && <EmergencySection />}
+  {page.body === '24h' && <ServiceCards ids={['perdi-a-chave', 'chave-trancada', 'canivete-quebrou', 'chaveiro-24h']} />}
+
+  {page.body === 'residencial' && <ResidentialSection />}
+
+  <Steps steps={page.steps} title={page.body === '24h' ? 'O que fazer numa emergência' : 'Como funciona o atendimento'} />
+
+  {page.gallery && <PortfolioGallery category={page.gallery} title={galleryTitles[page.gallery]} />}
+  {page.body === 'residencial' && <StoreSection />}
+
+  <FAQ items={faqFor(page.faqTag)} />
+  <QuoteForm preset={page.service} />
+  <LocationSection />
+  <RelatedServices slugs={page.related} />
+  <FinalCta messageKey={page.waKey} service={page.service} />
+</BaseLayout>

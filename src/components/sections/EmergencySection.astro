@@ -1,0 +1,140 @@
+---
+/** Bloco 8 — Atendimento emergencial 24 horas (destaque máximo) */
+import Icon from '@/components/ui/Icon.astro';
+import BittingLine from '@/components/ui/BittingLine.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
+import { EMERGENCY_POINTS } from '@/data/services';
+import { HOURS } from '@/config/site';
+---
+
+<section id="chaveiro-24-horas" class="emergency section surface-deep relative overflow-hidden" aria-labelledby="emergencia-titulo" data-live>
+  <div class="em-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+  <div class="container-x relative grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+    <div>
+      <p class="chip text-steel-200">
+        <span class="live-dot"></span>
+        {HOURS.emergency}
+      </p>
+      <BittingLine class="mt-8 mb-5" />
+      <h2 id="emergencia-titulo" class="h-display text-[clamp(2rem,1.1rem+3.6vw,3.75rem)]">Precisa de um Chaveiro 24 Horas em Indaiatuba?</h2>
+      <p class="lead mt-6 text-steel-300">
+        Perdeu a chave, ficou com o veículo trancado ou precisa de atendimento urgente? Entre em contato com a Martinelli Chaves,
+        disponível para emergências 24 horas por dia, todos os dias da semana.
+      </p>
+
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <WhatsAppCta label="Chamar Chaveiro 24h" messageKey="emergencia" service="emergencia_24h" location="secao_24h" size="lg" />
+        <PhoneCta label="Ligar para Emergência" service="emergencia_24h" location="secao_24h" variant="gold" size="lg" />
+      </div>
+
+      <ul class="mt-12 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+        {
+          EMERGENCY_POINTS.map((p, i) => (
+            <li class="flex gap-4" data-reveal style={`--i:${i}`}>
+              <span class="icon-box border border-gold/30 bg-gold/[0.07] text-gold-light">
+                <Icon name={p.icon} />
+              </span>
+              <span>
+                <h3 class="h-card text-base text-white">{p.title}</h3>
+                <span class="mt-1 block text-[0.9375rem] leading-relaxed text-steel-400">{p.text}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-10 max-w-xl border-l-2 border-gold/50 pl-4 text-sm text-steel-400">
+        O tempo de chegada é combinado no contato, de acordo com a distância e a disponibilidade no momento. O quiosque no Sumerbol
+        tem horário presencial próprio; emergências são atendidas a qualquer hora pelo WhatsApp e telefone.
+      </p>
+    </div>
+
+    <div class="radar relative mx-auto grid aspect-square w-full max-w-[19rem] place-items-center sm:max-w-[30rem]" aria-hidden="true">
+      <span class="ring"></span>
+      <span class="ring" style="--r:1"></span>
+      <span class="ring" style="--r:2"></span>
+      <span class="ring" style="--r:3"></span>
+      <svg class="dial absolute inset-[6%]" viewBox="0 0 200 200">
+        {
+          Array.from({ length: 24 }).map((_, i) => (
+            <line
+              x1="100"
+              y1="4"
+              x2="100"
+              y2={i % 6 === 0 ? 16 : 10}
+              stroke={i % 6 === 0 ? '#d4a34a' : '#363c43'}
+              stroke-width={i % 6 === 0 ? 2 : 1.2}
+              transform={`rotate(${i * 15} 100 100)`}
+            />
+          ))
+        }
+      </svg>
+      <div class="core relative grid size-[46%] place-items-center rounded-full border border-gold/40 bg-ink-900 text-center shadow-[0_0_80px_-10px_rgb(212_163_74/0.35)]">
+        <div>
+          <p class="font-display text-[clamp(3rem,9vw,5.25rem)] leading-none font-extrabold [font-stretch:125%] text-white">24h</p>
+          <p class="mt-2 text-xs font-semibold text-gold-light sm:text-sm">todos os dias</p>
+        </div>
+      </div>
+      <span class="sweep absolute inset-[6%] rounded-full"></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .em-bg {
+    background:
+      radial-gradient(ellipse 55% 60% at 78% 50%, rgb(212 163 74 / 0.13), transparent 70%),
+      linear-gradient(180deg, var(--color-ink-950), #0b0d10 60%, var(--color-ink-950));
+  }
+  .emergency {
+    border-block: 1px solid rgb(212 163 74 / 0.18);
+  }
+  .ring {
+    position: absolute;
+    inset: 22%;
+    border-radius: 999px;
+    border: 1px solid rgb(232 196 122 / 0.35);
+    opacity: 0;
+  }
+  .sweep {
+    background: conic-gradient(from 0deg, transparent 0 300deg, rgb(212 163 74 / 0.22) 352deg, transparent 360deg);
+    mask: radial-gradient(circle, transparent 30%, #000 31%);
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .emergency:global(.is-live) .ring {
+      animation: ring 4.8s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+      animation-delay: calc(var(--r, 0) * 1.2s);
+    }
+    .emergency:global(.is-live) .sweep {
+      opacity: 1;
+      animation: sweep 6s linear infinite;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ring {
+      opacity: 0.4;
+      transform: scale(calc(1.2 + var(--r, 0) * 0.25));
+    }
+  }
+  @keyframes ring {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    15% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(2.1);
+      opacity: 0;
+    }
+  }
+  @keyframes sweep {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

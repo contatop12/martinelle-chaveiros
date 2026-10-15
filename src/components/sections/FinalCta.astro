@@ -1,0 +1,64 @@
+---
+/** Bloco 17 — CTA final */
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
+import type { WaMessageKey } from '@/lib/contact';
+
+interface Props {
+  title?: string;
+  text?: string;
+  messageKey?: WaMessageKey;
+  service?: string;
+}
+const {
+  title = 'Precisa de uma Chave? Fale com a Martinelli Chaves.',
+  text = 'Atendimento para carros nacionais e importados, motos, residências e comércios em Indaiatuba e região.',
+  messageKey = 'geral',
+  service = 'geral',
+} = Astro.props;
+---
+
+<section class="final-cta section surface-deep relative overflow-hidden" aria-labelledby="cta-final-titulo">
+  <svg class="key-blade pointer-events-none absolute inset-x-0 top-1/2 w-full -translate-y-1/2" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true" data-observe>
+    <path
+      pathLength="1"
+      d="M0 92H140L170 40H210L240 92H330L370 20H420L450 92H560L580 60H620L640 92H760L800 28H850L880 92H990L1015 55H1050L1075 92H1200"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.2"></path>
+  </svg>
+  <div class="container-x relative text-center">
+    <h2 id="cta-final-titulo" class="h-display mx-auto max-w-4xl text-[clamp(2rem,1.1rem+3.4vw,3.6rem)]">{title}</h2>
+    <p class="lead mx-auto mt-6 text-steel-300">{text}</p>
+    <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+      <WhatsAppCta label="Solicitar Atendimento pelo WhatsApp" messageKey={messageKey} service={service} location="cta_final" size="lg" />
+      <PhoneCta service={service} location="cta_final" size="lg" showNumber />
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 100%, rgb(212 163 74 / 0.14), transparent 70%),
+      var(--color-ink-950);
+    border-top: 1px solid rgb(255 255 255 / 0.06);
+  }
+  .key-blade {
+    height: 7rem;
+    color: rgb(212 163 74 / 0.22);
+  }
+  .key-blade path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .key-blade path {
+      stroke-dashoffset: 1;
+      transition: stroke-dashoffset 2.2s var(--ease-in-out-quart);
+    }
+    :global(html.js) .key-blade:global(.is-in) path {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

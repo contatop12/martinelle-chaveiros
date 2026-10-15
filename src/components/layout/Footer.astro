@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import logo from '@/assets/images/brand/logo-martinelli-chaves.png';
+import Icon from '@/components/ui/Icon.astro';
+import { ADDRESS, CONTACT, COMPANY, HOURS, LINKS, SITE } from '@/config/site';
+import { SERVICE_PAGES } from '@/data/pages';
+import { waLinkFor, telLink } from '@/lib/contact';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="surface-deep border-t border-white/[0.06] pt-16 pb-10">
+  <div class="container-x grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
+    <div>
+      <Image src={logo} alt="Martinelli Chaves" width={300} height={146} class="h-[4.5rem] w-auto" loading="lazy" />
+      <p class="mt-6 max-w-sm text-steel-400">
+        Chaveiro automotivo, residencial e comercial em Indaiatuba. Chaves codificadas, smart keys e chaves presenciais para
+        carros nacionais, importados e motos. Equipe com {COMPANY.experience}.
+      </p>
+      <p class="mt-4 flex items-center gap-2.5 text-sm font-semibold text-steel-200">
+        <span class="live-dot"></span>
+        {HOURS.emergency}.
+      </p>
+    </div>
+
+    <nav aria-label="Serviços">
+      <h2 class="font-display text-base font-semibold text-white [font-stretch:110%]">Serviços</h2>
+      <ul class="mt-5 grid gap-3 text-steel-400">
+        {
+          SERVICE_PAGES.map((p) => (
+            <li>
+              <a href={`/${p.slug}/`} class="transition-colors hover:text-gold-light">
+                {p.h1.replace(' em Indaiatuba', '')}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href="/#eletronica-automotiva" class="transition-colors hover:text-gold-light">Eletrônica Automotiva</a></li>
+        <li><a href="/#servicos-realizados" class="transition-colors hover:text-gold-light">Trabalhos Realizados</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="font-display text-base font-semibold text-white [font-stretch:110%]">Contato</h2>
+      <address class="mt-5 grid gap-4 not-italic text-steel-400">
+        <p class="flex gap-3">
+          <Icon name="MapPin" class="mt-1 size-4 shrink-0 text-gold" />
+          <span>
+            {ADDRESS.venue}<br />
+            {ADDRESS.street}, {ADDRESS.unit}<br />
+            {ADDRESS.district}, {ADDRESS.city}/{ADDRESS.state}, {ADDRESS.postalCode}
+          </span>
+        </p>
+        <a
+          href={waLinkFor('geral')}
+          target="_blank"
+          rel="noopener"
+          class="flex items-center gap-3 transition-colors hover:text-white"
+          data-track="whatsapp_click"
+          data-service="geral"
+          data-location="footer"
+        >
+          <Icon brand="whatsapp" class="size-4 text-wa" /> WhatsApp {CONTACT.phoneDisplay}
+        </a>
+        <a href={telLink} class="flex items-center gap-3 transition-colors hover:text-white" data-track="phone_click" data-service="geral" data-location="footer">
+          <Icon name="Phone" class="size-4 text-gold" /> Telefone {CONTACT.phoneDisplay}
+        </a>
+        <a
+          href={LINKS.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 transition-colors hover:text-white"
+          data-track="instagram_click"
+          data-location="footer"
+        >
+          <Icon brand="instagram" class="size-4 text-gold" /> {LINKS.instagramHandle}
+        </a>
+      </address>
+    </div>
+  </div>
+
+  <div class="container-x mt-14 flex flex-col gap-3 border-t border-white/[0.06] pt-8 text-sm text-steel-400 md:flex-row md:items-center md:justify-between">
+    <p>
+      © <span data-year>{year}</span> {SITE.name}. Todos os direitos reservados.
+      {COMPANY.legal.cnpj && <span> CNPJ {COMPANY.legal.cnpj}.</span>}
+    </p>
+    <p class="flex flex-wrap gap-x-6 gap-y-2">
+      <a href="/politica-de-privacidade/" class="text-link">Política de Privacidade</a>
+      <span>Serviços realizados mediante verificação de propriedade.</span>
+    </p>
+  </div>
+</footer>

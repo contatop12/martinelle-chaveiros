@@ -1,0 +1,74 @@
+---
+/** Hero das páginas específicas de serviço (H1 próprio, CTA contextual). */
+import { Picture } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+import BittingLine from '@/components/ui/BittingLine.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
+import type { ServicePage } from '@/data/pages';
+import { HOURS } from '@/config/site';
+
+interface Props {
+  page: ServicePage;
+}
+const { page } = Astro.props;
+---
+
+<section id="inicio" class="surface-deep relative overflow-hidden" aria-labelledby="page-title">
+  <div class="glow pointer-events-none absolute" aria-hidden="true"></div>
+  <div class="container-x relative grid items-center gap-10 pt-6 pb-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:pt-12 lg:pb-20">
+    <div>
+      <nav aria-label="Você está em" class="text-sm text-steel-400">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="text-link">Início</a></li>
+          <li aria-hidden="true"><Icon name="ChevronRight" class="size-3.5" /></li>
+          <li aria-current="page" class="text-steel-200">{page.h1.replace(' em Indaiatuba', '')}</li>
+        </ol>
+      </nav>
+      <p class="chip mt-6 text-steel-200">
+        <span class="live-dot"></span>
+        {HOURS.emergency}
+      </p>
+      <BittingLine class="mt-7 mb-4" />
+      <h1 id="page-title" class="h-display text-[clamp(2.1rem,1.1rem+4vw,4rem)]">{page.h1}</h1>
+      <p class="lead mt-6 text-steel-300">{page.lead}</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <WhatsAppCta label={page.waLabel} messageKey={page.waKey} service={page.service} location="hero_pagina" size="lg" />
+        <PhoneCta service={page.service} location="hero_pagina" size="lg" />
+      </div>
+      <ul class="mt-9 grid gap-x-6 gap-y-3 text-[0.9375rem] text-steel-200 sm:grid-cols-2">
+        {
+          page.highlights.map((h) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold/15 text-gold-light">
+                <Icon name="Check" class="size-3.5" strokeWidth={2.5} />
+              </span>
+              {h}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="photo-frame mx-auto aspect-[4/3] w-full max-w-[32rem] border border-white/10 lg:aspect-[4/5] lg:max-w-none">
+      <Picture
+        src={page.photo.src}
+        alt={page.photo.alt}
+        formats={['avif', 'webp']}
+        widths={[480, 720, 960]}
+        sizes="(min-width: 1024px) 38vw, (min-width: 640px) 32rem, 100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .glow {
+    width: 46rem;
+    height: 46rem;
+    right: -16rem;
+    top: -12rem;
+    background: radial-gradient(circle, rgb(212 163 74 / 0.14), transparent 62%);
+  }
+</style>

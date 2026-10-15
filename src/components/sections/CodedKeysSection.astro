@@ -1,0 +1,63 @@
+---
+/** Bloco 5 — Chaves codificadas */
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import KeyTypeArt from '@/components/ui/KeyTypeArt.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import { KEY_TYPES } from '@/data/services';
+---
+
+<section id="chaves-codificadas" class="section surface-graphite overflow-hidden" aria-labelledby="codificadas-titulo">
+  <div class="container-x">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+      <SectionHeading id="codificadas-titulo" title="Chaves Codificadas, Smart Keys e Programação Automotiva">
+        Chaves com chip precisam ser programadas para conversar com o carro. Veja os tipos mais comuns e fale com a gente para
+        saber qual é a do seu veículo.
+      </SectionHeading>
+      <p class="flex gap-3 rounded-2xl border border-gold/30 bg-gold/[0.06] p-5 text-[0.9375rem] text-steel-200" data-reveal>
+        <Icon name="Info" class="mt-0.5 size-5 shrink-0 text-gold-light" />
+        <span>
+          <strong class="font-semibold text-white">A programação depende do veículo.</strong> Marca, modelo, ano e sistema de
+          chave definem o que é possível fazer. Por isso confirmamos antes de agendar.
+        </span>
+      </p>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-[22px] border border-white/[0.07] bg-white/[0.07] lg:mt-14 lg:grid-cols-4" data-live>
+      {
+        KEY_TYPES.map((k, i) => (
+          <li class="key-card group" data-reveal style={`--i:${i % 4}`}>
+            <div class="h-14 w-24 text-gold-light sm:h-20 sm:w-32">
+              <KeyTypeArt art={k.art} />
+            </div>
+            <h3 class="h-card mt-4 text-base text-white sm:mt-6 sm:text-lg">{k.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-steel-400 sm:text-[0.9375rem]">{k.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+      <WhatsAppCta label="Consultar Chave para Meu Veículo" messageKey="codificadas" service="chaves_codificadas" location="secao_codificadas" />
+      <p class="text-sm text-steel-400">Envie marca, modelo e ano. Respondemos se é possível fazer.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .key-card {
+    background: var(--color-ink-850);
+    padding: 1.25rem 1rem 1.5rem;
+    transition: background-color 0.35s;
+    outline-offset: -3px;
+  }
+  @media (width >= 40rem) {
+    .key-card {
+      padding: 1.75rem 1.5rem 2rem;
+    }
+  }
+  .key-card:hover,
+  .key-card:focus-visible {
+    background: var(--color-ink-800);
+  }
+</style>

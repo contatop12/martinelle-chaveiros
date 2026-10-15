@@ -1,0 +1,55 @@
+---
+/** Botão flutuante de WhatsApp (desktop/tablet). No mobile, a MobileContactBar assume essa função. */
+import Icon from '@/components/ui/Icon.astro';
+import { waLinkFor } from '@/lib/contact';
+---
+
+<a
+  href={waLinkFor('geral')}
+  target="_blank"
+  rel="noopener"
+  class="wa-float fixed bottom-6 right-6 z-40 hidden items-center rounded-full bg-wa text-wa-ink shadow-[0_18px_40px_-12px_rgb(37_211_102/0.7)] lg:flex"
+  aria-label="WhatsApp 24h: falar com a Martinelli Chaves"
+  data-track="whatsapp_click"
+  data-service="geral"
+  data-location="botao_flutuante"
+>
+  <span class="grid size-15 place-items-center">
+    <Icon brand="whatsapp" class="size-7" />
+  </span>
+  <span class="wa-float-label overflow-hidden whitespace-nowrap font-bold">WhatsApp 24h</span>
+</a>
+
+<style>
+  .size-15 {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+  .wa-float {
+    transition:
+      transform 0.3s var(--ease-out-quart),
+      opacity 0.3s;
+  }
+  .wa-float-label {
+    max-width: 0;
+    opacity: 0;
+    transition:
+      max-width 0.45s var(--ease-out-quart),
+      opacity 0.3s,
+      padding 0.45s var(--ease-out-quart);
+  }
+  .wa-float:hover .wa-float-label,
+  .wa-float:focus-visible .wa-float-label {
+    max-width: 10rem;
+    opacity: 1;
+    padding-right: 1.4rem;
+  }
+  .wa-float:hover {
+    transform: translateY(-2px);
+  }
+  :global(body.near-footer) .wa-float {
+    transform: translateY(8px);
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
