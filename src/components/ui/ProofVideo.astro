@@ -24,7 +24,7 @@ const { video, label, caption, class: className = 'max-w-[15rem]' } = Astro.prop
       playsinline
       loop
       preload="none"
-      poster={video.poster}
+      data-poster={video.poster}
       data-src={video.src}
       width={video.width}
       height={video.height}

@@ -15,15 +15,49 @@
   font-family: 'Manrope Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 200 800;
+  font-weight: 400 800;
   src: url('../assets/fonts/manrope-text.woff2') format('woff2');
 }
+/* Fontes reserva com métricas ajustadas às fontes web (calculadas com fontTools):
+   o texto ocupa o mesmo espaço antes e depois do carregamento, evitando deslocamento de layout. */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial'), local('Roboto');
+  font-weight: 600 800;
+  size-adjust: 114.19%;
+  ascent-override: 76.89%;
+  descent-override: 18.39%;
+  line-gap-override: 0%;
+}
+/* Título principal (largura 118%, peso 750) */
+@font-face {
+  font-family: 'Archivo Display Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Arial'), local('Roboto');
+  font-weight: 600 800;
+  size-adjust: 120.54%;
+  ascent-override: 72.84%;
+  descent-override: 17.42%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial'), local('ArialMT'), local('Roboto');
+  font-weight: 400 599;
+  size-adjust: 103.28%;
+  ascent-override: 103.21%;
+  descent-override: 29.05%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Arial');
+  font-weight: 600 800;
+  size-adjust: 99.67%;
+  ascent-override: 106.95%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
 
-/* ------------------------------------------------------------------
-   Martinelli Chaves — tokens
-   Conceito: "Especialização automotiva, tecnologia e confiança."
-   Grafite + champagne (com moderação). Verde somente em CTAs de WhatsApp.
-------------------------------------------------------------------- */
 @theme {
   --color-ink-950: #080a0c;
   --color-ink-900: #101214;
@@ -44,8 +78,8 @@
   --color-wa: #25d366;
   --color-wa-ink: #04260f;
 
-  --font-display: 'Archivo Variable', 'Archivo', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Archivo Variable', 'Archivo Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', 'Manrope Fallback', ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -178,7 +212,7 @@
 
   /* Tipografia */
   .h-display {
-    font-family: var(--font-display);
+    font-family: 'Archivo Variable', 'Archivo Display Fallback', ui-sans-serif, system-ui, sans-serif;
     font-stretch: 118%;
     font-weight: 750;
     letter-spacing: -0.015em;

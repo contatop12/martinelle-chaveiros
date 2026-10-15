@@ -79,8 +79,17 @@ export function initQuoteForms() {
 
 export function initGalleries() {
   document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
-    const items = [...root.querySelectorAll<HTMLElement>('[data-item]')];
+    let items = [...root.querySelectorAll<HTMLElement>('[data-item]')];
     const filters = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    // Itens além dos iniciais ficam num <template> (DOM inicial menor) e entram ao filtrar ou pedir mais
+    const materialize = () => {
+      const tpl = root.querySelector<HTMLTemplateElement>('template[data-gallery-extra]');
+      const list = root.querySelector('[data-gallery-list]');
+      if (!tpl || !list) return;
+      list.append(tpl.content.cloneNode(true));
+      tpl.remove();
+      items = [...root.querySelectorAll<HTMLElement>('[data-item]')];
+    };
     const more = root.querySelector<HTMLButtonElement>('[data-more]');
     const empty = root.querySelector<HTMLElement>('[data-empty]');
     const initial = Number(root.dataset.initial ?? items.length);
@@ -114,12 +123,14 @@ export function initGalleries() {
 
     filters.forEach((btn) =>
       btn.addEventListener('click', () => {
+        materialize();
         filter = btn.dataset.filter!;
         filters.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
         withTransition(apply);
       }),
     );
     more?.addEventListener('click', () => {
+      materialize();
       expanded = true;
       const firstHidden = items.find((it) => it.hidden);
       withTransition(apply);
@@ -232,6 +243,17 @@ export function initProofVideos() {
         video.pause();
       }
     });
+
+    // pôster carregado só quando o vídeo se aproxima da tela
+    const posterIo = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        if (video.dataset.poster && !video.poster) video.poster = video.dataset.poster;
+        posterIo.disconnect();
+      },
+      { rootMargin: '600px 0px' },
+    );
+    posterIo.observe(wrap);
 
     new IntersectionObserver(
       ([e]) => {

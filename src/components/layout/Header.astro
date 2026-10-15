@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import logo from '@/assets/images/brand/logo-martinelli-chaves.png';
 import Icon from '@/components/ui/Icon.astro';
 import { NAV } from '@/data/nav';
@@ -21,7 +21,7 @@ const prefix = isHome ? '' : '/';
 <div class="site-top relative z-40 border-b border-white/[0.06] bg-ink-950">
   <div class="container-x flex h-16 items-center gap-4 lg:h-[76px]">
     <a href={isHome ? '#inicio' : '/'} class="shrink-0" aria-label="Martinelli Chaves — página inicial">
-      <Image src={logo} alt="Martinelli Chaves" width={220} height={107} class="h-11 w-auto lg:h-[54px]" loading="eager" fetchpriority="high" />
+      <Picture src={logo} alt="Martinelli Chaves" formats={['avif', 'webp']} widths={[180, 224]} sizes="(min-width: 1024px) 111px, 90px" width={224} height={109} class="h-11 w-auto lg:h-[54px]" loading="eager" />
     </a>
 
     <div class="ml-6 hidden flex-col gap-0.5 text-sm lg:flex">
@@ -89,7 +89,7 @@ const prefix = isHome ? '' : '/';
 <div class="mobile-sticky fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-ink-950/90 pt-[env(safe-area-inset-top)] backdrop-blur-xl lg:hidden" data-state="hidden">
   <div class="container-x flex h-16 items-center gap-3">
     <a href={isHome ? '#inicio' : '/'} aria-label="Martinelli Chaves — página inicial" class="shrink-0">
-      <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
+      <Picture src={logo} alt="" formats={['avif', 'webp']} widths={[180, 224]} sizes="(min-width: 1024px) 111px, 90px" width={224} height={109} class="h-10 w-auto" />
     </a>
     <p class="flex items-center gap-2 text-xs font-semibold text-steel-300">
       <span class="live-dot"></span> 24h
@@ -118,7 +118,7 @@ const prefix = isHome ? '' : '/';
   >
     <div class="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.07] px-5 pt-[env(safe-area-inset-top)]">
       <div class="flex h-16 items-center">
-        <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
+        <Picture src={logo} alt="" formats={['avif', 'webp']} widths={[180, 224]} sizes="(min-width: 1024px) 111px, 90px" width={224} height={109} class="h-10 w-auto" />
       </div>
       <button
         type="button"

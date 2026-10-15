@@ -55,10 +55,10 @@ const items = await Promise.all(
       )
     }
 
-    <ul class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <ul class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4" data-gallery-list>
       {
-        items.map((g, i) => (
-          <li data-item data-cats={g.categories.join(' ')} style={`view-transition-name: g-${g.id}`} hidden={i >= initial}>
+        items.slice(0, initial).map((g) => (
+          <li data-item data-cats={g.categories.join(' ')} style={`view-transition-name: g-${g.id}`}>
             <button
               type="button"
               class="g-item group"
@@ -93,6 +93,46 @@ const items = await Promise.all(
         ))
       }
     </ul>
+    {
+      items.length > initial && (
+        <template data-gallery-extra>
+          {items.slice(initial).map((g) => (
+          <li data-item data-cats={g.categories.join(' ')} style={`view-transition-name: g-${g.id}`}>
+            <button
+              type="button"
+              class="g-item group"
+              data-full={g.full}
+              data-w={g.fw}
+              data-h={g.fh}
+              data-title={g.title}
+              data-caption={g.caption}
+              data-alt={g.alt}
+              data-video={g.video?.src}
+              data-poster={g.video?.poster}
+            >
+              <span class="sr-only">{g.video ? 'Assistir vídeo: ' : 'Ampliar foto: '}</span>
+              <Picture
+                src={g.src}
+                alt={g.alt}
+                formats={['webp']}
+                widths={[240, 360, 480]}
+                sizes="(min-width: 1024px) 18rem, (min-width: 768px) 31vw, 47vw"
+                loading="lazy"
+                class="aspect-[4/5] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <span class="g-cap">
+                <span class="block font-semibold text-white">{g.title}</span>
+                <span class="block text-xs text-steel-300 sm:text-sm">{g.caption}</span>
+              </span>
+              <span class:list={['g-zoom', g.video && 'is-video']} aria-hidden="true">
+                <Icon name={g.video ? 'Play' : 'Expand'} class="size-4" />
+              </span>
+            </button>
+          </li>
+          ))}
+        </template>
+      )
+    }
 
     <p class="mt-8 rounded-2xl border border-white/[0.08] bg-ink-850 p-6 text-steel-300" data-empty hidden>
       As fotos desta categoria estão sendo organizadas. Veja os trabalhos mais recentes no

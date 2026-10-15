@@ -58,8 +58,8 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
           src={FEATURE_PHOTOS.hero.src}
           alt={FEATURE_PHOTOS.hero.alt}
           formats={['avif', 'webp']}
-          widths={[480, 720, 960, 1297]}
-          sizes="(min-width: 1024px) 40vw, (min-width: 640px) 34rem, 100vw"
+          widths={[400, 560, 720, 960, 1297]}
+          sizes="(min-width: 1024px) 40vw, (min-width: 640px) 34rem, calc(100vw - 40px)"
           loading="eager"
           fetchpriority="high"
           class="aspect-[16/10] w-full object-cover object-[50%_74%] sm:aspect-square lg:aspect-[4/5]"
@@ -143,14 +143,14 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
   @media (prefers-reduced-motion: no-preference) {
     /* Entrada orquestrada: um único momento no carregamento */
     .hero-in {
-      animation: hero-in 0.9s var(--ease-out-quart) both;
-      animation-delay: calc(0.15s + var(--d, 0) * 0.09s);
+      animation: hero-in 0.7s var(--ease-out-quart) both;
+      animation-delay: calc(0.1s + var(--d, 0) * 0.06s);
     }
     .hero-photo .corner {
-      animation: lock-on 0.9s var(--ease-out-quart) 0.35s both;
+      animation: lock-on 0.7s var(--ease-out-quart) 0.25s both;
     }
     .scan-line {
-      animation: scan 2.4s var(--ease-in-out-quart) 0.5s 1 both;
+      animation: scan 1.6s var(--ease-in-out-quart) 0.3s 1 both;
     }
     .is-in-load :global(path) {
       animation: draw 1.4s var(--ease-in-out-quart) 0.2s both;
