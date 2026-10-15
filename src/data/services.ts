@@ -6,6 +6,8 @@ import type { IconName } from '@/lib/icons';
 
 export interface Problem {
   id: string;
+  /** veiculo = carro ou moto; imovel = casa, apartamento ou empresa */
+  group: 'veiculo' | 'imovel';
   title: string;
   text: string;
   icon: IconName;
@@ -16,6 +18,7 @@ export interface Problem {
 export const PROBLEMS: Problem[] = [
   {
     id: 'perdi-a-chave',
+    group: 'veiculo',
     title: 'Perdi a chave do carro',
     text: 'Fazemos uma chave nova mesmo sem a original, conforme o sistema do veículo e com comprovação de propriedade.',
     icon: 'KeyRound',
@@ -24,6 +27,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'chave-reserva',
+    group: 'veiculo',
     title: 'Preciso de uma chave reserva',
     text: 'Cópia de chave codificada, canivete ou presencial, programada para funcionar no seu carro.',
     icon: 'CopyPlus',
@@ -32,6 +36,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'codificada-parou',
+    group: 'veiculo',
     title: 'Minha chave codificada parou de funcionar',
     text: 'Verificamos bateria, botões, chip e programação para indicar se vale reparar ou fazer uma nova.',
     icon: 'Microchip',
@@ -40,6 +45,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'programar-smart-key',
+    group: 'veiculo',
     title: 'Preciso programar uma Smart Key',
     text: 'Programação de smart keys e chaves presenciais, de acordo com marca, modelo e ano.',
     icon: 'Smartphone',
@@ -48,6 +54,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'canivete-quebrou',
+    group: 'veiculo',
     title: 'A chave canivete quebrou',
     text: 'Reparo da carcaça, dos botões ou da lâmina, ou confecção de uma chave canivete nova.',
     icon: 'Wrench',
@@ -56,6 +63,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'chave-trancada',
+    group: 'veiculo',
     title: 'Tranquei a chave dentro do carro',
     text: 'Abertura técnica do veículo, feita após a verificação de que você é o proprietário ou está autorizado.',
     icon: 'LockKeyhole',
@@ -64,6 +72,7 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'chave-moto',
+    group: 'veiculo',
     title: 'Preciso de uma chave para moto',
     text: 'Cópia, confecção e programação de chaves de motos, conforme a compatibilidade do modelo.',
     icon: 'Motorbike',
@@ -72,11 +81,48 @@ export const PROBLEMS: Problem[] = [
   },
   {
     id: 'chaveiro-24h',
+    group: 'veiculo',
     title: 'Preciso de um chaveiro 24 horas',
     text: 'Atendimento emergencial a qualquer hora, pelo WhatsApp ou telefone, em Indaiatuba e região.',
     icon: 'Siren',
     service: 'emergencia_24h',
     message: 'Olá! Preciso de atendimento emergencial de chaveiro. Estou em [localização].',
+  },
+  {
+    id: 'trancado-fora-de-casa',
+    group: 'imovel',
+    title: 'Fiquei trancado do lado de fora',
+    text: 'Abertura de portas de casas, apartamentos e comércios, após confirmar que você é morador ou responsável.',
+    icon: 'DoorOpen',
+    service: 'abertura_porta',
+    message: 'Olá! Fiquei trancado do lado de fora e preciso abrir uma porta. Estou em [endereço/bairro].',
+  },
+  {
+    id: 'copia-chave-casa',
+    group: 'imovel',
+    title: 'Preciso de cópia de chave de casa',
+    text: 'Cópias de chaves comuns e chaves tetra no quiosque do Sumerbol.',
+    icon: 'KeySquare',
+    service: 'copia_chave_residencial',
+    message: 'Olá! Preciso de cópia de chave de casa. A chave é [comum/tetra] e preciso de [quantidade] cópias.',
+  },
+  {
+    id: 'trocar-fechadura',
+    group: 'imovel',
+    title: 'Quero trocar a fechadura ou o segredo',
+    text: 'Instalação, reparo e troca de segredo de fechaduras, inclusive fechaduras eletrônicas.',
+    icon: 'Lock',
+    service: 'fechadura_residencial',
+    message: 'Olá! Quero trocar a fechadura ou o segredo da porta. É [casa/apartamento/comércio] em [bairro].',
+  },
+  {
+    id: 'controle-portao',
+    group: 'imovel',
+    title: 'Preciso de controle de portão',
+    text: 'Cópia e programação de controles de portão compatíveis com o seu sistema.',
+    icon: 'Radio',
+    service: 'controle_portao',
+    message: 'Olá! Preciso de um controle de portão. Posso enviar uma foto do controle atual.',
   },
 ];
 

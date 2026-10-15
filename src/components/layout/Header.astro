@@ -105,8 +105,24 @@ const prefix = isHome ? '' : '/';
   </div>
 </div>
 
-<div id="menu-mobile" class="menu-panel fixed inset-0 z-[60] bg-ink-950/97 backdrop-blur-xl lg:hidden" hidden>
-  <div class="container-x flex h-full flex-col overflow-y-auto pb-8 pt-20">
+<div
+  id="menu-mobile"
+  class="menu-panel fixed inset-0 z-[60] flex flex-col bg-ink-950/97 backdrop-blur-xl lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu"
+  hidden
+>
+  <div class="container-x flex h-16 shrink-0 items-center justify-between border-b border-white/[0.07]">
+    <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
+    <button
+      type="button"
+      class="menu-close inline-flex h-11 items-center gap-2 rounded-xl border border-white/20 px-3.5 text-sm font-semibold text-white transition-colors hover:border-gold"
+    >
+      <Icon name="X" class="size-5" /> Fechar
+    </button>
+  </div>
+  <div class="container-x flex min-h-0 flex-1 flex-col overflow-y-auto pb-8 pt-4">
     <nav aria-label="Menu principal">
       <ul class="divide-y divide-white/[0.07] border-y border-white/[0.07]">
         {

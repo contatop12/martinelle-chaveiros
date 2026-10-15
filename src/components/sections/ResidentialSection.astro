@@ -15,6 +15,7 @@ import { RESIDENTIAL_CATEGORIES } from '@/data/services';
       </SectionHeading>
       <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
         <WhatsAppCta label="Solicitar Serviço de Chaveiro" messageKey="residencial" service="chaveiro_residencial" location="secao_residencial" />
+        <PhoneCta service="chaveiro_residencial" location="secao_residencial" />
       </div>
     </div>
 
@@ -43,9 +44,6 @@ import { RESIDENTIAL_CATEGORIES } from '@/data/services';
       <Icon name="ShieldCheck" class="size-5 shrink-0 text-gold-ink" />
       Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.
     </p>
-    <div class="mt-6 sm:hidden">
-      <PhoneCta service="chaveiro_residencial" location="secao_residencial" block />
-    </div>
   </div>
 </section>
 

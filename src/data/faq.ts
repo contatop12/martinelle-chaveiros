@@ -64,6 +64,12 @@ export const FAQ: FaqItem[] = [
     tags: ['motos'],
   },
   {
+    id: 'residencial',
+    q: 'Vocês fazem serviços de chaveiro residencial?',
+    a: 'Sim. Atendemos casas, apartamentos e comércios: abertura de portas, cópias de chaves e chaves tetra, instalação e reparo de fechaduras, troca de segredo, fechaduras eletrônicas e controles de portão. Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.',
+    tags: ['residencial', '24h', 'geral'],
+  },
+  {
     id: 'controle-portao',
     q: 'Vocês fazem controle de portão?',
     a: 'Sim. Fazemos cópia e programação de controles de portão compatíveis. Traga o controle atual ao quiosque ou envie uma foto dele pelo WhatsApp para verificarmos.',

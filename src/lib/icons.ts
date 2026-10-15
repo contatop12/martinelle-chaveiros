@@ -36,6 +36,10 @@ import {
   Info,
   Expand,
   CircuitBoard,
+  KeySquare,
+  Lock,
+  Undo2,
+  House,
 } from 'lucide-static';
 import { siWhatsapp, siInstagram, siGoogle } from 'simple-icons';
 
@@ -73,6 +77,10 @@ export const ICONS = {
   Info,
   Expand,
   CircuitBoard,
+  KeySquare,
+  Lock,
+  Undo2,
+  House,
 } as const;
 
 export type IconName = keyof typeof ICONS;

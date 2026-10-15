@@ -1,9 +1,10 @@
 import { initTracking } from './tracking';
-import { initMenu, initStickyBar, initScrollSpy, initReveal, initLiveRegions, initTypingState, initFooterWatch, initYear } from './ui';
-import { initQuoteForms, initGalleries, initProofVideos, initMapFacades } from './features';
+import { initMenu, initStickyBar, initScrollSpy, initReveal, initLiveRegions, initTypingState, initFooterWatch, initYear, initReturnButton } from './ui';
+import { initQuoteForms, initGalleries, initProofVideos, initMapFacades, initTabs } from './features';
 
 initTracking();
 initMenu();
+initReturnButton();
 initStickyBar();
 initReveal();
 initScrollSpy();
@@ -15,3 +16,4 @@ initQuoteForms();
 initGalleries();
 initProofVideos();
 initMapFacades();
+initTabs();

@@ -243,3 +243,32 @@ export function initMapFacades() {
     });
   });
 }
+
+/* ---------------- Abas acessíveis (carro/moto x casa/empresa) ---------------- */
+
+export function initTabs() {
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const indicator = root.querySelector<HTMLElement>('.tab-indicator');
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        const on = i === j;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls') ?? '');
+        if (panel) panel.dataset.active = String(on);
+      });
+      indicator?.style.setProperty('--tab-x', `${i * 100}%`);
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const keys: Record<string, number> = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+        if (!(e.key in keys)) return;
+        e.preventDefault();
+        select((keys[e.key] + tabs.length) % tabs.length, true);
+      });
+    });
+  });
+}

@@ -129,11 +129,6 @@
   body.menu-open {
     overflow: hidden;
   }
-  body.menu-open .mobile-sticky {
-    transform: none !important;
-    visibility: visible !important;
-    z-index: 70;
-  }
 }
 
 /* ------------------------------------------------------------------

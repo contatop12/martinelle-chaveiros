@@ -2,34 +2,139 @@
 
 const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/**
+ * Menu mobile.
+ * - O painel tem botão "Fechar" próprio (sempre visível).
+ * - Abrir o menu cria uma entrada no histórico: o botão "voltar" do celular fecha o menu em vez de sair do site.
+ * - Ao escolher uma seção, essa entrada é substituída pela âncora; "voltar" retorna ao ponto em que a pessoa estava.
+ */
 export function initMenu() {
   const panel = document.getElementById('menu-mobile');
-  const toggles = document.querySelectorAll<HTMLButtonElement>('.menu-toggle');
+  const toggles = [...document.querySelectorAll<HTMLButtonElement>('.menu-toggle')];
+  const closeBtn = panel?.querySelector<HTMLButtonElement>('.menu-close');
   if (!panel || !toggles.length) return;
 
-  const setOpen = (open: boolean) => {
+  let opener: HTMLElement | null = null;
+  const isOpen = () => !panel.hasAttribute('hidden');
+
+  const render = (open: boolean, restoreFocus = true) => {
     panel.hidden = !open;
     document.body.classList.toggle('menu-open', open);
-    toggles.forEach((t) => {
-      t.setAttribute('aria-expanded', String(open));
-      t.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-      t.querySelector('.icon-open')?.classList.toggle('hidden', open);
-      t.querySelector('.icon-close')?.classList.toggle('hidden', !open);
-    });
-    if (open) panel.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true });
+    toggles.forEach((t) => t.setAttribute('aria-expanded', String(open)));
+    if (open) closeBtn?.focus({ preventScroll: true });
+    else if (restoreFocus) opener?.focus({ preventScroll: true });
+  };
+  const openMenu = (from: HTMLElement) => {
+    opener = from;
+    history.pushState({ mcMenu: true }, '');
+    render(true);
+  };
+  const requestClose = () => {
+    if (history.state?.mcMenu) history.back();
+    else render(false);
   };
 
-  toggles.forEach((t) => t.addEventListener('click', () => setOpen(panel.hasAttribute('hidden'))));
-  panel.addEventListener('click', (e) => {
-    if ((e.target as Element).closest('a')) setOpen(false);
-  });
+  window.addEventListener('popstate', () => isOpen() && render(false));
+  toggles.forEach((t) => t.addEventListener('click', () => (isOpen() ? requestClose() : openMenu(t))));
+  closeBtn?.addEventListener('click', requestClose);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !panel.hidden) {
-      setOpen(false);
-      toggles[toggles.length - 1]?.focus();
+    if (e.key === 'Escape' && isOpen()) requestClose();
+  });
+  // Mantém o foco dentro do painel enquanto aberto
+  panel.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = [...panel.querySelectorAll<HTMLElement>('a[href], button')];
+    const first = f[0];
+    const last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
-  window.matchMedia('(min-width: 64rem)').addEventListener('change', (m) => m.matches && setOpen(false));
+
+  panel.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
+    if (!a) return;
+    const url = new URL(a.href, location.href);
+    const fromMenu = history.state?.mcMenu;
+    if (url.origin !== location.origin) {
+      render(false, false);
+      if (fromMenu) history.replaceState(null, '');
+      return; // WhatsApp/telefone seguem normalmente
+    }
+    e.preventDefault();
+    render(false, false);
+    if (url.pathname === location.pathname && url.hash) {
+      const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      rememberPosition();
+      if (fromMenu) history.replaceState(null, '', url.hash);
+      else history.pushState(null, '', url.hash);
+      target?.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+      showReturn();
+    } else if (fromMenu) {
+      location.replace(url.href);
+    } else {
+      location.href = url.href;
+    }
+  });
+
+  window.matchMedia('(min-width: 64rem)').addEventListener('change', (m) => m.matches && isOpen() && requestClose());
+}
+
+/* ---------- "Voltar para onde você estava" ---------- */
+
+let returnY: number | null = null;
+let returnHash = '';
+const pill = () => document.querySelector<HTMLButtonElement>('[data-return]');
+
+function rememberPosition() {
+  returnY = window.scrollY;
+  returnHash = location.hash;
+}
+function showReturn() {
+  const el = pill();
+  if (!el || returnY === null) return;
+  // só faz sentido se a navegação levou para longe
+  window.setTimeout(() => {
+    if (returnY !== null && Math.abs(window.scrollY - returnY) > window.innerHeight * 0.6) el.hidden = false;
+  }, 900);
+}
+
+export function initReturnButton() {
+  const el = pill();
+  if (!el) return;
+  // links de seção no menu do desktop (âncoras nativas: a URL é atualizada pelo navegador)
+  document.querySelectorAll<HTMLAnchorElement>('.site-nav a[data-nav]').forEach((a) =>
+    a.addEventListener('click', () => {
+      const url = new URL(a.href, location.href);
+      if (url.pathname !== location.pathname) return;
+      rememberPosition();
+      showReturn();
+    }),
+  );
+  el.addEventListener('click', () => {
+    if (returnY === null) return;
+    const y = returnY;
+    returnY = null;
+    el.hidden = true;
+    history.replaceState(null, '', returnHash || location.pathname + location.search);
+    window.scrollTo({ top: y, behavior: reduceMotion() ? 'auto' : 'smooth' });
+  });
+  // some quando a pessoa volta sozinha para perto de onde estava
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (el.hidden || returnY === null) return;
+      if (Math.abs(window.scrollY - returnY) < 160) {
+        el.hidden = true;
+        returnY = null;
+      }
+    },
+    { passive: true },
+  );
 }
 
 /** Mobile: a barra compacta aparece depois que a linha superior sai da tela. */

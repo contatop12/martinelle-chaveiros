@@ -66,9 +66,10 @@ const schema = [
   {page.body === 'motos' && <MotorcycleSection />}
 
   {page.body === '24h' && <EmergencySection />}
-  {page.body === '24h' && <ServiceCards ids={['perdi-a-chave', 'chave-trancada', 'canivete-quebrou', 'chaveiro-24h']} />}
+  {page.body === '24h' && <ServiceCards ids={['perdi-a-chave', 'chave-trancada', 'canivete-quebrou', 'chaveiro-24h', 'trancado-fora-de-casa', 'copia-chave-casa', 'trocar-fechadura', 'controle-portao']} />}
 
   {page.body === 'residencial' && <ResidentialSection />}
+  {page.body === 'residencial' && <ServiceCards ids={['trancado-fora-de-casa', 'copia-chave-casa', 'trocar-fechadura', 'controle-portao']} />}
 
   <Steps steps={page.steps} title={page.body === '24h' ? 'O que fazer numa emergência' : 'Como funciona o atendimento'} />
 

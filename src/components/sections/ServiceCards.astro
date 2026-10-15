@@ -1,8 +1,12 @@
 ---
-/** Bloco 3 — "Qual problema você precisa resolver?" Cada card abre o WhatsApp com mensagem do problema. */
+/**
+ * Bloco 3 — "Qual problema você precisa resolver?"
+ * Dois grupos (carro/moto e casa/empresa) em abas. Cada card abre o WhatsApp com a mensagem do problema.
+ * Sem JavaScript, os dois grupos aparecem um abaixo do outro.
+ */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { PROBLEMS } from '@/data/services';
+import { PROBLEMS, type Problem } from '@/data/services';
 import { waLink } from '@/lib/contact';
 
 interface Props {
@@ -10,51 +14,156 @@ interface Props {
 }
 const { ids } = Astro.props;
 const items = ids ? PROBLEMS.filter((p) => ids.includes(p.id)) : PROBLEMS;
+
+const GROUPS: { id: Problem['group']; label: string; icon: 'Car' | 'House' }[] = [
+  { id: 'veiculo', label: 'Carro ou moto', icon: 'Car' },
+  { id: 'imovel', label: 'Casa ou empresa', icon: 'House' },
+];
+const groups = GROUPS.map((g) => ({ ...g, items: items.filter((p) => p.group === g.id) })).filter((g) => g.items.length);
+const tabs = groups.length > 1;
+const CardTitle = tabs ? 'h4' : 'h3';
 ---
 
 <section id="solucoes" class="section surface-light" aria-labelledby="solucoes-titulo">
   <div class="container-x">
     <SectionHeading id="solucoes-titulo" title="Qual problema você precisa resolver?">
-      Escolha a situação e fale direto com a Martinelli. A mensagem já vai pronta no WhatsApp.
+      {tabs ? 'Para o carro, a moto, a casa ou a empresa.' : ''} Escolha a situação e fale direto com a Martinelli: a mensagem já vai
+      pronta no WhatsApp.
     </SectionHeading>
 
-    <ul class="mt-12 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+    <div data-tabs={tabs ? '' : undefined}>
       {
-        items.map((p, i) => (
-          <li data-reveal style={`--i:${i % 4}`}>
-            <a
-              href={waLink(p.message)}
-              target="_blank"
-              rel="noopener"
-              class="problem-card group"
-              data-track="whatsapp_click"
-              data-service={p.service}
-              data-location="cards_problemas"
-            >
-              <span class="icon-box bg-ink-900 text-gold-light transition-transform duration-500 group-hover:-rotate-6">
-                <Icon name={p.icon} />
-              </span>
-              <span class="min-w-0">
-                <h3 class="h-card text-[1.0625rem] text-ink-900">{p.title}</h3>
-                <span class="mt-1.5 block text-[0.9375rem] leading-relaxed text-steel-600">{p.text}</span>
-                <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-ink-900">
-                  <Icon brand="whatsapp" class="size-4 text-[#128c4a]" />
-                  Pedir ajuda pelo WhatsApp
-                  <Icon name="ChevronRight" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </span>
-              <svg class="card-cut" viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true">
-                <path pathLength="1" d="M0 7H30L34 2H38L42 7H58L61 3H65L68 7H84L88 1H92L96 7H120" fill="none" stroke="currentColor" stroke-width="1.5" />
-              </svg>
-            </a>
-          </li>
+        tabs && (
+          <div class="tablist mt-10" role="tablist" aria-label="Tipo de atendimento">
+            {groups.map((g, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${g.id}`}
+                aria-controls={`painel-${g.id}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+                class="tab"
+              >
+                <Icon name={g.icon} class="size-5" />
+                {g.label}
+              </button>
+            ))}
+            <span class="tab-indicator" aria-hidden="true" />
+          </div>
+        )
+      }
+
+      {
+        groups.map((g, gi) => (
+          <div
+            id={`painel-${g.id}`}
+            class="panel"
+            role={tabs ? 'tabpanel' : undefined}
+            aria-labelledby={tabs ? `tab-${g.id}` : undefined}
+            data-panel={g.id}
+            data-active={gi === 0 ? 'true' : 'false'}
+          >
+            {tabs && <h3 class="panel-title h-card mt-10 text-lg text-ink-900">{g.label}</h3>}
+            <ul class:list={['grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4', tabs ? 'mt-8' : 'mt-12']}>
+              {g.items.map((p, i) => (
+                <li data-reveal style={`--i:${i % 4}`}>
+                  <a
+                    href={waLink(p.message)}
+                    target="_blank"
+                    rel="noopener"
+                    class="problem-card group"
+                    data-track="whatsapp_click"
+                    data-service={p.service}
+                    data-location={`cards_problemas_${g.id}`}
+                  >
+                    <span class="icon-box bg-ink-900 text-gold-light transition-transform duration-500 group-hover:-rotate-6">
+                      <Icon name={p.icon} />
+                    </span>
+                    <span class="min-w-0">
+                      <CardTitle class="h-card text-[1.0625rem] text-ink-900">{p.title}</CardTitle>
+                      <span class="mt-1.5 block text-[0.9375rem] leading-relaxed text-steel-600">{p.text}</span>
+                      <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-ink-900">
+                        <Icon brand="whatsapp" class="size-4 text-[#128c4a]" />
+                        Pedir ajuda pelo WhatsApp
+                        <Icon name="ChevronRight" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
+                    </span>
+                    <svg class="card-cut" viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true">
+                      <path pathLength="1" d="M0 7H30L34 2H38L42 7H58L61 3H65L68 7H84L88 1H92L96 7H120" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))
       }
-    </ul>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Abas: só viram abas com JavaScript ativo; sem JS os grupos ficam empilhados */
+  .tablist {
+    display: none;
+  }
+  :global(html.js) [data-tabs] .tablist {
+    position: relative;
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    padding: 0.3rem;
+    border-radius: 16px;
+    background: var(--color-paper);
+    border: 1px solid rgb(16 18 20 / 0.08);
+    max-width: 100%;
+  }
+  :global(html.js) [data-tabs] .panel[data-active='false'] {
+    display: none;
+  }
+  :global(html.js) [data-tabs] .panel-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .tab {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3rem;
+    padding: 0.6rem 1.15rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    color: var(--color-steel-600);
+    transition: color 0.3s;
+  }
+  .tab[aria-selected='true'] {
+    color: var(--color-gold-light);
+  }
+  .tab:not([aria-selected='true']):hover {
+    color: var(--color-ink-900);
+  }
+  .tab-indicator {
+    position: absolute;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    left: 0.3rem;
+    width: calc((100% - 0.6rem) / 2);
+    border-radius: 12px;
+    background: var(--color-ink-900);
+    transform: translateX(var(--tab-x, 0%));
+    transition: transform 0.45s var(--ease-out-quart);
+  }
+
   .problem-card {
     position: relative;
     display: flex;
@@ -99,4 +208,5 @@ const items = ids ? PROBLEMS.filter((p) => ids.includes(p.id)) : PROBLEMS;
   .problem-card:focus-visible .card-cut path {
     stroke-dashoffset: 0;
   }
+
 </style>

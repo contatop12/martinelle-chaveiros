@@ -1,0 +1,36 @@
+---
+/** Aparece depois de pular para uma seção pelo menu: devolve a pessoa ao ponto em que estava. */
+import Icon from '@/components/ui/Icon.astro';
+---
+
+<button
+  type="button"
+  class="return-pill fixed left-3 z-40 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 bg-ink-850/95 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_-12px_rgb(0_0_0/0.7)] backdrop-blur-xl transition-colors hover:border-gold lg:left-6"
+  data-return
+  hidden
+>
+  <Icon name="Undo2" class="size-4 text-gold-light" />
+  Voltar para onde você estava
+</button>
+
+<style>
+  .return-pill {
+    bottom: calc(var(--bar-h) + 0.75rem);
+  }
+  @media (width >= 64rem) {
+    .return-pill {
+      bottom: 1.5rem;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .return-pill:not([hidden]) {
+      animation: pill-in 0.45s var(--ease-out-quart);
+    }
+  }
+  @keyframes pill-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+</style>
