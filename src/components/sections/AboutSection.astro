@@ -1,19 +1,20 @@
 ---
 /**
  * Bloco 12 — Conheça a Martinelli Chaves.
- * Sem nomes, história ou certificações inventados: campos em COMPANY.owners ficam ocultos até serem preenchidos.
+ * Sem nomes, anos de experiência ou história não confirmados: campos em COMPANY ficam ocultos até serem preenchidos.
  */
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { COMPANY } from '@/config/site';
+import { COMPANY, HOURS } from '@/config/site';
 import { TEAM_PHOTOS, STORE_PHOTOS } from '@/data/photos';
+import type { IconName } from '@/lib/icons';
 
-const facts = [
-  { icon: 'Store' as const, text: 'Quiosque próprio no Sumerbol Supermercados, em Indaiatuba' },
-  { icon: 'ShieldCheck' as const, text: `Equipe especializada com ${COMPANY.experience}` },
-  { icon: 'CarFront' as const, text: 'Carros nacionais, importados, motos, residências e comércios' },
-  { icon: 'Clock' as const, text: 'Atendimento emergencial 24 horas, todos os dias' },
+const pillars: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'CarFront', title: 'Especialização', text: 'Chaves codificadas, Smart Keys e chaves presenciais para carros nacionais e importados, além de motos.' },
+  { icon: 'Store', title: 'Estrutura física', text: `Quiosque no Sumerbol Supermercados, Piso 2. ${HOURS.kioskShort.replace('Quiosque: ', 'Aberto ')}.` },
+  { icon: 'Route', title: 'Atendimento externo', text: 'Vamos até onde o veículo ou o imóvel está, em Indaiatuba e região, inclusive em emergências 24h.' },
+  { icon: 'ShieldCheck', title: 'Segurança', text: 'Abertura e confecção de chaves somente após a verificação de propriedade ou autorização.' },
 ];
 ---
 
@@ -33,24 +34,23 @@ const facts = [
       <SectionHeading id="quem-somos-titulo" title="Experiência, Tecnologia e Atendimento de Confiança" />
       <div class="mt-6 grid max-w-2xl gap-4 text-[1.0625rem] leading-relaxed text-steel-600">
         <p>
-          A Martinelli Chaves é um chaveiro de Indaiatuba com estrutura física no Sumerbol Supermercados e atendimento
-          especializado em chaves automotivas, do carro do dia a dia ao importado.
-        </p>
-        <p>
-          No quiosque, você encontra chaves, controles e acessórios. Fora dele, a equipe vai até o cliente em Indaiatuba e
-          região. Em todo serviço de abertura ou confecção de chave, a propriedade é verificada antes do atendimento.
+          A Martinelli Chaves é um chaveiro de Indaiatuba com quiosque próprio no Sumerbol Supermercados. O atendimento é feito pela
+          própria equipe, no quiosque ou onde o cliente estiver{COMPANY.experience && `, com ${COMPANY.experience}`}.
         </p>
         {COMPANY.owners.story && <p>{COMPANY.owners.story}</p>}
       </div>
 
       <ul class="mt-10 grid gap-4 sm:grid-cols-2">
         {
-          facts.map((f, i) => (
-            <li class="flex items-start gap-3 rounded-2xl bg-paper p-4 text-[0.9375rem] font-semibold text-ink-900" data-reveal style={`--i:${i}`}>
-              <span class="icon-box !size-10 bg-ink-900 text-gold-light">
-                <Icon name={f.icon} class="size-5" />
+          pillars.map((f, i) => (
+            <li class="rounded-2xl bg-paper p-5" data-reveal style={`--i:${i}`}>
+              <span class="flex items-center gap-3">
+                <span class="icon-box !size-10 bg-ink-900 text-gold-light">
+                  <Icon name={f.icon} class="size-5" />
+                </span>
+                <h3 class="h-card text-base text-ink-900">{f.title}</h3>
               </span>
-              <span class="pt-2">{f.text}</span>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-steel-600">{f.text}</p>
             </li>
           ))
         }

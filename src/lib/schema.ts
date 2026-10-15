@@ -2,8 +2,7 @@
  * Dados estruturados (schema.org).
  * Sem avaliações, horários ou coordenadas não confirmados — esses campos só entram quando preenchidos em config/site.ts.
  */
-import { ADDRESS, CONTACT, LINKS, SITE, SERVICE_AREA } from '@/config/site';
-import { REVIEW_SUMMARY } from '@/data/reviews';
+import { ADDRESS, CONTACT, HOURS, LINKS, SITE, SERVICE_AREA } from '@/config/site';
 import type { FaqItem } from '@/data/faq';
 
 export const BUSINESS_ID = `${SITE.url}/#empresa`;
@@ -54,15 +53,11 @@ export function localBusinessSchema() {
   if (ADDRESS.geo) {
     data.geo = { '@type': 'GeoCoordinates', latitude: ADDRESS.geo.lat, longitude: ADDRESS.geo.lng };
   }
-  // openingHoursSpecification: adicionar somente após confirmar o horário do quiosque (docs/PENDENCIAS.md).
-  // O atendimento emergencial 24h não deve ser declarado como horário do quiosque.
-  if (REVIEW_SUMMARY) {
-    data.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: REVIEW_SUMMARY.rating,
-      reviewCount: REVIEW_SUMMARY.count,
-    };
-  }
+  // Horário do estabelecimento físico (quiosque). O atendimento emergencial 24h NÃO é declarado como horário de abertura.
+  data.openingHoursSpecification = HOURS.kiosk
+    .filter((h) => h.spec)
+    .map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.spec!.dayOfWeek, opens: h.spec!.opens, closes: h.spec!.closes }));
+  // Sem aggregateRating: o Google não aceita estrelas de avaliações da própria empresa em LocalBusiness.
   return data;
 }
 

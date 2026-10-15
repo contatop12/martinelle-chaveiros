@@ -15,17 +15,21 @@ const clean = (v: FormDataEntryValue | null, max: number) =>
 export function initQuoteForms() {
   document.querySelectorAll<HTMLFormElement>('form[data-quote-form]').forEach((form) => {
     const select = form.querySelector<HTMLSelectElement>('select[name="servico"]');
-    const vehicle = form.querySelector<HTMLElement>('[data-vehicle-fields]');
+    const vehicle = form.querySelector<HTMLElement>('[data-fields="veiculo"]');
+    const local = form.querySelector<HTMLElement>('[data-fields="local"]');
+    const brand = form.querySelector<HTMLInputElement>('input[name="marca"]');
 
-    const syncVehicle = () => {
-      const opt = select?.selectedOptions[0];
-      const needsVehicle = opt?.dataset.vehicle === '1';
-      if (vehicle) vehicle.hidden = !needsVehicle;
+    // carro/moto: marca, modelo, ano · casa/empresa e emergência: bairro ou região
+    const syncFields = () => {
+      const kind = select?.selectedOptions[0]?.dataset.kind ?? '';
+      if (vehicle) vehicle.hidden = !(kind === 'carro' || kind === 'moto');
+      if (local) local.hidden = !(kind === 'casa' || kind === 'urgente');
+      brand?.setAttribute('list', kind === 'moto' ? 'q-marcas-moto' : 'q-marcas-carro');
     };
-    syncVehicle();
+    syncFields();
 
     select?.addEventListener('change', () => {
-      syncVehicle();
+      syncFields();
       if (select.value) track('service_select', { service_name: select.value, button_location: form.dataset.location });
     });
 
@@ -40,6 +44,10 @@ export function initQuoteForms() {
       if (vehicle && !vehicle.hidden) {
         const veh = [clean(data.get('marca'), 40), clean(data.get('modelo'), 60), clean(data.get('ano'), 4)].filter(Boolean).join(' ');
         if (veh) lines.push(`*Veículo:* ${veh}`);
+      }
+      if (local && !local.hidden) {
+        const place = clean(data.get('bairro'), 60);
+        if (place) lines.push(`*Bairro/região:* ${place}`);
       }
       const problem = clean(data.get('problema'), 600);
       if (problem) lines.push(`*Problema:* ${problem}`);
@@ -123,6 +131,7 @@ export function initGalleries() {
     const dialog = root.querySelector<HTMLDialogElement>('dialog');
     if (!dialog) return;
     const img = dialog.querySelector<HTMLImageElement>('img')!;
+    const vid = dialog.querySelector<HTMLVideoElement>('video.lb-video');
     const title = dialog.querySelector<HTMLElement>('[data-lb-title]')!;
     const caption = dialog.querySelector<HTMLElement>('[data-lb-caption]')!;
     const counter = dialog.querySelector<HTMLElement>('[data-lb-counter]')!;
@@ -134,11 +143,24 @@ export function initGalleries() {
       if (!list.length) return;
       index = (i + list.length) % list.length;
       const btn = list[index].querySelector<HTMLButtonElement>('button')!;
-      img.classList.remove('is-loaded');
-      img.src = btn.dataset.full!;
-      img.alt = btn.dataset.alt ?? '';
-      img.width = Number(btn.dataset.w);
-      img.height = Number(btn.dataset.h);
+      const isVideo = Boolean(btn.dataset.video && vid);
+      if (vid) {
+        vid.pause();
+        vid.hidden = !isVideo;
+        if (isVideo) {
+          vid.poster = btn.dataset.poster ?? '';
+          vid.src = btn.dataset.video!;
+          vid.setAttribute('aria-label', btn.dataset.alt ?? '');
+        } else vid.removeAttribute('src');
+      }
+      img.hidden = isVideo;
+      if (!isVideo) {
+        img.classList.remove('is-loaded');
+        img.src = btn.dataset.full!;
+        img.alt = btn.dataset.alt ?? '';
+        img.width = Number(btn.dataset.w);
+        img.height = Number(btn.dataset.h);
+      }
       title.textContent = btn.dataset.title ?? '';
       caption.textContent = btn.dataset.caption ?? '';
       counter.textContent = `${index + 1} de ${list.length}`;
@@ -154,6 +176,7 @@ export function initGalleries() {
     dialog.querySelector('[data-lb-prev]')?.addEventListener('click', () => show(index - 1));
     dialog.querySelector('[data-lb-next]')?.addEventListener('click', () => show(index + 1));
     dialog.querySelector('[data-lb-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => vid?.pause());
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) dialog.close();
     });
@@ -271,4 +294,37 @@ export function initTabs() {
       });
     });
   });
+}
+
+/* ---------------- "Ver Mais Situações" ---------------- */
+
+export function initMoreToggles() {
+  document.querySelectorAll<HTMLButtonElement>('[data-more-toggle]').forEach((btn) => {
+    const panel = btn.closest<HTMLElement>('.panel');
+    const label = btn.querySelector<HTMLElement>('[data-more-label]');
+    if (!panel || !label) return;
+    const original = label.textContent ?? '';
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) panel.dataset.expanded = '';
+      else delete panel.dataset.expanded;
+      label.textContent = open ? 'Ver Menos' : original;
+      if (open) panel.querySelector<HTMLElement>('[data-extra] a')?.focus({ preventScroll: true });
+    });
+  });
+}
+
+/* ---------------- Um vídeo por vez ---------------- */
+
+export function initSingleVideoPlayback() {
+  document.addEventListener(
+    'play',
+    (e) => {
+      const current = e.target;
+      if (!(current instanceof HTMLVideoElement)) return;
+      document.querySelectorAll('video').forEach((v) => v !== current && !v.paused && v.pause());
+    },
+    true,
+  );
 }

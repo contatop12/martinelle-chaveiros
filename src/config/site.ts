@@ -51,20 +51,31 @@ export const LINKS = {
   /** Rota até o Sumerbol (endereço validado no site atual e no briefing). */
   directions: `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`,
   mapEmbed: `https://www.google.com/maps?q=${mapsQuery}&output=embed`,
-  /** PENDENTE: link do perfil oficial no Google (Perfil da Empresa). */
-  googleBusiness: null as string | null,
+  /** Perfil no Google Maps (CID extraído do link de avaliações enviado pelo cliente). Validar. */
+  googleBusiness: 'https://www.google.com/maps?cid=5043800918293055189' as string | null,
+  /** Link de avaliações enviado pelo cliente (abre o painel de avaliações na busca do Google). */
+  googleReviews: 'https://www.google.com/search?q=martinelli+chaves#lrd=0x94cf4d1b5045500b:0x45ff2e3644a586d5,1,,,,',
   currentSite: 'https://martinellichaves.com.br/',
 } as const;
 
+export interface KioskHours {
+  days: string;
+  hours: string;
+  /** Para o Schema.org (omitido quando fechado) */
+  spec: { dayOfWeek: string[]; opens: string; closes: string } | null;
+}
+
 export const HOURS = {
-  /** Emergência: confirmado no briefing. */
-  emergency: 'Atendimento emergencial 24 horas, todos os dias da semana',
+  /** Atendimento externo emergencial — NÃO é o horário do quiosque. */
+  emergency: 'Atendimento externo emergencial 24 horas, todos os dias, inclusive domingos e feriados',
   emergencyShort: 'Emergências 24h',
-  /**
-   * Horário presencial do quiosque. NÃO confirmado — não inventar.
-   * Exemplo quando confirmado: [{ days: 'Segunda a sábado', hours: '9h às 21h' }]
-   */
-  kiosk: null as { days: string; hours: string }[] | null,
+  /** Horário presencial do quiosque no Sumerbol (informado pelo cliente em 15/10/2026). */
+  kiosk: [
+    { days: 'Segunda a sexta', hours: '10h às 19h', spec: { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' } },
+    { days: 'Sábado', hours: '10h às 18h', spec: { dayOfWeek: ['Saturday'], opens: '10:00', closes: '18:00' } },
+    { days: 'Domingos e feriados', hours: 'Fechado', spec: null },
+  ] as KioskHours[],
+  kioskShort: 'Quiosque: seg a sex 10h–19h, sáb 10h–18h',
 } as const;
 
 export const SERVICE_AREA = {
@@ -75,8 +86,11 @@ export const SERVICE_AREA = {
 } as const;
 
 export const COMPANY = {
-  /** Fonte: site atual ("Equipe especializada com mais de 13 anos de experiência"). Reconfirmar. */
-  experience: 'mais de 13 anos de experiência',
+  /**
+   * PENDENTE: o site antigo cita "mais de 13 anos de experiência". Removido até o proprietário confirmar.
+   * Quando confirmado, preencher: 'mais de 13 anos de experiência'
+   */
+  experience: null as string | null,
   owners: {
     /** PENDENTE: nomes do proprietário e da esposa para a seção "Quem somos". */
     names: null as string | null,

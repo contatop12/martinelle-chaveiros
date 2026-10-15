@@ -24,10 +24,13 @@ const prefix = isHome ? '' : '/';
       <Image src={logo} alt="Martinelli Chaves" width={220} height={107} class="h-11 w-auto lg:h-[54px]" loading="eager" fetchpriority="high" />
     </a>
 
-    <p class="ml-6 hidden items-center gap-2.5 text-sm text-steel-300 lg:flex">
-      <span class="live-dot"></span>
-      <span>{HOURS.emergencyShort} pelo WhatsApp e telefone</span>
-    </p>
+    <div class="ml-6 hidden flex-col gap-0.5 text-sm lg:flex">
+      <p class="flex items-center gap-2.5 text-steel-200">
+        <span class="live-dot"></span>
+        <span>{HOURS.emergencyShort} pelo WhatsApp e telefone</span>
+      </p>
+      <p class="hidden pl-[1.15rem] text-xs text-steel-400 xl:block">{HOURS.kioskShort}</p>
+    </div>
 
     <div class="ml-auto flex items-center gap-2 lg:gap-3">
       <a
@@ -59,8 +62,7 @@ const prefix = isHome ? '' : '/';
         aria-controls="menu-mobile"
         aria-label="Abrir menu"
       >
-        <Icon name="Menu" class="size-5 icon-open" />
-        <Icon name="X" class="size-5 icon-close hidden" />
+        <Icon name="Menu" class="size-5" />
       </button>
     </div>
   </div>
@@ -83,8 +85,8 @@ const prefix = isHome ? '' : '/';
   </nav>
 </header>
 
-<!-- Mobile: barra fixa compacta que aparece ao rolar + menu -->
-<div class="mobile-sticky fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-ink-950/90 backdrop-blur-xl lg:hidden" data-state="hidden">
+<!-- Mobile: barra fixa compacta que aparece ao rolar -->
+<div class="mobile-sticky fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-ink-950/90 pt-[env(safe-area-inset-top)] backdrop-blur-xl lg:hidden" data-state="hidden">
   <div class="container-x flex h-16 items-center gap-3">
     <a href={isHome ? '#inicio' : '/'} aria-label="Martinelli Chaves — página inicial" class="shrink-0">
       <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
@@ -99,65 +101,71 @@ const prefix = isHome ? '' : '/';
       aria-controls="menu-mobile"
       aria-label="Abrir menu"
     >
-      <Icon name="Menu" class="size-5 icon-open" />
-      <Icon name="X" class="size-5 icon-close hidden" />
+      <Icon name="Menu" class="size-5" />
     </button>
   </div>
 </div>
 
-<div
-  id="menu-mobile"
-  class="menu-panel fixed inset-0 z-[60] flex flex-col bg-ink-950/97 backdrop-blur-xl lg:hidden"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Menu"
-  hidden
->
-  <div class="container-x flex h-16 shrink-0 items-center justify-between border-b border-white/[0.07]">
-    <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
-    <button
-      type="button"
-      class="menu-close inline-flex h-11 items-center gap-2 rounded-xl border border-white/20 px-3.5 text-sm font-semibold text-white transition-colors hover:border-gold"
-    >
-      <Icon name="X" class="size-5" /> Fechar
-    </button>
-  </div>
-  <div class="container-x flex min-h-0 flex-1 flex-col overflow-y-auto pb-8 pt-4">
-    <nav aria-label="Menu principal">
-      <ul class="divide-y divide-white/[0.07] border-y border-white/[0.07]">
-        {
-          NAV.map((item, i) => (
-            <li style={`--i:${i}`} class="menu-item">
-              <a
-                href={`${prefix}#${item.id}`}
-                class="flex items-center justify-between py-4 font-display text-xl font-semibold [font-stretch:110%]"
-                data-nav={item.id}
-              >
-                {item.label}
-                <Icon name="ChevronRight" class="size-5 text-gold" />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <div class="mt-8 grid gap-3">
-      <a
-        href={waLinkFor('geral')}
-        target="_blank"
-        rel="noopener"
-        class="btn btn-wa w-full"
-        data-track="whatsapp_click"
-        data-service="geral"
-        data-location="menu_mobile"
+<!-- Menu mobile: gaveta lateral com fundo escurecido (toque fora fecha) -->
+<div class="menu-root fixed inset-0 z-[60] lg:hidden" data-menu-root hidden>
+  <div class="menu-backdrop absolute inset-0 bg-ink-950/70 backdrop-blur-[2px]" data-menu-backdrop></div>
+  <div
+    id="menu-mobile"
+    class="menu-panel absolute inset-y-0 right-0 flex w-[min(24rem,88vw)] flex-col border-l border-white/10 bg-ink-950 shadow-2xl"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu"
+  >
+    <div class="flex shrink-0 items-center justify-between gap-3 border-b border-white/[0.07] px-5 pt-[env(safe-area-inset-top)]">
+      <div class="flex h-16 items-center">
+        <Image src={logo} alt="" width={220} height={107} class="h-10 w-auto" />
+      </div>
+      <button
+        type="button"
+        class="menu-close grid size-12 place-items-center rounded-full border border-white/25 bg-white/[0.06] text-white transition-colors hover:border-gold hover:text-gold-light"
+        aria-label="Fechar menu"
       >
-        <Icon brand="whatsapp" /> WhatsApp 24h
-      </a>
-      <a href={telLink} class="btn btn-line w-full" data-track="phone_click" data-service="geral" data-location="menu_mobile">
-        <Icon name="Phone" /> Ligar: {CONTACT.phoneDisplay}
-      </a>
+        <Icon name="X" class="size-6" strokeWidth={2.25} />
+      </button>
     </div>
-    <p class="mt-6 text-sm text-steel-400">{HOURS.emergency}.</p>
+    <div class="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-5 pt-2 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+      <nav aria-label="Menu principal">
+        <ul class="divide-y divide-white/[0.07]">
+          {
+            NAV.map((item, i) => (
+              <li style={`--i:${i}`} class="menu-item">
+                <a
+                  href={`${prefix}#${item.id}`}
+                  class="flex min-h-[3.25rem] items-center justify-between py-3 font-display text-lg font-semibold [font-stretch:110%]"
+                  data-nav={item.id}
+                >
+                  {item.label}
+                  <Icon name="ChevronRight" class="size-5 text-gold" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="mt-6 grid gap-3">
+        <a
+          href={waLinkFor('geral')}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-wa w-full"
+          data-track="whatsapp_click"
+          data-service="geral"
+          data-location="menu_mobile"
+        >
+          <Icon brand="whatsapp" /> WhatsApp 24h
+        </a>
+        <a href={telLink} class="btn btn-line w-full" data-track="phone_click" data-service="geral" data-location="menu_mobile">
+          <Icon name="Phone" /> Ligar: {CONTACT.phoneDisplay}
+        </a>
+      </div>
+      <p class="mt-5 text-sm text-steel-400">{HOURS.emergency}.</p>
+      <p class="mt-1 text-sm text-steel-400">{HOURS.kioskShort}.</p>
+    </div>
   </div>
 </div>
 
@@ -219,14 +227,32 @@ const prefix = isHome ? '' : '/';
       visibility 0s 0.35s;
   }
 
-  .menu-panel:not([hidden]) .menu-item {
-    animation: menu-in 0.5s var(--ease-out-quart) both;
-    animation-delay: calc(var(--i) * 35ms);
+  @media (prefers-reduced-motion: no-preference) {
+    .menu-root:not([hidden]) .menu-backdrop {
+      animation: fade-in 0.2s ease-out;
+    }
+    .menu-root:not([hidden]) .menu-panel {
+      animation: slide-in 0.28s var(--ease-out-quart);
+    }
+    .menu-root:not([hidden]) .menu-item {
+      animation: item-in 0.4s var(--ease-out-quart) both;
+      animation-delay: calc(60ms + var(--i) * 25ms);
+    }
   }
-  @keyframes menu-in {
+  @keyframes fade-in {
     from {
       opacity: 0;
-      transform: translateY(10px);
+    }
+  }
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes item-in {
+    from {
+      opacity: 0;
+      transform: translateX(12px);
     }
   }
 </style>

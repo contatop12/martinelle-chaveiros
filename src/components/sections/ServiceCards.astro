@@ -19,7 +19,12 @@ const GROUPS: { id: Problem['group']; label: string; icon: 'Car' | 'House' }[] =
   { id: 'veiculo', label: 'Carro ou moto', icon: 'Car' },
   { id: 'imovel', label: 'Casa ou empresa', icon: 'House' },
 ];
-const groups = GROUPS.map((g) => ({ ...g, items: items.filter((p) => p.group === g.id) })).filter((g) => g.items.length);
+const groups = GROUPS.map((g) => {
+  const list = items.filter((p) => p.group === g.id);
+  // "Ver Mais Situações": só quando há destaques e itens extras (home)
+  const hasMore = list.some((p) => p.featured) && list.some((p) => !p.featured);
+  return { ...g, items: list, hasMore, extra: hasMore ? list.filter((p) => !p.featured).length : 0 };
+}).filter((g) => g.items.length);
 const tabs = groups.length > 1;
 const CardTitle = tabs ? 'h4' : 'h3';
 ---
@@ -67,7 +72,7 @@ const CardTitle = tabs ? 'h4' : 'h3';
             {tabs && <h3 class="panel-title h-card mt-10 text-lg text-ink-900">{g.label}</h3>}
             <ul class:list={['grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4', tabs ? 'mt-8' : 'mt-12']}>
               {g.items.map((p, i) => (
-                <li data-reveal style={`--i:${i % 4}`}>
+                <li data-reveal style={`--i:${i % 4}`} data-extra={g.hasMore && !p.featured ? '' : undefined}>
                   <a
                     href={waLink(p.message)}
                     target="_blank"
@@ -96,6 +101,14 @@ const CardTitle = tabs ? 'h4' : 'h3';
                 </li>
               ))}
             </ul>
+            {g.hasMore && (
+              <div class="more-wrap mt-5 justify-center sm:justify-start">
+                <button type="button" class="btn btn-line btn-sm" data-more-toggle aria-expanded="false" aria-controls={`painel-${g.id}`}>
+                  <Icon name="ChevronDown" class="size-4 more-icon" />
+                  <span data-more-label>Ver Mais Situações ({g.extra})</span>
+                </button>
+              </div>
+            )}
           </div>
         ))
       }
@@ -110,14 +123,20 @@ const CardTitle = tabs ? 'h4' : 'h3';
   }
   :global(html.js) [data-tabs] .tablist {
     position: relative;
-    display: inline-grid;
+    display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    grid-auto-columns: minmax(0, 1fr);
+    width: 100%;
     padding: 0.3rem;
     border-radius: 16px;
     background: var(--color-paper);
     border: 1px solid rgb(16 18 20 / 0.08);
-    max-width: 100%;
+  }
+  @media (width >= 40rem) {
+    :global(html.js) [data-tabs] .tablist {
+      display: inline-grid;
+      width: auto;
+    }
   }
   :global(html.js) [data-tabs] .panel[data-active='false'] {
     display: none;
@@ -130,6 +149,23 @@ const CardTitle = tabs ? 'h4' : 'h3';
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
+  /* "Ver Mais Situações": sem JS, tudo aparece */
+  .more-wrap {
+    display: none;
+  }
+  :global(html.js) .more-wrap {
+    display: flex;
+  }
+  :global(html.js) .panel:not([data-expanded]) [data-extra] {
+    display: none;
+  }
+  .more-icon {
+    transition: transform 0.3s var(--ease-out-quart);
+  }
+  [aria-expanded='true'] .more-icon {
+    transform: rotate(180deg);
+  }
+
   .tab {
     position: relative;
     z-index: 1;
@@ -137,14 +173,29 @@ const CardTitle = tabs ? 'h4' : 'h3';
     align-items: center;
     justify-content: center;
     gap: 0.55rem;
+    min-width: 0;
     min-height: 3rem;
-    padding: 0.6rem 1.15rem;
+    padding: 0.6rem 0.6rem;
     border-radius: 12px;
     font-weight: 700;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     white-space: nowrap;
     color: var(--color-steel-600);
     transition: color 0.3s;
+  }
+  .tab :global(svg) {
+    display: none;
+  }
+  @media (width >= 25rem) {
+    .tab :global(svg) {
+      display: block;
+    }
+  }
+  @media (width >= 40rem) {
+    .tab {
+      padding: 0.6rem 1.15rem;
+      font-size: 0.9375rem;
+    }
   }
   .tab[aria-selected='true'] {
     color: var(--color-gold-light);

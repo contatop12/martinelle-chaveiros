@@ -1,30 +1,58 @@
 ---
-/** Bloco 6 — Carros importados e premium */
+/** Bloco 6 — Carros importados e de luxo */
 import { Picture } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import BrandGrid from '@/components/ui/BrandGrid.astro';
 import ProofVideo from '@/components/ui/ProofVideo.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
-import { GALLERY, PREMIUM_STRIP } from '@/data/photos';
+import { GALLERY, PREMIUM_STRIP, VIDEOS } from '@/data/photos';
 
 const strip = PREMIUM_STRIP.map((id) => GALLERY.find((g) => g.id === id)!).filter(Boolean);
+const specialties = [
+  { icon: 'Smartphone' as const, text: 'Chaves presenciais (keyless) e Smart Keys' },
+  { icon: 'Microchip' as const, text: 'Chaves codificadas e programação conforme compatibilidade' },
+  { icon: 'Radio' as const, text: 'Controles e telecomandos' },
+  { icon: 'Wrench' as const, text: 'Reparação de chaves e controles' },
+];
 ---
 
 <section id="carros-importados" class="section surface-deep relative overflow-hidden" aria-labelledby="importados-titulo">
   <div class="lux-lines pointer-events-none absolute inset-0" aria-hidden="true"></div>
   <div class="container-x relative">
     <SectionHeading id="importados-titulo" title="Chaves para Carros Importados e de Luxo">
-      Atendimento especializado para sistemas de chaves e controles automotivos de diferentes marcas e tecnologias.
+      Soluções em chaves codificadas, Smart Keys, chaves presenciais e controles para veículos importados e de alto padrão. Consulte a
+      compatibilidade com a marca, modelo e ano do seu veículo.
     </SectionHeading>
 
-    <div class="mt-14 grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-      <ProofVideo />
+    <div class="mt-12 grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12 lg:gap-16">
+      <ProofVideo
+        video={VIDEOS.bmw}
+        label="Vídeo: teste de chave presencial em um BMW, com abertura da porta e partida"
+        caption="Teste real de chave presencial em BMW"
+        class="max-w-[12rem] lg:max-w-[12.5rem]"
+      />
 
       <div>
-        <h3 class="h-card text-lg text-white">Marcas que já passaram pela Martinelli</h3>
-        <p class="mt-2 mb-6 text-[0.9375rem] text-steel-400">Selecionadas a partir de trabalhos registrados em fotos.</p>
-        <BrandGrid />
-        <div class="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+        <h3 class="h-card text-lg text-white">Marcas Atendidas</h3>
+        <div class="mt-5">
+          <BrandGrid />
+        </div>
+
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          {
+            specialties.map((s) => (
+              <li class="flex items-center gap-3 text-[0.9375rem] text-steel-200">
+                <span class="icon-box !size-9 shrink-0 border border-gold/25 bg-gold/[0.06] text-gold-light">
+                  <Icon name={s.icon} class="size-[1.1rem]" />
+                </span>
+                {s.text}
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="mt-8">
           <WhatsAppCta label="Consultar Chave para Meu Importado" messageKey="importados" service="carros_importados" location="secao_importados" />
         </div>
       </div>

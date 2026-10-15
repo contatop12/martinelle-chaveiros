@@ -1,5 +1,7 @@
 import { ADDRESS, CONTACT } from '@/config/site';
 
+const KIOSK = 'segunda a sexta, das 10h às 19h, e sábado, das 10h às 18h (fechado aos domingos e feriados)';
+
 export interface FaqItem {
   id: string;
   q: string;
@@ -12,7 +14,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'atende-24h',
     q: 'A Martinelli Chaves atende 24 horas?',
-    a: `Sim. O atendimento emergencial funciona 24 horas, todos os dias da semana, pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol tem horário próprio de funcionamento presencial. Fora dele, as emergências são atendidas externamente, conforme disponibilidade.`,
+    a: `Sim, para emergências. O atendimento externo emergencial funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: o atendimento presencial é de ${KIOSK}.`,
     tags: ['24h', 'geral'],
   },
   {
@@ -77,8 +79,8 @@ export const FAQ: FaqItem[] = [
   },
   {
     id: 'onde-fica',
-    q: 'Onde fica a Martinelli Chaves?',
-    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. Também fazemos atendimento externo em Indaiatuba e região.`,
+    q: 'Onde fica a Martinelli Chaves e qual o horário do quiosque?',
+    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. O quiosque atende ${KIOSK}. Emergências são atendidas 24 horas, com atendimento externo em Indaiatuba e região.`,
     tags: ['geral', 'residencial', 'motos'],
   },
   {

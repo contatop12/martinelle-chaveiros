@@ -15,12 +15,16 @@ const year = new Date().getFullYear();
       <Image src={logo} alt="Martinelli Chaves" width={300} height={146} class="h-[4.5rem] w-auto" loading="lazy" />
       <p class="mt-6 max-w-sm text-steel-400">
         Chaveiro automotivo, residencial e comercial em Indaiatuba. Chaves codificadas, smart keys e chaves presenciais para
-        carros nacionais, importados e motos. Equipe com {COMPANY.experience}.
+        carros nacionais, importados e motos{COMPANY.experience && `. Equipe com ${COMPANY.experience}`}.
       </p>
       <p class="mt-4 flex items-center gap-2.5 text-sm font-semibold text-steel-200">
         <span class="live-dot"></span>
         {HOURS.emergency}.
       </p>
+      <div class="mt-4 text-sm text-steel-400">
+        <p class="font-semibold text-steel-200">Quiosque no Sumerbol</p>
+        {HOURS.kiosk.map((h) => <p>{h.days}: {h.hours}</p>)}
+      </div>
     </div>
 
     <nav aria-label="Serviços">

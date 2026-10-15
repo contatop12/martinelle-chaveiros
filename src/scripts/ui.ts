@@ -9,16 +9,19 @@ const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)')
  * - Ao escolher uma seção, essa entrada é substituída pela âncora; "voltar" retorna ao ponto em que a pessoa estava.
  */
 export function initMenu() {
+  const root = document.querySelector<HTMLElement>('[data-menu-root]');
   const panel = document.getElementById('menu-mobile');
   const toggles = [...document.querySelectorAll<HTMLButtonElement>('.menu-toggle')];
   const closeBtn = panel?.querySelector<HTMLButtonElement>('.menu-close');
-  if (!panel || !toggles.length) return;
+  if (!root || !panel || !toggles.length) return;
 
   let opener: HTMLElement | null = null;
-  const isOpen = () => !panel.hasAttribute('hidden');
+  const isOpen = () => !root.hasAttribute('hidden');
 
   const render = (open: boolean, restoreFocus = true) => {
-    panel.hidden = !open;
+    root.hidden = !open;
+    // trava a rolagem do fundo (html + body: necessário no iOS)
+    document.documentElement.classList.toggle('menu-open', open);
     document.body.classList.toggle('menu-open', open);
     toggles.forEach((t) => t.setAttribute('aria-expanded', String(open)));
     if (open) closeBtn?.focus({ preventScroll: true });
@@ -37,6 +40,7 @@ export function initMenu() {
   window.addEventListener('popstate', () => isOpen() && render(false));
   toggles.forEach((t) => t.addEventListener('click', () => (isOpen() ? requestClose() : openMenu(t))));
   closeBtn?.addEventListener('click', requestClose);
+  root.querySelector('[data-menu-backdrop]')?.addEventListener('click', requestClose);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen()) requestClose();
   });
@@ -81,6 +85,7 @@ export function initMenu() {
     }
   });
 
+  // Rotação/redimensionamento para layout de desktop: fecha o menu (nunca fica preso)
   window.matchMedia('(min-width: 64rem)').addEventListener('change', (m) => m.matches && isOpen() && requestClose());
 }
 

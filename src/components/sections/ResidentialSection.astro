@@ -1,10 +1,10 @@
 ---
-/** Bloco 10 — Chaveiro residencial e comercial, organizado por categoria */
+/** Bloco 10 — Chaveiro residencial e comercial: três grupos principais + comércio como complemento */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
-import { RESIDENTIAL_CATEGORIES } from '@/data/services';
+import { RESIDENTIAL_CATEGORIES, COMMERCIAL_NOTE } from '@/data/services';
 ---
 
 <section id="chaveiro-residencial" class="section surface-white" aria-labelledby="residencial-titulo">
@@ -19,15 +19,17 @@ import { RESIDENTIAL_CATEGORIES } from '@/data/services';
       </div>
     </div>
 
-    <ul class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul class="mt-12 grid gap-4 md:grid-cols-3">
       {
         RESIDENTIAL_CATEGORIES.map((c, i) => (
           <li class="res-card" data-reveal style={`--i:${i}`}>
-            <span class="icon-box bg-ink-900 text-gold-light">
-              <Icon name={c.icon} />
+            <span class="flex items-center gap-3">
+              <span class="icon-box bg-ink-900 text-gold-light">
+                <Icon name={c.icon} />
+              </span>
+              <h3 class="h-card text-lg text-ink-900">{c.title}</h3>
             </span>
-            <h3 class="h-card mt-6 text-lg text-ink-900">{c.title}</h3>
-            <ul class="mt-4 grid gap-2.5 text-[0.9375rem] text-steel-600">
+            <ul class="mt-5 grid gap-2.5 text-[0.9375rem] text-steel-600">
               {c.items.map((it) => (
                 <li class="flex items-start gap-2.5">
                   <Icon name="Check" class="mt-1 size-4 shrink-0 text-gold-ink" strokeWidth={2.25} />
@@ -40,22 +42,26 @@ import { RESIDENTIAL_CATEGORIES } from '@/data/services';
       }
     </ul>
 
-    <p class="mt-8 flex items-center gap-3 text-sm text-steel-600">
-      <Icon name="ShieldCheck" class="size-5 shrink-0 text-gold-ink" />
-      Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.
-    </p>
+    <div class="mt-6 grid gap-3 sm:grid-cols-2">
+      <p class="flex items-center gap-3 rounded-2xl bg-mist px-4 py-3.5 text-sm text-steel-600">
+        <Icon name="Store" class="size-5 shrink-0 text-gold-ink" />
+        {COMMERCIAL_NOTE}
+      </p>
+      <p class="flex items-center gap-3 rounded-2xl bg-mist px-4 py-3.5 text-sm text-steel-600">
+        <Icon name="ShieldCheck" class="size-5 shrink-0 text-gold-ink" />
+        Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.
+      </p>
+    </div>
   </div>
 </section>
 
 <style>
   .res-card {
     border-radius: 20px;
-    padding: 1.75rem 1.5rem;
+    padding: 1.5rem;
     background: var(--color-mist);
     border: 1px solid rgb(16 18 20 / 0.06);
-    transition:
-      border-color 0.3s,
-      transform 0.35s var(--ease-out-quart);
+    transition: border-color 0.3s;
   }
   .res-card:hover {
     border-color: rgb(212 163 74 / 0.5);

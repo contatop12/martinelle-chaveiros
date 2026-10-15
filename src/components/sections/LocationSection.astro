@@ -37,26 +37,25 @@ import { STORE_PHOTOS } from '@/data/photos';
             </p>
           </address>
 
-          <div class="mt-7 grid gap-3 sm:grid-cols-2">
-            <div class="rounded-2xl border border-gold/35 bg-gold/[0.07] p-4">
-              <p class="flex items-center gap-2 text-sm font-bold text-gold-light"><span class="live-dot"></span> Emergências</p>
-              <p class="mt-1.5 text-[0.9375rem] text-white">Atendimento 24 horas, todos os dias, por WhatsApp e telefone.</p>
+          <div class="mt-7 grid gap-3">
+            <div class="rounded-2xl border border-white/[0.1] bg-white/[0.03] p-4">
+              <h3 class="flex items-center gap-2 text-sm font-bold text-white"><Icon name="Clock" class="size-4 text-gold" /> Horário do Quiosque</h3>
+              <dl class="mt-2.5 grid gap-1 text-[0.9375rem]">
+                {
+                  HOURS.kiosk.map((h) => (
+                    <div class="flex justify-between gap-3">
+                      <dt class="text-steel-300">{h.days}</dt>
+                      <dd class:list={['font-semibold', h.spec ? 'text-white' : 'text-steel-400']}>{h.hours}</dd>
+                    </div>
+                  ))
+                }
+              </dl>
             </div>
-            <div class="rounded-2xl border border-white/[0.08] p-4">
-              <p class="flex items-center gap-2 text-sm font-bold text-steel-200"><Icon name="Clock" class="size-4" /> Quiosque (presencial)</p>
-              {
-                HOURS.kiosk ? (
-                  <ul class="mt-1.5 text-[0.9375rem] text-white">
-                    {HOURS.kiosk.map((h) => (
-                      <li>
-                        {h.days}: {h.hours}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p class="mt-1.5 text-[0.9375rem] text-steel-300">Horário próprio de funcionamento. Confirme pelo WhatsApp antes de vir.</p>
-                )
-              }
+            <div class="rounded-2xl border border-gold/35 bg-gold/[0.07] p-4">
+              <h3 class="flex items-center gap-2 text-sm font-bold text-gold-light"><span class="live-dot"></span> Emergências 24h</h3>
+              <p class="mt-2.5 text-[0.9375rem] text-white">
+                Atendimento externo 24 horas, todos os dias, inclusive domingos e feriados, mediante contato pelo WhatsApp ou telefone.
+              </p>
             </div>
           </div>
           <p class="mt-4 text-sm text-steel-400">Atendimento externo em {SERVICE_AREA.label}, {SERVICE_AREA.note.toLowerCase()}.</p>

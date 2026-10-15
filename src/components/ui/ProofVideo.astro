@@ -1,39 +1,42 @@
 ---
 /**
- * Vídeo real enviado pela Martinelli: teste de chave presencial em BMW.
- * preload="none" + carregamento só quando visível; sem som; respeita movimento reduzido e economia de dados.
+ * Vídeo real de trabalho em moldura vertical.
+ * preload="none": só baixa ao ficar visível (ou ao tocar). Sem som, com controles, respeita movimento reduzido.
+ * Apenas um vídeo toca por vez (ver features.ts).
  */
 import Icon from '@/components/ui/Icon.astro';
+import type { VideoSource } from '@/data/photos';
+
+interface Props {
+  video: VideoSource;
+  label: string;
+  caption?: string;
+  class?: string;
+}
+const { video, label, caption, class: className = 'max-w-[15rem]' } = Astro.props;
 ---
 
-<figure class="proof-video" data-proof-video data-playing="false">
-  <div class="phone relative mx-auto aspect-[392/848] w-full max-w-[17rem] overflow-hidden rounded-[2.2rem] border border-white/15 bg-ink-800 p-1.5 shadow-[0_40px_90px_-40px_rgb(212_163_74/0.45)]">
+<figure class:list={['proof-video mx-auto w-full', className]} data-proof-video data-playing="false">
+  <div class="phone relative w-full overflow-hidden rounded-[1.9rem] border border-white/15 bg-ink-800 p-1.5 shadow-[0_40px_90px_-40px_rgb(212_163_74/0.45)]" style={`aspect-ratio:${video.width}/${video.height}`}>
     <video
-      class="h-full w-full rounded-[1.8rem] object-cover"
+      class="h-full w-full rounded-[1.5rem] object-cover"
       muted
       playsinline
       loop
       preload="none"
-      poster="/video/teste-chave-presencial-bmw.webp"
-      data-src="/video/teste-chave-presencial-bmw.mp4"
-      width="392"
-      height="848"
-      aria-label="Vídeo: teste de chave presencial em um BMW, com abertura da porta e partida"
+      poster={video.poster}
+      data-src={video.src}
+      width={video.width}
+      height={video.height}
+      aria-label={label}
     ></video>
-    <button
-      type="button"
-      class="video-toggle absolute inset-0 grid place-items-center rounded-[2rem] text-white"
-      data-video-toggle
-      aria-label="Reproduzir vídeo"
-    >
-      <span class="play grid size-16 place-items-center rounded-full bg-ink-950/70 backdrop-blur">
-        <Icon name="Play" class="ml-1 size-7" />
+    <button type="button" class="video-toggle absolute inset-0 grid place-items-center rounded-[1.7rem] text-white" data-video-toggle aria-label="Reproduzir vídeo">
+      <span class="play grid size-14 place-items-center rounded-full bg-ink-950/70 backdrop-blur">
+        <Icon name="Play" class="ml-1 size-6" />
       </span>
     </button>
   </div>
-  <figcaption class="mx-auto mt-4 max-w-[17rem] text-center text-sm text-steel-400">
-    Teste real de chave presencial em BMW: o carro abre e dá partida com a chave no bolso.
-  </figcaption>
+  {caption && <figcaption class="mt-3 text-center text-sm text-steel-400">{caption}</figcaption>}
 </figure>
 
 <style>

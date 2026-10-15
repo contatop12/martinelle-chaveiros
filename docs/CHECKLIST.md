@@ -48,3 +48,25 @@ Medições locais anteriores (servidor sem HTTPS, com antivírus removendo a com
 - Links externos com `rel="noopener"`; JSON-LD escapado; mensagem do formulário codificada com `encodeURIComponent`.
 - Sem armazenamento de dados de formulário; Consent Mode v2 com padrão negado; mapa do Google só após clique.
 - Cabeçalhos de segurança em `public/_headers` (Cloudflare Pages/Netlify).
+
+---
+
+# Atualização de 15/10/2026 — documento "Correções — Martinelli Chaves"
+
+Testes com Chrome headless em 360×800, 375×812, 390×844, 430×932, 768×1024, paisagem 844×390 e desktop 1440×900.
+Suítes: critérios do documento **80/80**, regressão **47/47**, menu/histórico/abas **16/16**, links internos **1.056 verificados, 0 quebrados**, `astro check` 0 erros.
+
+| Critério de aceite | Status |
+|---|---|
+| Menu mobile com botão X funcional (canto superior direito, 48 px) | OK |
+| Fechar o menu (X, toque fora, Esc, botão voltar do celular) e voltar à posição anterior | OK |
+| Rolagem do fundo bloqueada e restaurada; foco devolvido; menu não fica preso ao girar a tela | OK |
+| Horários do quiosque corretos (header, emergência, institucional, localização, rodapé, FAQ, Schema) | OK |
+| Atendimento externo 24h claramente diferenciado do quiosque | OK |
+| Importados: marcas premium verificadas e organizadas; texto "Selecionadas a partir de…" removido | OK (BMW, RAM, Jeep; demais pendentes de confirmação) |
+| Avaliações do Google: seção, resumo e botão para o perfil | OK — cards aguardam avaliações reais (PENDENCIAS.md) |
+| Foto e vídeo da Triumph integrados; filtro Motos com trabalhos reais | OK |
+| Vídeo da Honda PCX | Pendente — arquivo não recebido |
+| Galeria organizada (8 iniciais variados, vídeos no lightbox com controles) | OK |
+| CTAs e páginas específicas funcionando | OK |
+| Sem rolagem horizontal, sem erros de console, CTAs acima da dobra em todos os tamanhos | OK |

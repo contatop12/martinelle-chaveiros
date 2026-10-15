@@ -1,49 +1,80 @@
 ---
 /**
- * Bloco 14 — Avaliações. Renderiza SOMENTE com avaliações reais cadastradas em src/data/reviews.ts.
- * Sem dados, nada é exibido (nenhum depoimento, nota ou contagem fictícia).
+ * Avaliações do Google.
+ * - Resumo (nota e quantidade) informado pelo cliente, exibido como dado estático com data.
+ * - Cards: SOMENTE avaliações reais copiadas do perfil (src/data/reviews.ts). Sem dados, os cards não aparecem.
+ * - Sem marcação de estrelas no Schema (avaliações autodeclaradas não são aceitas pelo Google).
  */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { REVIEWS, REVIEW_SUMMARY } from '@/data/reviews';
 import { LINKS } from '@/config/site';
 
-const show = REVIEWS.length > 0;
+const s = REVIEW_SUMMARY;
+const link = LINKS.googleReviews ?? LINKS.googleBusiness;
+const show = Boolean(s || REVIEWS.length);
 ---
 
 {
   show && (
     <section id="avaliacoes" class="section surface-white" aria-labelledby="avaliacoes-titulo">
       <div class="container-x">
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading id="avaliacoes-titulo" title="O Que Nossos Clientes Dizem">
-            {REVIEW_SUMMARY && (
-              <span>
-                Nota {REVIEW_SUMMARY.rating.toLocaleString('pt-BR')} de 5 no Google, com {REVIEW_SUMMARY.count} avaliações.
-              </span>
-            )}
+        <div class="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+          <SectionHeading id="avaliacoes-titulo" title="A Confiança de Quem Já Contou com a Martinelli">
+            Veja a experiência de clientes que escolheram a Martinelli Chaves em Indaiatuba.
           </SectionHeading>
-          {LINKS.googleBusiness && (
-            <a href={LINKS.googleBusiness} target="_blank" rel="noopener noreferrer" class="btn btn-line shrink-0">
-              <Icon brand="google" /> Ver avaliações no Google
-            </a>
+
+          {s && (
+            <div class="rating-card flex items-center gap-5 rounded-[22px] border border-ink-900/[0.08] bg-mist p-5 sm:p-6">
+              <span class="grid size-14 shrink-0 place-items-center rounded-full bg-paper shadow-sm">
+                <svg viewBox="0 0 24 24" class="size-7" aria-hidden="true">
+                  <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.7Z" />
+                  <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2a7.2 7.2 0 0 1-6.8-5H1.2v3.1A12 12 0 0 0 12 24Z" />
+                  <path fill="#FBBC05" d="M5.2 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.2a12 12 0 0 0 0 10.8l4-3.1Z" />
+                  <path fill="#EA4335" d="M12 4.8c1.8 0 3.4.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.2 6.6l4 3.1A7.2 7.2 0 0 1 12 4.8Z" />
+                </svg>
+              </span>
+              <div>
+                <p class="flex items-baseline gap-2">
+                  <span class="font-display text-4xl font-extrabold leading-none text-ink-900 [font-stretch:115%]">
+                    {s.rating.toLocaleString('pt-BR', { minimumFractionDigits: 1 })}
+                  </span>
+                  <span class="text-xl tracking-[0.12em] text-[#e2a33a]" aria-hidden="true">★★★★★</span>
+                  <span class="sr-only">de 5 estrelas</span>
+                </p>
+                <p class="mt-1 text-sm text-steel-600">
+                  {s.count} avaliações no Perfil da Empresa no Google ({s.asOf})
+                </p>
+              </div>
+            </div>
           )}
         </div>
-        <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {REVIEWS.map((r, i) => (
-            <li class="rounded-[20px] border border-ink-900/[0.08] bg-mist p-6" data-reveal style={`--i:${i % 3}`}>
-              <p class="text-gold-ink" aria-label={`Nota ${r.rating} de 5`}>
-                {'★'.repeat(r.rating)}
-                <span class="text-steel-300">{'★'.repeat(5 - r.rating)}</span>
-              </p>
-              <blockquote class="mt-3 text-[0.9375rem] leading-relaxed text-ink-900">“{r.text}”</blockquote>
-              <p class="mt-4 text-sm font-semibold text-steel-600">
-                {r.author}
-                {r.date && <span class="font-normal">, avaliação no Google em {r.date}</span>}
-              </p>
-            </li>
-          ))}
-        </ul>
+
+        {REVIEWS.length > 0 && (
+          <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {REVIEWS.map((r, i) => (
+              <li class="review-card flex flex-col rounded-[20px] border border-ink-900/[0.08] bg-mist p-6" data-reveal style={`--i:${i % 3}`}>
+                <p class="text-[#e2a33a]" aria-label={`Nota ${r.rating} de 5`}>
+                  {'★'.repeat(r.rating)}
+                  <span class="text-steel-300">{'★'.repeat(5 - r.rating)}</span>
+                </p>
+                <blockquote class="review-text mt-3 text-[0.9375rem] leading-relaxed text-ink-900">“{r.text}”</blockquote>
+                <p class="mt-auto pt-4 text-sm font-semibold text-steel-600">
+                  {r.author}
+                  {r.date && <span class="font-normal">, {r.date}</span>}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {link && (
+          <div class="mt-10">
+            <a href={link} target="_blank" rel="noopener noreferrer" class="btn btn-line">
+              <Icon brand="google" /> Ver Todas as Avaliações no Google
+            </a>
+          </div>
+        )}
       </div>
     </section>
   )

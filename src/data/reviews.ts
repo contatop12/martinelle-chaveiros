@@ -2,8 +2,8 @@
  * Avaliações de clientes — SOMENTE avaliações públicas reais do Google, com autorização.
  * Não inventar nomes, notas, textos ou quantidade de avaliações.
  *
- * Enquanto a lista estiver vazia, a seção "O Que Nossos Clientes Dizem" não é exibida.
- * Para ativar: preencha os itens abaixo e LINKS.googleBusiness em src/config/site.ts.
+ * Seleção sugerida: 4 a 6 avaliações nota 5, com comentários detalhados e variados (automotivo, importados,
+ * emergência, residencial). Copiar o texto exatamente como publicado — não editar palavras do cliente.
  */
 export interface Review {
   author: string;
@@ -15,5 +15,14 @@ export interface Review {
 
 export const REVIEWS: Review[] = [];
 
-/** Nota média e total exibidos SOMENTE se copiados do perfil oficial no Google. */
-export const REVIEW_SUMMARY: { rating: number; count: number } | null = null;
+/**
+ * Resumo informado pelo cliente em 15/10/2026 (5 estrelas, 114 avaliações).
+ * Exibido como informação estática, com data — não é recuperado automaticamente do Google.
+ * PENDENTE: conferir no Perfil da Empresa antes de apontar o domínio oficial (docs/PENDENCIAS.md).
+ * Não é usado em dados estruturados (o Google não aceita estrelas autodeclaradas em LocalBusiness).
+ */
+export const REVIEW_SUMMARY: { rating: number; count: number; asOf: string } | null = {
+  rating: 5,
+  count: 114,
+  asOf: 'outubro de 2026',
+};

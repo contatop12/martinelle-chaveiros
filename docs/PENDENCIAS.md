@@ -1,63 +1,55 @@
 # Pendências — Martinelli Chaves
 
-Informações que **não foram inventadas** e precisam de confirmação do cliente. Enquanto estiverem pendentes, ficam ocultas no site (ou aparecem de forma neutra).
+Informações que **não foram inventadas** e precisam de confirmação ou material do cliente.
+Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 
-## Dados da empresa (`src/config/site.ts`)
+## Antes de apontar o domínio oficial
 
-| Item | Situação | Onde preencher |
+| Item | Situação | Onde ajustar |
 |---|---|---|
-| Horário presencial do quiosque | **Pendente.** O site diz "Horário próprio de funcionamento. Confirme pelo WhatsApp antes de vir." | `HOURS.kiosk` |
-| Nomes do proprietário e da esposa | **Pendente.** O nome do arquivo da foto recebida sugere "Felipe Martinelli", mas não foi usado sem confirmação. | `COMPANY.owners.names` |
-| História da empresa | Pendente (opcional) | `COMPANY.owners.story` |
-| "Mais de 13 anos de experiência" | Retirado do site atual. **Reconfirmar** se continua correto. | `COMPANY.experience` |
-| Razão social e CNPJ | **Pendente.** Um diretório público lista "MARTINELLI CHAVES LTDA — 49.117.987/0001-18"; não foi publicado sem confirmação. | `COMPANY.legal` |
-| E-mail oficial | Pendente. Diretório público indica martinellichaves@outlook.com — confirmar antes de usar. | `CONTACT.email` |
-| Coordenadas (latitude/longitude) | Pendente — copiar do perfil oficial no Google | `ADDRESS.geo` |
-| Cidades atendidas além de Indaiatuba | Pendente (hoje: "Indaiatuba e região") | `SERVICE_AREA.cities` |
-| Link do Perfil da Empresa no Google | **Pendente.** Não foi identificado com segurança na pesquisa. | `LINKS.googleBusiness` |
+| Nota 5,0 e 114 avaliações no Google | Informado pelo cliente, exibido como dado estático datado ("outubro de 2026"). **Conferir no Perfil da Empresa.** | `src/data/reviews.ts` → `REVIEW_SUMMARY` |
+| Cards de avaliações | **Pendente.** Não há API autorizada configurada e não fazemos scraping. Copiar 4–6 avaliações reais nota 5, com texto detalhado, exatamente como publicadas (autor, texto, data). | `src/data/reviews.ts` → `REVIEWS` |
+| Link de avaliações | Usando o link enviado pelo cliente (`#lrd=0x94cf4d1b5045500b:0x45ff2e3644a586d5`). Validar que abre o perfil correto. | `LINKS.googleReviews` em `src/config/site.ts` |
+| Perfil no Google Maps (`sameAs` do Schema) | Derivado do mesmo link (CID 5043800918293055189). Validar. | `LINKS.googleBusiness` |
+| "Mais de 13 anos de experiência" | **Removido do site** até o proprietário confirmar. | `COMPANY.experience` |
+| Razão social e CNPJ | Pendente. Um diretório público lista "MARTINELLI CHAVES LTDA — 49.117.987/0001-18"; não publicado sem confirmação. | `COMPANY.legal` |
+| Nomes do proprietário e da esposa | Pendente (a foto recebida é de atendimento, sem nome confirmado). | `COMPANY.owners.names` |
+| IDs do GTM, GA4 e Google Ads | Nenhum ID foi inventado. Ver `docs/MENSURACAO.md`. | `.env` |
+| Política de Privacidade | Revisar com o cliente/assessoria e completar razão social e CNPJ. | `src/pages/politica-de-privacidade.astro` |
 
-## Avaliações (`src/data/reviews.ts`)
+Confirmado e já aplicado: horário do quiosque (seg a sex 10h–19h, sáb 10h–18h, domingos e feriados fechado) e atendimento externo emergencial 24h, todos os dias.
 
-- Nenhuma avaliação real do Google foi localizada com segurança. A seção **"O Que Nossos Clientes Dizem" não aparece** enquanto a lista estiver vazia.
-- Para ativar: copiar avaliações públicas reais (autor, nota, texto, data) com autorização, e a nota média/total do perfil oficial. O schema `AggregateRating` só é gerado com esses dados.
-- O depoimento "Renata Almeida" do site atual **não foi reutilizado** (não é avaliação verificável do Google).
+## Marcas premium aguardando confirmação
 
-## Fotografias (`src/assets/images/`)
+A grade "Marcas Atendidas" mostra apenas marcas com trabalho comprovado em foto/vídeo: **BMW, RAM e Jeep** (na ordem de preferência do cliente).
 
-**Material recebido do cliente (completo, confirmado em 15/10/2026):** 34 imagens de WhatsApp (32 trabalhos, quiosque e mais uma do BMW), fachada do Sumerbol, foto de atendimento (Felipe), vídeo de teste de chave presencial BMW e logotipo transparente. **Todas estão em uso** (33 na galeria; uma captura de Reels foi recortada para remover a interface do Instagram).
+Aguardando confirmação do proprietário (a lista enviada é preferência de apresentação, não comprovação):
 
-Não recebidas — solicitar ao cliente ou agendar uma sessão de fotos (o Instagram não foi acessado, pois exige login):
+| Marca | Logotipo |
+|---|---|
+| MINI | pronto (`public/images/brands/mini.svg`) |
+| Mercedes-Benz | **falta SVG oficial** |
+| Land Rover | **falta SVG oficial** |
+| Jaguar | **falta SVG oficial** |
+| Porsche | pronto |
+| Volvo | pronto |
+| Audi | pronto |
+| Lexus | **falta SVG oficial** |
 
-- [ ] **Motos atendidas** (`motorcycles/`) — a seção de motos usa uma ilustração; o filtro "Motos" da galeria mostra mensagem honesta de "fotos em organização".
-- [ ] **Proprietário e esposa** (`team/`) — hoje há apenas a foto de atendimento recebida (335×597 px, baixa resolução; ideal ≥ 1000 px).
-- [ ] Mercedes-Benz, Porsche, Audi e outros premium (`luxury-cars/`).
-- [ ] Equipamentos de programação (`services/`).
-- [ ] Bastidores / estrutura interna do quiosque (`store/`).
-- [ ] Reparação eletrônica (`services/`).
+Para exibir: em `src/data/brands.ts`, mudar `verified` para `true` (e preencher `logo` quando faltar o SVG). A grade se ajusta sozinha a 3 ou 4 colunas.
 
-Como adicionar: colocar o arquivo na pasta, importar em `src/data/photos.ts` e incluir em `GALLERY` com legenda **objetiva e real** (marca/modelo visível e tipo de chave).
+A imagem de referência com os logotipos citada no documento de correções **não foi recebida**.
 
-**Legendas atuais:** descrevem só o que a foto mostra. Apenas "Chevrolet Onix — confecção e programação de chave" usa a legenda escrita pela própria Martinelli na imagem. Revisar com o cliente se deseja detalhar o serviço de cada foto.
+## Fotos e vídeos
 
-## Marcas (`src/data/brands.ts`)
+- [ ] **Vídeo da Honda PCX 2023 (~45 s)** citado no documento de correções **não foi recebido**. A seção de motos e a galeria estão prontas para ele: basta enviar o arquivo.
+- Triumph: foto e o vídeo `17.11.20` (melhor qualidade) estão em uso. O vídeo `17.11.21` é **outra tomada** (close da chave com foco variando), não uma cópia; ficou de fora para não repetir conteúdo e pode ser incluído se desejarem.
+- Ainda sem material: foto do proprietário e da esposa (`team/`), Mercedes-Benz, Porsche e Audi (`luxury-cars/`), equipamentos de programação e bastidores do quiosque.
 
-Exibidas (evidência em foto): BMW, RAM, Toyota, Jeep, Volkswagen, Chevrolet, Nissan, Hyundai, Fiat.
+Como adicionar uma foto: colocar o arquivo na pasta de `src/assets/images/`, importar em `src/data/photos.ts` e incluir em `GALLERY` com legenda real e objetiva. Vídeos: `public/video/` + item com `video` em `GALLERY`.
 
-Aguardando foto ou confirmação do proprietário: Mercedes-Benz, Audi, Porsche, Land Rover, Jaguar, Volvo, MINI, Lexus, Honda (foto com chave em estilo Honda, sem logo visível), Ford, Peugeot, Citroën, Alfa Romeo. Para exibir, mudar `verified` para `true`. Mercedes-Benz, Land Rover, Jaguar, Lexus e Alfa Romeo precisam de um SVG em `public/images/brands/`.
+## Serviços a validar
 
-## Serviços a validar (`src/data/services.ts`)
+Eletrônica automotiva — publicados somente os confirmados (reparação de chaves e controles, sistemas de travamento, programação de controles). Aguardando: diagnóstico de imobilizador, reparação e programação de módulos, diagnóstico eletrônico, fechaduras elétricas, módulos de injeção e carroceria.
 
-Eletrônica automotiva — exibidos apenas os confirmados:
-
-- Confirmados: reparação de chaves e controles, sistemas de travamento (site atual: "Reparo de centrais"), programação de controles.
-- **Aguardando confirmação** (ocultos): diagnóstico de imobilizador, reparação de módulos, programação de módulos, diagnóstico eletrônico, reparação de fechaduras elétricas, módulos de injeção e carroceria.
-
-Também confirmar: controles de portão, chaves comerciais, chaves tetra e programação de chaves de moto (listados no briefing; não aparecem no site atual).
-
-## Mensuração (`.env`)
-
-- [ ] IDs reais do Google Tag Manager, GA4 e Google Ads (nenhum ID foi inventado). Ver `docs/MENSURACAO.md`.
-
-## Jurídico
-
-- [ ] Revisar a Política de Privacidade (`src/pages/politica-de-privacidade.astro`) com o cliente/assessoria e completar razão social e CNPJ.
+Também confirmar: programação de chaves de moto com chip, fechaduras eletrônicas residenciais e controles de portão (estão no briefing, não no site antigo).

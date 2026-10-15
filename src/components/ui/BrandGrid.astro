@@ -1,14 +1,16 @@
 ---
-/** Grade de marcas com evidência de atendimento. Logotipos monocromáticos, sem sugerir parceria. */
-import { VERIFIED_BRANDS } from '@/data/brands';
+/**
+ * Grade "Marcas Atendidas": somente marcas premium verificadas, na ordem de preferência do cliente.
+ * O logotipo já traz o nome — o nome fica apenas para leitores de tela.
+ */
+import { PREMIUM_BRANDS } from '@/data/brands';
 ---
 
-<ul class="brand-grid grid grid-cols-3 gap-px overflow-hidden rounded-[20px] border border-white/[0.07] bg-white/[0.07]" aria-label="Marcas de veículos já atendidas">
+<ul class="brand-grid" aria-label="Marcas atendidas" style={`--n:${PREMIUM_BRANDS.length}`}>
   {
-    VERIFIED_BRANDS.map((b, i) => (
-      <li class="brand-tile" data-reveal style={`--i:${i % 3}`}>
-        <span class="brand-logo size-9 sm:size-10" style={`--logo:url(${b.logo})`} aria-hidden="true"></span>
-        <span class="brand-name">{b.name}</span>
+    PREMIUM_BRANDS.map((b, i) => (
+      <li class="brand-tile" data-reveal style={`--i:${i % 4}`}>
+        <span class="brand-logo" style={`--logo:url(${b.logo})`} role="img" aria-label={b.name} />
       </li>
     ))
   }
@@ -18,43 +20,52 @@ import { VERIFIED_BRANDS } from '@/data/brands';
 </p>
 
 <style>
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(min(var(--n), 3), minmax(0, 1fr));
+    gap: 0.625rem;
+  }
+  @media (width >= 64rem) {
+    .brand-grid {
+      grid-template-columns: repeat(min(var(--n), 4), minmax(0, 1fr));
+    }
+  }
   .brand-tile {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    aspect-ratio: 1.25;
-    background: var(--color-ink-950);
-    color: var(--color-steel-400);
+    display: grid;
+    place-items: center;
+    height: 5.5rem;
+    border-radius: 16px;
+    background: rgb(255 255 255 / 0.035);
+    border: 1px solid rgb(255 255 255 / 0.06);
+    color: var(--color-steel-200);
     transition:
       color 0.35s,
-      background-color 0.35s;
+      background-color 0.35s,
+      border-color 0.35s;
   }
-  .brand-tile::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 40%, rgb(212 163 74 / 0.14), transparent 65%);
-    opacity: 0;
-    transition: opacity 0.4s;
+  @media (width >= 40rem) {
+    .brand-tile {
+      height: 6.5rem;
+    }
   }
   .brand-tile:hover {
     color: var(--color-gold-light);
-  }
-  .brand-tile:hover::before {
-    opacity: 1;
+    background: rgb(212 163 74 / 0.06);
+    border-color: rgb(212 163 74 / 0.25);
   }
   .brand-logo {
     display: block;
+    width: 3rem;
+    height: 3rem;
     background: currentColor;
     -webkit-mask: var(--logo) center / contain no-repeat;
     mask: var(--logo) center / contain no-repeat;
   }
-  .brand-name {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-steel-400);
+  @media (width >= 40rem) {
+    .brand-logo {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
   }
 </style>

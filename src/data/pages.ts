@@ -5,7 +5,7 @@
 import type { WaMessageKey } from '@/lib/contact';
 import type { FaqItem } from '@/data/faq';
 import type { GalleryCategory, Photo } from '@/data/photos';
-import { FEATURE_PHOTOS, STORE_PHOTOS } from '@/data/photos';
+import { FEATURE_PHOTOS, STORE_PHOTOS, MOTO_PHOTOS } from '@/data/photos';
 
 export type PageBody = 'automotivo' | 'codificadas' | 'importados' | 'motos' | '24h' | 'residencial';
 
@@ -100,11 +100,11 @@ export const SERVICE_PAGES: ServicePage[] = [
     lead: 'Cópia de chave reserva, chave nova quando a original foi perdida, programação de chaves com chip e reparação. Cada moto tem um sistema diferente, então confirmamos a compatibilidade pelo modelo e ano antes do serviço.',
     highlights: ['Cópia de chave de moto', 'Chave nova sem a original', 'Programação de chave com chip', 'Reparação de chaves'],
     waKey: 'motos',
-    waLabel: 'Solicitar Atendimento para Moto',
+    waLabel: 'Consultar Serviço para Minha Moto',
     service: 'chaveiro_motos',
-    photo: STORE_PHOTOS.quiosque,
+    photo: MOTO_PHOTOS.triumph,
     faqTag: 'motos',
-    gallery: null,
+    gallery: 'motos',
     steps: [
       { title: 'Envie os dados da moto', text: 'Marca, modelo, ano e se você ainda tem uma chave original.' },
       { title: 'Confirmação de compatibilidade', text: 'Verificamos se o serviço é possível para o sistema da sua moto.' },

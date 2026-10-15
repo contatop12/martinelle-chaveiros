@@ -126,6 +126,7 @@
     display: none !important;
   }
 
+  html.menu-open,
   body.menu-open {
     overflow: hidden;
   }

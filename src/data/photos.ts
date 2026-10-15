@@ -45,6 +45,10 @@ import polo02 from '@/assets/images/automotive/chaves-canivete-vw-polo-02.jpg';
 import vw05 from '@/assets/images/automotive/chaves-canivete-vw-05.jpg';
 import fiat from '@/assets/images/automotive/chaves-fiat.jpg';
 import nivus from '@/assets/images/automotive/chaves-canivete-vw-nivus.jpg';
+// motorcycles
+import triumph from '@/assets/images/motorcycles/chave-moto-triumph.jpg';
+import triumphVideoThumb from '@/assets/images/motorcycles/video-chave-moto-triumph.jpg';
+import bmwVideoThumb from '@/assets/images/luxury-cars/video-teste-chave-presencial-bmw.jpg';
 // services
 import bancada from '@/assets/images/services/bancada-chaves-canivete.jpg';
 import fiatReparo from '@/assets/images/services/chaves-canivete-fiat-original-e-nova.jpg';
@@ -110,18 +114,44 @@ export const GALLERY_FILTERS: { id: 'todos' | GalleryCategory; label: string }[]
   { id: 'chaves', label: 'Chaves e Controles' },
 ];
 
+export interface VideoSource {
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+}
+
 export interface GalleryItem extends Photo {
   id: string;
   title: string;
   caption: string;
   categories: GalleryCategory[];
+  /** Itens de vídeo: a imagem (src) é a miniatura; o lightbox mostra o player */
+  video?: VideoSource;
 }
+
+export const VIDEOS = {
+  bmw: { src: '/video/teste-chave-presencial-bmw.mp4', poster: '/video/teste-chave-presencial-bmw.webp', width: 392, height: 848 },
+  triumph: { src: '/video/chave-moto-triumph.mp4', poster: '/video/chave-moto-triumph.webp', width: 392, height: 848 },
+} satisfies Record<string, VideoSource>;
+
+export const MOTO_PHOTOS = {
+  triumph: {
+    src: triumph,
+    alt: 'Chave de motocicleta Triumph segurada em frente à moto preta estacionada',
+  },
+} satisfies Record<string, Photo>;
 
 export const GALLERY: GalleryItem[] = [
   { id: 'bmw-01', src: bmw01, title: 'BMW', caption: 'Par de chaves presenciais', categories: ['importados'], alt: FEATURE_PHOTOS.hero.alt },
-  { id: 'onix', src: onix, title: 'Chevrolet Onix', caption: 'Confecção e programação de chave', categories: ['nacionais', 'chaves'], alt: FEATURE_PHOTOS.automotivo2.alt },
   { id: 'ram', src: ram, title: 'RAM', caption: 'Par de chaves presenciais', categories: ['importados'], alt: 'Duas chaves presenciais RAM em frente ao volante da picape' },
+  { id: 'onix', src: onix, title: 'Chevrolet Onix', caption: 'Confecção e programação de chave', categories: ['nacionais', 'chaves'], alt: FEATURE_PHOTOS.automotivo2.alt },
   { id: 'hilux', src: hilux, title: 'Toyota Hilux SRX', caption: 'Par de chaves presenciais', categories: ['importados'], alt: 'Duas chaves presenciais Toyota em frente à traseira de uma Hilux SRX branca' },
+  { id: 'triumph', src: triumph, title: 'Triumph', caption: 'Chave para motocicleta Triumph', categories: ['motos'], alt: 'Chave de motocicleta Triumph segurada em frente à moto preta estacionada' },
+  { id: 'bmw-video', src: bmwVideoThumb, title: 'BMW', caption: 'Vídeo: teste de chave presencial', categories: ['importados'], alt: 'Quadro do vídeo: duas chaves presenciais BMW em frente ao carro', video: VIDEOS.bmw },
+  { id: 'presenciais-02', src: presenciais02, title: 'Chaves presenciais', caption: 'Par de chaves no quiosque', categories: ['chaves'], alt: 'Duas chaves presenciais em frente ao letreiro da Martinelli Chaves' },
+  { id: 'fiat-reparo', src: fiatReparo, title: 'Fiat', caption: 'Chave canivete original desgastada e chave nova', categories: ['chaves'], alt: FEATURE_PHOTOS.eletronica2.alt },
+  { id: 'triumph-video', src: triumphVideoThumb, title: 'Triumph', caption: 'Vídeo: chave para motocicleta Triumph', categories: ['motos'], alt: 'Quadro do vídeo: chave de motocicleta Triumph em frente à moto', video: VIDEOS.triumph },
   { id: 'jetta', src: jetta, title: 'Volkswagen Jetta GLI', caption: 'Par de chaves canivete', categories: ['importados'], alt: 'Duas chaves canivete Volkswagen em frente à grade de um Jetta GLI' },
   { id: 'bmw-04', src: bmw04, title: 'BMW', caption: 'Par de chaves presenciais', categories: ['importados'], alt: 'Duas chaves presenciais BMW em frente à grade de um BMW cinza' },
   { id: 'corolla', src: corolla, title: 'Toyota Corolla', caption: 'Par de chaves presenciais', categories: ['nacionais'], alt: 'Duas chaves presenciais Toyota em frente ao emblema Corolla' },
@@ -130,7 +160,6 @@ export const GALLERY: GalleryItem[] = [
   { id: 'tera', src: tera, title: 'Volkswagen Tera', caption: 'Par de chaves canivete', categories: ['nacionais'], alt: 'Duas chaves canivete Volkswagen em frente ao emblema Tera' },
   { id: 'nissan', src: nissan, title: 'Nissan', caption: 'Par de chaves presenciais', categories: ['chaves'], alt: 'Duas chaves presenciais Nissan em frente ao volante' },
   { id: 'nivus', src: nivus, title: 'Volkswagen Nivus', caption: 'Chave canivete e chave com lâmina', categories: ['nacionais'], alt: 'Chave canivete e chave Volkswagen em frente ao letreiro Nivus' },
-  { id: 'fiat-reparo', src: fiatReparo, title: 'Fiat', caption: 'Chave canivete original desgastada e chave nova', categories: ['chaves'], alt: FEATURE_PHOTOS.eletronica2.alt },
   { id: 'bmw-03', src: bmw03, title: 'BMW', caption: 'Par de chaves presenciais', categories: ['importados', 'chaves'], alt: 'Duas chaves presenciais BMW lado a lado na mão' },
   { id: 'polo-01', src: polo01, title: 'Volkswagen Polo', caption: 'Par de chaves canivete', categories: ['nacionais'], alt: 'Duas chaves canivete em frente ao emblema Polo' },
   { id: 'canivete-controle', src: caniveteControle, title: 'Chave canivete', caption: 'Ao lado de chave com controle e botão de pânico', categories: ['chaves'], alt: 'Chave canivete e chave com controle e botão de pânico em frente ao letreiro da Martinelli Chaves' },
@@ -141,7 +170,6 @@ export const GALLERY: GalleryItem[] = [
   { id: 'bmw-05', src: bmw05, title: 'BMW', caption: 'Par de chaves presenciais', categories: ['importados', 'chaves'], alt: FEATURE_PHOTOS.codificadas.alt },
   { id: 'vw-03', src: vw03, title: 'Volkswagen', caption: 'Par de chaves canivete', categories: ['nacionais'], alt: FEATURE_PHOTOS.automotivo.alt },
   { id: 'bancada', src: bancada, title: 'Bancada', caption: 'Chave canivete e chave com controle', categories: ['chaves'], alt: FEATURE_PHOTOS.eletronica.alt },
-  { id: 'presenciais-02', src: presenciais02, title: 'Chaves presenciais', caption: 'Par de chaves no quiosque', categories: ['chaves'], alt: 'Duas chaves presenciais em frente ao letreiro da Martinelli Chaves' },
   { id: 'canivete-01', src: canivete01, title: 'Chaves canivete', caption: 'Par de chaves com quatro botões', categories: ['chaves'], alt: 'Duas chaves canivete com quatro botões na mão' },
   { id: 'polo-02', src: polo02, title: 'Volkswagen Polo', caption: 'Par de chaves canivete', categories: ['nacionais'], alt: 'Duas chaves canivete em frente ao emblema Polo de um carro branco' },
   { id: 'vw-04', src: vw04, title: 'Volkswagen', caption: 'Par de chaves canivete', categories: ['nacionais'], alt: 'Duas chaves canivete em frente ao volante Volkswagen' },
@@ -153,7 +181,7 @@ export const GALLERY: GalleryItem[] = [
   { id: 'presenciais-03', src: presenciais03, title: 'Chaves presenciais', caption: 'Par de chaves presenciais', categories: ['chaves'], alt: 'Duas chaves presenciais em frente ao farol de um carro' },
 ];
 
-/** Quantas fotos aparecem antes do botão "Mostrar mais trabalhos" */
-export const GALLERY_INITIAL = 12;
+/** Quantos itens aparecem antes de "Mostrar Mais Trabalhos" (curadoria variada, sem fotos repetidas) */
+export const GALLERY_INITIAL = 8;
 
 export const PREMIUM_STRIP = ['bmw-04', 'ram', 'hilux', 'bmw-06'];

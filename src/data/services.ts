@@ -8,6 +8,8 @@ export interface Problem {
   id: string;
   /** veiculo = carro ou moto; imovel = casa, apartamento ou empresa */
   group: 'veiculo' | 'imovel';
+  /** Visível de início (os demais aparecem em "Ver Mais Situações") */
+  featured?: boolean;
   title: string;
   text: string;
   icon: IconName;
@@ -19,6 +21,7 @@ export const PROBLEMS: Problem[] = [
   {
     id: 'perdi-a-chave',
     group: 'veiculo',
+    featured: true,
     title: 'Perdi a chave do carro',
     text: 'Fazemos uma chave nova mesmo sem a original, conforme o sistema do veículo e com comprovação de propriedade.',
     icon: 'KeyRound',
@@ -28,6 +31,7 @@ export const PROBLEMS: Problem[] = [
   {
     id: 'chave-reserva',
     group: 'veiculo',
+    featured: true,
     title: 'Preciso de uma chave reserva',
     text: 'Cópia de chave codificada, canivete ou presencial, programada para funcionar no seu carro.',
     icon: 'CopyPlus',
@@ -37,20 +41,22 @@ export const PROBLEMS: Problem[] = [
   {
     id: 'codificada-parou',
     group: 'veiculo',
-    title: 'Minha chave codificada parou de funcionar',
+    featured: true,
+    title: 'Minha chave codificada não funciona',
     text: 'Verificamos bateria, botões, chip e programação para indicar se vale reparar ou fazer uma nova.',
     icon: 'Microchip',
     service: 'chave_codificada_defeito',
     message: 'Olá! Minha chave codificada parou de funcionar. Meu veículo é [marca/modelo/ano].',
   },
   {
-    id: 'programar-smart-key',
+    id: 'chaveiro-24h',
     group: 'veiculo',
-    title: 'Preciso programar uma Smart Key',
-    text: 'Programação de smart keys e chaves presenciais, de acordo com marca, modelo e ano.',
-    icon: 'Smartphone',
-    service: 'smart_key',
-    message: 'Olá! Preciso programar uma Smart Key. Meu veículo é [marca/modelo/ano].',
+    featured: true,
+    title: 'Preciso de atendimento emergencial',
+    text: 'Atendimento emergencial a qualquer hora, pelo WhatsApp ou telefone, em Indaiatuba e região.',
+    icon: 'Siren',
+    service: 'emergencia_24h',
+    message: 'Olá! Preciso de atendimento emergencial de chaveiro. Estou em [localização].',
   },
   {
     id: 'canivete-quebrou',
@@ -60,6 +66,15 @@ export const PROBLEMS: Problem[] = [
     icon: 'Wrench',
     service: 'chave_canivete_quebrada',
     message: 'Olá! Minha chave canivete quebrou. Meu veículo é [marca/modelo/ano].',
+  },
+  {
+    id: 'programar-smart-key',
+    group: 'veiculo',
+    title: 'Preciso programar uma Smart Key',
+    text: 'Programação de smart keys e chaves presenciais, de acordo com marca, modelo e ano.',
+    icon: 'Smartphone',
+    service: 'smart_key',
+    message: 'Olá! Preciso programar uma Smart Key. Meu veículo é [marca/modelo/ano].',
   },
   {
     id: 'chave-trancada',
@@ -77,16 +92,7 @@ export const PROBLEMS: Problem[] = [
     text: 'Cópia, confecção e programação de chaves de motos, conforme a compatibilidade do modelo.',
     icon: 'Motorbike',
     service: 'chave_moto',
-    message: 'Olá! Preciso de um serviço de chaveiro para minha moto. Ela é [marca/modelo/ano].',
-  },
-  {
-    id: 'chaveiro-24h',
-    group: 'veiculo',
-    title: 'Preciso de um chaveiro 24 horas',
-    text: 'Atendimento emergencial a qualquer hora, pelo WhatsApp ou telefone, em Indaiatuba e região.',
-    icon: 'Siren',
-    service: 'emergencia_24h',
-    message: 'Olá! Preciso de atendimento emergencial de chaveiro. Estou em [localização].',
+    message: 'Olá! Preciso de um serviço de chaveiro para minha moto. A marca, modelo e ano são:',
   },
   {
     id: 'trancado-fora-de-casa',
@@ -253,36 +259,26 @@ export const ELECTRONIC_SERVICES: ElectronicService[] = [
   { title: 'Serviços em módulos de injeção e carroceria', text: '', confirmed: false },
 ];
 
-/** Bloco 10 — Residencial e comercial, organizado por categoria */
+/** Bloco 10 — Residencial e comercial: três grupos principais + comércio como complemento */
 export const RESIDENTIAL_CATEGORIES: { id: string; title: string; icon: IconName; items: string[] }[] = [
   {
-    id: 'chaves',
-    title: 'Chaves',
-    icon: 'KeyRound',
-    items: ['Cópias de chaves', 'Chaves tetra', 'Confecção de chaves perdidas'],
+    id: 'copias',
+    title: 'Cópias de Chaves',
+    icon: 'KeySquare',
+    items: ['Chaves comuns', 'Chaves tetra', 'Confecção de chaves', 'Outros modelos compatíveis'],
   },
   {
     id: 'portas',
-    title: 'Portas e fechaduras',
+    title: 'Portas e Fechaduras',
     icon: 'DoorOpen',
-    items: [
-      'Abertura de portas',
-      'Instalação de fechaduras',
-      'Troca de segredo',
-      'Reparação de fechaduras',
-      'Fechaduras eletrônicas',
-    ],
+    items: ['Abertura de portas', 'Troca de segredo', 'Instalação de fechaduras', 'Reparação de fechaduras', 'Fechaduras eletrônicas'],
   },
   {
     id: 'portao',
-    title: 'Portão',
+    title: 'Controles de Portão',
     icon: 'Radio',
-    items: ['Controles de portão', 'Cópia e programação de controles compatíveis'],
-  },
-  {
-    id: 'comercial',
-    title: 'Comércios',
-    icon: 'Store',
-    items: ['Fechaduras comerciais', 'Chaves comerciais'],
+    items: ['Cópia de controles', 'Programação', 'Substituição de controles compatíveis'],
   },
 ];
+
+export const COMMERCIAL_NOTE = 'Também atendemos comércios e empresas: fechaduras, chaves e cópias para portas comerciais.';

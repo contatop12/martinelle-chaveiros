@@ -68,8 +68,10 @@ const items = await Promise.all(
               data-title={g.title}
               data-caption={g.caption}
               data-alt={g.alt}
+              data-video={g.video?.src}
+              data-poster={g.video?.poster}
             >
-              <span class="sr-only">Ampliar foto: </span>
+              <span class="sr-only">{g.video ? 'Assistir vídeo: ' : 'Ampliar foto: '}</span>
               <Picture
                 src={g.src}
                 alt={g.alt}
@@ -83,8 +85,8 @@ const items = await Promise.all(
                 <span class="block font-semibold text-white">{g.title}</span>
                 <span class="block text-xs text-steel-300 sm:text-sm">{g.caption}</span>
               </span>
-              <span class="g-zoom" aria-hidden="true">
-                <Icon name="Expand" class="size-4" />
+              <span class:list={['g-zoom', g.video && 'is-video']} aria-hidden="true">
+                <Icon name={g.video ? 'Play' : 'Expand'} class="size-4" />
               </span>
             </button>
           </li>
@@ -118,6 +120,7 @@ const items = await Promise.all(
         </div>
         <figure class="relative flex min-h-0 w-full max-w-5xl flex-1 flex-col items-center justify-center">
           <img class="lb-img max-h-[calc(100dvh-14rem)] w-auto max-w-full rounded-2xl object-contain" alt="" />
+          <video class="lb-video max-h-[calc(100dvh-14rem)] w-auto max-w-full rounded-2xl bg-ink-900" controls playsinline preload="none" hidden></video>
           <figcaption class="mt-4 text-center">
             <span class="block font-display text-lg font-semibold text-white [font-stretch:110%]" data-lb-title></span>
             <span class="block text-sm text-steel-400" data-lb-caption></span>
@@ -201,6 +204,17 @@ const items = await Promise.all(
     transition:
       opacity 0.3s,
       transform 0.3s var(--ease-out-quart);
+  }
+  .g-zoom.is-video {
+    opacity: 1;
+    transform: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    translate: -50% -60%;
+    background: rgb(8 10 12 / 0.7);
   }
   .g-item:hover .g-zoom,
   .g-item:focus-visible .g-zoom {
