@@ -57,6 +57,7 @@ export function localBusinessSchema() {
   data.openingHoursSpecification = HOURS.kiosk
     .filter((h) => h.spec)
     .map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.spec!.dayOfWeek, opens: h.spec!.opens, closes: h.spec!.closes }));
+  data.amenityFeature = [{ '@type': 'LocationFeatureSpecification', name: 'Estacionamento gratuito', value: true }];
   // Sem aggregateRating: o Google não aceita estrelas de avaliações da própria empresa em LocalBusiness.
   return data;
 }

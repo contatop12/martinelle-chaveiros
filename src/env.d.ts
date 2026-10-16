@@ -8,6 +8,9 @@ interface ImportMetaEnv {
   readonly PUBLIC_ADS_LABEL_WHATSAPP?: string;
   readonly PUBLIC_ADS_LABEL_PHONE?: string;
   readonly PUBLIC_ADS_LABEL_FORM?: string;
+  /** Somente no build (não vai para o navegador) */
+  readonly GOOGLE_PLACES_API_KEY?: string;
+  readonly GOOGLE_PLACE_ID?: string;
 }
 
 interface ImportMeta {

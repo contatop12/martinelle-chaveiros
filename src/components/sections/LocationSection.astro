@@ -5,7 +5,7 @@ import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
-import { ADDRESS, CONTACT, HOURS, LINKS, SERVICE_AREA } from '@/config/site';
+import { ADDRESS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA } from '@/config/site';
 import { STORE_PHOTOS } from '@/data/photos';
 ---
 
@@ -27,6 +27,10 @@ import { STORE_PHOTOS } from '@/data/photos';
                   {ADDRESS.city}/{ADDRESS.state}
                 </span>
               </span>
+            </p>
+            <p class="mt-5 flex items-center gap-4">
+              <Icon name="SquareParking" class="size-5 shrink-0 text-gold" />
+              <span class="text-[1.0625rem] font-semibold text-white">{PARKING}</span>
             </p>
             <p class="mt-5 flex gap-4">
               <Icon name="Phone" class="mt-1 size-5 shrink-0 text-gold" />

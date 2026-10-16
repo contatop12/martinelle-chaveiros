@@ -80,7 +80,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'onde-fica',
     q: 'Onde fica a Martinelli Chaves e qual o horário do quiosque?',
-    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. O quiosque atende ${KIOSK}. Emergências são atendidas 24 horas, com atendimento externo em Indaiatuba e região.`,
+    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. O Sumerbol tem estacionamento gratuito. O quiosque atende ${KIOSK}. Emergências são atendidas 24 horas, com atendimento externo em Indaiatuba e região.`,
     tags: ['geral', 'residencial', 'motos'],
   },
   {

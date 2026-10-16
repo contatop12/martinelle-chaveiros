@@ -9,10 +9,14 @@ import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { REVIEWS, REVIEW_SUMMARY } from '@/data/reviews';
 import { LINKS } from '@/config/site';
+import { loadGoogleReviews } from '@/lib/google-reviews';
 
-const s = REVIEW_SUMMARY;
-const link = LINKS.googleReviews ?? LINKS.googleBusiness;
-const show = Boolean(s || REVIEWS.length);
+// Places API (oficial) quando configurada; senão, dados manuais
+const google = await loadGoogleReviews();
+const s = google ? { rating: google.rating, count: google.count, asOf: null } : REVIEW_SUMMARY;
+const reviews = google?.reviews.length ? google.reviews : REVIEWS;
+const link = LINKS.googleReviews ?? google?.mapsUri ?? LINKS.googleBusiness;
+const show = Boolean(s || reviews.length);
 ---
 
 {
@@ -43,25 +47,32 @@ const show = Boolean(s || REVIEWS.length);
                   <span class="sr-only">de 5 estrelas</span>
                 </p>
                 <p class="mt-1 text-sm text-steel-600">
-                  {s.count} avaliações no Perfil da Empresa no Google ({s.asOf})
+                  {s.count} avaliações no Perfil da Empresa no Google{s.asOf && ` (${s.asOf})`}
                 </p>
               </div>
             </div>
           )}
         </div>
 
-        {REVIEWS.length > 0 && (
+        {reviews.length > 0 && (
           <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {REVIEWS.map((r, i) => (
+            {reviews.map((r, i) => (
               <li class="review-card flex flex-col rounded-[20px] border border-ink-900/[0.08] bg-mist p-6" data-reveal style={`--i:${i % 3}`}>
                 <p class="text-[#e2a33a]" aria-label={`Nota ${r.rating} de 5`}>
                   {'★'.repeat(r.rating)}
                   <span class="text-steel-300">{'★'.repeat(5 - r.rating)}</span>
                 </p>
                 <blockquote class="review-text mt-3 text-[0.9375rem] leading-relaxed text-ink-900">“{r.text}”</blockquote>
-                <p class="mt-auto pt-4 text-sm font-semibold text-steel-600">
-                  {r.author}
-                  {r.date && <span class="font-normal">, {r.date}</span>}
+                <p class="mt-auto flex items-center gap-2.5 pt-5 text-sm text-steel-600">
+                  {r.photoUri && <img src={r.photoUri} alt="" width="32" height="32" loading="lazy" referrerpolicy="no-referrer" class="size-8 rounded-full" />}
+                  <span>
+                    {r.authorUri ? (
+                      <a href={r.authorUri} target="_blank" rel="noopener noreferrer nofollow" class="font-semibold text-ink-900 hover:underline">{r.author}</a>
+                    ) : (
+                      <span class="font-semibold text-ink-900">{r.author}</span>
+                    )}
+                    {r.date && <span class="block text-xs">{r.date}, no Google</span>}
+                  </span>
                 </p>
               </li>
             ))}

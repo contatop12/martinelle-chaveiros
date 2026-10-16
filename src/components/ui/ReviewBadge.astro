@@ -2,6 +2,7 @@
 /** Resumo compacto das avaliações do Google (só aparece se REVIEW_SUMMARY estiver preenchido). */
 import Icon from '@/components/ui/Icon.astro';
 import { REVIEW_SUMMARY } from '@/data/reviews';
+import { loadGoogleReviews } from '@/lib/google-reviews';
 
 interface Props {
   class?: string;
@@ -9,7 +10,8 @@ interface Props {
   href?: string;
 }
 const { class: className = '', location, href = '#avaliacoes' } = Astro.props;
-const s = REVIEW_SUMMARY;
+const google = await loadGoogleReviews();
+const s = google ? { rating: google.rating, count: google.count } : REVIEW_SUMMARY;
 ---
 
 {

@@ -40,6 +40,7 @@ import {
   Lock,
   Undo2,
   House,
+  SquareParking,
 } from 'lucide-static';
 import { siWhatsapp, siInstagram, siGoogle } from 'simple-icons';
 
@@ -81,6 +82,7 @@ export const ICONS = {
   Lock,
   Undo2,
   House,
+  SquareParking,
 } as const;
 
 export type IconName = keyof typeof ICONS;

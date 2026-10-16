@@ -39,6 +39,9 @@ export const ADDRESS = {
   geo: null as { lat: number; lng: number } | null,
 } as const;
 
+/** Informado pelo cliente em 15/10/2026 */
+export const PARKING = 'Estacionamento gratuito no Sumerbol';
+
 export const ADDRESS_ONE_LINE = `${ADDRESS.venue}, ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.city}/${ADDRESS.state}`;
 
 const mapsQuery = encodeURIComponent(

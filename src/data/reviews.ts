@@ -9,9 +9,19 @@ export interface Review {
   author: string;
   rating: 1 | 2 | 3 | 4 | 5;
   text: string;
-  /** Data da avaliação no Google, ex.: '2026-08' */
+  /** Data da avaliação no Google, ex.: 'agosto de 2026' */
   date?: string;
+  /** Link para o perfil do autor no Google (preenchido pela Places API) */
+  authorUri?: string;
+  photoUri?: string;
 }
+
+/*
+ * Fonte das avaliações, em ordem de prioridade:
+ * 1. Places API (oficial) — automática no build quando GOOGLE_PLACES_API_KEY está no .env (src/lib/google-reviews.ts).
+ * 2. Lista manual abaixo — avaliações reais copiadas do perfil, exatamente como publicadas.
+ *    Exemplo: { author: 'Nome do cliente', rating: 5, text: 'Texto da avaliação…', date: 'setembro de 2026' }
+ */
 
 export const REVIEWS: Review[] = [];
 

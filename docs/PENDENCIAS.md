@@ -8,7 +8,7 @@ Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 | Item | Situação | Onde ajustar |
 |---|---|---|
 | Nota 5,0 e 114 avaliações no Google | Informado pelo cliente, exibido como dado estático datado ("outubro de 2026"). **Conferir no Perfil da Empresa.** | `src/data/reviews.ts` → `REVIEW_SUMMARY` |
-| Cards de avaliações | **Pendente.** Não há API autorizada configurada e não fazemos scraping. Copiar 4–6 avaliações reais nota 5, com texto detalhado, exatamente como publicadas (autor, texto, data). | `src/data/reviews.ts` → `REVIEWS` |
+| Cards de avaliações | **Integração oficial pronta** (Places API do Google, `src/lib/google-reviews.ts`): basta colocar `GOOGLE_PLACES_API_KEY` no `.env` e publicar (`npm run deploy`) — até 5 avaliações reais nota 5 aparecem com nome, link do autor e atribuição ao Google, e a nota/total passam a vir do Google. Alternativa sem chave: colar 3–6 avaliações reais (texto exato, autor, data) em `REVIEWS`. | `.env` ou `src/data/reviews.ts` |
 | Link de avaliações | Usando o link enviado pelo cliente (`#lrd=0x94cf4d1b5045500b:0x45ff2e3644a586d5`). Validar que abre o perfil correto. | `LINKS.googleReviews` em `src/config/site.ts` |
 | Perfil no Google Maps (`sameAs` do Schema) | Derivado do mesmo link (CID 5043800918293055189). Validar. | `LINKS.googleBusiness` |
 | "Mais de 13 anos de experiência" | **Removido do site** até o proprietário confirmar. | `COMPANY.experience` |
@@ -17,7 +17,7 @@ Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 | IDs do GTM, GA4 e Google Ads | Nenhum ID foi inventado. Ver `docs/MENSURACAO.md`. | `.env` |
 | Política de Privacidade | Revisar com o cliente/assessoria e completar razão social e CNPJ. | `src/pages/politica-de-privacidade.astro` |
 
-Confirmado e já aplicado: horário do quiosque (seg a sex 10h–19h, sáb 10h–18h, domingos e feriados fechado) e atendimento externo emergencial 24h, todos os dias.
+Confirmado e já aplicado: estacionamento gratuito no Sumerbol, horário do quiosque (seg a sex 10h–19h, sáb 10h–18h, domingos e feriados fechado) e atendimento externo emergencial 24h, todos os dias.
 
 ## Marcas premium aguardando confirmação
 

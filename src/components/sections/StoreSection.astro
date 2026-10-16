@@ -4,7 +4,7 @@ import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { STORE_PHOTOS } from '@/data/photos';
-import { ADDRESS, LINKS } from '@/config/site';
+import { ADDRESS, LINKS, PARKING } from '@/config/site';
 ---
 
 <section id="nossa-estrutura" class="section surface-graphite" aria-labelledby="estrutura-titulo">
@@ -31,6 +31,10 @@ import { ADDRESS, LINKS } from '@/config/site';
         <p class="mt-8 flex items-start gap-3 rounded-2xl border border-gold/30 bg-gold/[0.06] p-5 text-white">
           <Icon name="MapPin" class="mt-0.5 size-5 shrink-0 text-gold-light" />
           <span>Estamos no {ADDRESS.venue}, {ADDRESS.unit}, em {ADDRESS.city}.</span>
+        </p>
+        <p class="mt-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-white">
+          <Icon name="SquareParking" class="size-5 shrink-0 text-gold-light" />
+          <span>{PARKING}: venha fazer sua cópia ou programação com tranquilidade.</span>
         </p>
         <a
           href={LINKS.directions}
