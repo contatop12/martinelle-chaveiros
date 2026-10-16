@@ -1,4 +1,5 @@
 ---
+/** Botão de ligação: só em celular e tablet (oculto a partir de 1024px, onde ligar pelo navegador não funciona bem). */
 import Icon from './Icon.astro';
 import { telLink } from '@/lib/contact';
 import { CONTACT } from '@/config/site';
@@ -34,6 +35,7 @@ const {
     size === 'sm' && 'btn-sm',
     size === 'lg' && 'min-h-14 px-6 text-[1.0625rem]',
     block && 'w-full',
+    'lg:hidden',
     className,
   ]}
   data-track="phone_click"

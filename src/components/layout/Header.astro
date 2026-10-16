@@ -34,16 +34,6 @@ const prefix = isHome ? '' : '/';
 
     <div class="ml-auto flex items-center gap-2 lg:gap-3">
       <a
-        href={telLink}
-        class="hidden items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-steel-200 transition-colors hover:text-gold-light lg:inline-flex"
-        data-track="phone_click"
-        data-service="geral"
-        data-location="header"
-      >
-        <Icon name="Phone" class="size-4" />
-        {CONTACT.phoneDisplay}
-      </a>
-      <a
         href={waLinkFor('geral')}
         target="_blank"
         rel="noopener"
