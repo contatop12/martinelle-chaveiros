@@ -1,0 +1,57 @@
+---
+/**
+ * Avaliações nas páginas de serviço: 3 avaliações reais que citam o serviço (completadas pelas em destaque),
+ * com a nota do perfil e o link para todas no Google.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import ReviewCard from '@/components/ui/ReviewCard.astro';
+import { REVIEW_SUMMARY, reviewsFor, type ReviewTopic } from '@/data/reviews';
+import { LINKS } from '@/config/site';
+
+interface Props {
+  topic: ReviewTopic | null;
+}
+
+const { topic } = Astro.props;
+const items = reviewsFor(topic, 3);
+const s = REVIEW_SUMMARY;
+const link = LINKS.googleReviews ?? LINKS.googleBusiness;
+---
+
+{
+  items.length > 0 && (
+    <section id="avaliacoes" class="section surface-white" aria-labelledby="avaliacoes-titulo">
+      <div class="container-x">
+        <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <SectionHeading id="avaliacoes-titulo" title="O Que Dizem os Clientes">
+            Avaliações reais de clientes da Martinelli Chaves no Perfil da Empresa no Google.
+          </SectionHeading>
+          {s && (
+            <p class="flex items-center gap-3 text-steel-600">
+              <span class="font-display text-4xl font-extrabold leading-none text-ink-900 [font-stretch:115%]">
+                {s.rating.toLocaleString('pt-BR', { minimumFractionDigits: 1 })}
+              </span>
+              <span>
+                <span class="block text-lg tracking-[0.12em] text-[#e2a33a]" aria-hidden="true">★★★★★</span>
+                <span class="block text-sm">{s.count} avaliações no Google</span>
+              </span>
+            </p>
+          )}
+        </div>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {items.map((r, i) => <ReviewCard review={r} index={i} topic={topic} />)}
+        </div>
+
+        {link && (
+          <div class="mt-10">
+            <a href={link} target="_blank" rel="noopener noreferrer" class="btn btn-line">
+              <Icon brand="google" /> Ver Todas as Avaliações no Google
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

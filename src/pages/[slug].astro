@@ -16,12 +16,14 @@ import ResidentialSection from '@/components/sections/ResidentialSection.astro';
 import StoreSection from '@/components/sections/StoreSection.astro';
 import PortfolioGallery from '@/components/sections/PortfolioGallery.astro';
 import Steps from '@/components/sections/Steps.astro';
+import ReviewsHighlight from '@/components/sections/ReviewsHighlight.astro';
 import FAQ from '@/components/sections/FAQ.astro';
 import QuoteForm from '@/components/sections/QuoteForm.astro';
 import LocationSection from '@/components/sections/LocationSection.astro';
 import RelatedServices from '@/components/sections/RelatedServices.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import { SERVICE_PAGES, type ServicePage } from '@/data/pages';
+import type { ReviewTopic } from '@/data/reviews';
 import { faqFor } from '@/data/faq';
 import { SITE } from '@/config/site';
 import { serviceSchema, breadcrumbSchema } from '@/lib/schema';
@@ -41,6 +43,16 @@ const galleryTitles: Record<string, string> = {
   nacionais: 'Trabalhos Realizados em Carros Nacionais',
   importados: 'Trabalhos Realizados em Carros Importados',
   chaves: 'Chaves e Controles Feitos pela Martinelli',
+};
+
+// Avaliações que citam o serviço da página (motos: as em destaque)
+const reviewTopic: Record<string, ReviewTopic | null> = {
+  automotivo: 'automotivo',
+  codificadas: 'codificadas',
+  importados: 'automotivo',
+  motos: null,
+  '24h': 'emergencia',
+  residencial: 'residencial',
 };
 
 const schema = [
@@ -76,6 +88,7 @@ const schema = [
   {page.gallery && <PortfolioGallery category={page.gallery} title={galleryTitles[page.gallery]} />}
   {page.body === 'residencial' && <StoreSection />}
 
+  <ReviewsHighlight topic={reviewTopic[page.body] ?? null} />
   <FAQ items={faqFor(page.faqTag)} />
   <QuoteForm preset={page.service} />
   <LocationSection />

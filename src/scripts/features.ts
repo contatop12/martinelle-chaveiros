@@ -337,6 +337,29 @@ export function initMoreToggles() {
   });
 }
 
+/* ---------------- Avaliações: demais cards sob demanda ---------------- */
+
+export function initReviewsMore() {
+  document.querySelectorAll<HTMLButtonElement>('[data-reviews-more]').forEach((btn) => {
+    const section = btn.closest('section');
+    const tpl = section?.querySelector<HTMLTemplateElement>('template[data-reviews-extra]');
+    const target = section?.querySelector<HTMLElement>('[data-reviews-target]');
+    if (!tpl || !target) return;
+    const count = btn.querySelector<HTMLElement>('[data-count]');
+    // de 12 em 12: move os próximos cards do <template> para a grade
+    btn.addEventListener('click', () => {
+      target.append(...[...tpl.content.children].slice(0, 12));
+      target.hidden = false;
+      const left = tpl.content.children.length;
+      if (count) count.textContent = String(left);
+      if (!left) {
+        btn.hidden = true;
+        target.focus({ preventScroll: true });
+      }
+    });
+  });
+}
+
 /* ---------------- Um vídeo por vez ---------------- */
 
 export function initSingleVideoPlayback() {
