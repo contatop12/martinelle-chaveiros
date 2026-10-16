@@ -102,7 +102,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     waKey: 'motos',
     waLabel: 'Consultar Serviço para Minha Moto',
     service: 'chaveiro_motos',
-    photo: MOTO_PHOTOS.triumph,
+    photo: MOTO_PHOTOS.pcx,
     faqTag: 'motos',
     gallery: 'motos',
     steps: [

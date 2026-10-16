@@ -217,7 +217,7 @@ export function initProofVideos() {
     const video = wrap.querySelector<HTMLVideoElement>('video')!;
     const toggle = wrap.querySelector<HTMLButtonElement>('[data-video-toggle]')!;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    const autoplay = !reduceMotion() && !saveData;
+    const autoplay = wrap.dataset.autoplay !== 'false' && !reduceMotion() && !saveData;
     let loaded = false;
     let userPaused = false;
 

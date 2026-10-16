@@ -42,8 +42,8 @@ A imagem de referência com os logotipos citada no documento de correções **n�
 
 ## Fotos e vídeos
 
-- [ ] **Vídeo da Honda PCX 2023 (~45 s)** citado no documento de correções **não foi recebido**. A seção de motos e a galeria estão prontas para ele: basta enviar o arquivo.
-- Triumph: foto e o vídeo `17.11.20` (melhor qualidade) estão em uso. O vídeo `17.11.21` é **outra tomada** (close da chave com foco variando), não uma cópia; ficou de fora para não repetir conteúdo e pode ser incluído se desejarem.
+- Recebido e publicado: vídeo da **confecção de chave da Honda PCX 2023** (45 s). Versão curta de 27 s, sem áudio, na seção de motos; versão completa com narração na galeria. O original de 40 MB foi otimizado para 3,1 MB e 5,1 MB.
+- Triumph: o vídeo `17.11.20` segue na seção de motos e na galeria. A foto da Triumph foi retirada a pedido (era a mesma cena do vídeo). O vídeo `17.11.21` (outra tomada) não foi usado.
 - Ainda sem material: foto do proprietário e da esposa (`team/`), Mercedes-Benz, Porsche e Audi (`luxury-cars/`), equipamentos de programação e bastidores do quiosque.
 
 Como adicionar uma foto: colocar o arquivo na pasta de `src/assets/images/`, importar em `src/data/photos.ts` e incluir em `GALLERY` com legenda real e objetiva. Vídeos: `public/video/` + item com `video` em `GALLERY`.

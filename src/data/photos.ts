@@ -46,7 +46,7 @@ import vw05 from '@/assets/images/automotive/chaves-canivete-vw-05.jpg';
 import fiat from '@/assets/images/automotive/chaves-fiat.jpg';
 import nivus from '@/assets/images/automotive/chaves-canivete-vw-nivus.jpg';
 // motorcycles
-import triumph from '@/assets/images/motorcycles/chave-moto-triumph.jpg';
+import pcxThumb from '@/assets/images/motorcycles/video-confeccao-chave-honda-pcx-2023.jpg';
 import triumphVideoThumb from '@/assets/images/motorcycles/video-chave-moto-triumph.jpg';
 import bmwVideoThumb from '@/assets/images/luxury-cars/video-teste-chave-presencial-bmw.jpg';
 // services
@@ -133,12 +133,16 @@ export interface GalleryItem extends Photo {
 export const VIDEOS = {
   bmw: { src: '/video/teste-chave-presencial-bmw.mp4', poster: '/video/teste-chave-presencial-bmw.webp', width: 392, height: 848 },
   triumph: { src: '/video/chave-moto-triumph.mp4', poster: '/video/chave-moto-triumph.webp', width: 392, height: 848 },
+  /** Versão curta (27 s, sem áudio) para a seção de motos */
+  pcx: { src: '/video/confeccao-chave-honda-pcx-2023-curto.mp4', poster: '/video/confeccao-chave-honda-pcx-2023.webp', width: 540, height: 960 },
+  /** Vídeo completo (45 s, com narração) — galeria */
+  pcxFull: { src: '/video/confeccao-chave-honda-pcx-2023.mp4', poster: '/video/confeccao-chave-honda-pcx-2023.webp', width: 540, height: 960 },
 } satisfies Record<string, VideoSource>;
 
 export const MOTO_PHOTOS = {
-  triumph: {
-    src: triumph,
-    alt: 'Chave de motocicleta Triumph segurada em frente à moto preta estacionada',
+  pcx: {
+    src: pcxThumb,
+    alt: 'Honda PCX 2023 ligada após a confecção da chave, com o painel aceso',
   },
 } satisfies Record<string, Photo>;
 
@@ -147,7 +151,7 @@ export const GALLERY: GalleryItem[] = [
   { id: 'ram', src: ram, title: 'RAM', caption: 'Par de chaves presenciais', categories: ['importados'], alt: 'Duas chaves presenciais RAM em frente ao volante da picape' },
   { id: 'onix', src: onix, title: 'Chevrolet Onix', caption: 'Confecção e programação de chave', categories: ['nacionais', 'chaves'], alt: FEATURE_PHOTOS.automotivo2.alt },
   { id: 'hilux', src: hilux, title: 'Toyota Hilux SRX', caption: 'Par de chaves presenciais', categories: ['importados'], alt: 'Duas chaves presenciais Toyota em frente à traseira de uma Hilux SRX branca' },
-  { id: 'triumph', src: triumph, title: 'Triumph', caption: 'Chave para motocicleta Triumph', categories: ['motos'], alt: 'Chave de motocicleta Triumph segurada em frente à moto preta estacionada' },
+  { id: 'pcx-video', src: pcxThumb, title: 'Honda PCX 2023', caption: 'Vídeo: confecção de chave', categories: ['motos'], alt: 'Vídeo da confecção de chave para Honda PCX 2023: a moto não ligava e passa a funcionar com a chave nova', video: VIDEOS.pcxFull },
   { id: 'bmw-video', src: bmwVideoThumb, title: 'BMW', caption: 'Vídeo: teste de chave presencial', categories: ['importados'], alt: 'Quadro do vídeo: duas chaves presenciais BMW em frente ao carro', video: VIDEOS.bmw },
   { id: 'presenciais-02', src: presenciais02, title: 'Chaves presenciais', caption: 'Par de chaves no quiosque', categories: ['chaves'], alt: 'Duas chaves presenciais em frente ao letreiro da Martinelli Chaves' },
   { id: 'fiat-reparo', src: fiatReparo, title: 'Fiat', caption: 'Chave canivete original desgastada e chave nova', categories: ['chaves'], alt: FEATURE_PHOTOS.eletronica2.alt },

@@ -1,11 +1,10 @@
 ---
-/** Bloco 7 — Chaveiro para motos, com foto e vídeo reais (Triumph). Vídeo da Honda PCX: pendente (docs/PENDENCIAS.md). */
-import { Picture } from 'astro:assets';
+/** Bloco 7 — Chaveiro para motos, com vídeos reais (Honda PCX 2023 e Triumph). */
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import ProofVideo from '@/components/ui/ProofVideo.astro';
 import { MOTORCYCLE_SERVICES } from '@/data/services';
-import { MOTO_PHOTOS, VIDEOS } from '@/data/photos';
+import { VIDEOS } from '@/data/photos';
 ---
 
 <section id="chaveiro-motos" class="section surface-light overflow-hidden" aria-labelledby="motos-titulo">
@@ -31,21 +30,20 @@ import { MOTO_PHOTOS, VIDEOS } from '@/data/photos';
       </div>
     </div>
 
-    <figure class="mx-auto w-full max-w-[30rem]">
-      <div class="grid grid-cols-2 items-start gap-3 sm:gap-4">
-        <div class="photo-frame aspect-[739/1600] border border-ink-900/10 shadow-[0_30px_60px_-30px_rgb(16_18_20/0.45)]" data-reveal="wipe">
-          <Picture
-            src={MOTO_PHOTOS.triumph.src}
-            alt={MOTO_PHOTOS.triumph.alt}
-            formats={['avif', 'webp']}
-            widths={[260, 400, 600]}
-            sizes="(min-width: 1024px) 14rem, 46vw"
-            loading="lazy"
-          />
-        </div>
-        <ProofVideo video={VIDEOS.triumph} label="Vídeo: chave de motocicleta Triumph apresentada ao lado da moto" class="max-w-none translate-y-6" />
-      </div>
-      <figcaption class="mt-10 text-center text-sm font-semibold text-ink-900">Chaves para motocicletas Triumph</figcaption>
-    </figure>
+    <div class="mx-auto grid w-full max-w-[30rem] grid-cols-2 items-start gap-3 sm:gap-4">
+      <ProofVideo
+        video={VIDEOS.pcx}
+        label="Vídeo: confecção de chave para Honda PCX 2023 — a moto não ligava e passa a funcionar com a chave nova"
+        caption="Confecção de chave para Honda PCX 2023"
+        class="max-w-none"
+      />
+      <ProofVideo
+        video={VIDEOS.triumph}
+        label="Vídeo: chave de motocicleta Triumph apresentada ao lado da moto"
+        caption="Chaves para motocicletas Triumph"
+        class="max-w-none sm:translate-y-8"
+        autoplay={false}
+      />
+    </div>
   </div>
 </section>

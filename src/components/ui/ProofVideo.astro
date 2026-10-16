@@ -12,11 +12,13 @@ interface Props {
   label: string;
   caption?: string;
   class?: string;
+  /** false = só toca ao toque (evita dois vídeos tocando juntos) */
+  autoplay?: boolean;
 }
-const { video, label, caption, class: className = 'max-w-[15rem]' } = Astro.props;
+const { video, label, caption, class: className = 'max-w-[15rem]', autoplay = true } = Astro.props;
 ---
 
-<figure class:list={['proof-video mx-auto w-full', className]} data-proof-video data-playing="false">
+<figure class:list={['proof-video mx-auto w-full', className]} data-proof-video data-playing="false" data-autoplay={autoplay ? 'true' : 'false'}>
   <div class="phone relative w-full overflow-hidden rounded-[1.9rem] border border-white/15 bg-ink-800 p-1.5 shadow-[0_40px_90px_-40px_rgb(212_163_74/0.45)]" style={`aspect-ratio:${video.width}/${video.height}`}>
     <video
       class="h-full w-full rounded-[1.5rem] object-cover"
@@ -36,7 +38,7 @@ const { video, label, caption, class: className = 'max-w-[15rem]' } = Astro.prop
       </span>
     </button>
   </div>
-  {caption && <figcaption class="mt-3 text-center text-sm text-steel-400">{caption}</figcaption>}
+  {caption && <figcaption class="muted mt-3 text-center text-sm">{caption}</figcaption>}
 </figure>
 
 <style>
