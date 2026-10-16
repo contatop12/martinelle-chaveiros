@@ -2,16 +2,15 @@
 /**
  * Avaliações do Google.
  * - Resumo (nota e quantidade) conferido no perfil, exibido como dado estático com data.
- * - Duas faixas de carrossel com os cards de comentário (src/data/reviews.ts) em masonry: cada coluna leva
- *   um card longo ou empilha cards curtos, e as faixas andam em sentidos opostos.
- *   O HTML traz uma cópia de cada card; o script duplica as faixas para o loop só quando há animação.
- *   Com "reduzir movimento" (ou sem JS), as faixas ficam paradas, roláveis e com setas.
+ * - Um carrossel com os cards de comentário (src/data/reviews.ts), todos da mesma altura.
+ *   O HTML traz uma cópia de cada card; o script duplica a faixa para o loop só quando há animação.
+ *   Com "reduzir movimento" (ou sem JS), a faixa fica parada, rolável e com setas.
  * - Sem marcação de estrelas no Schema (avaliações autodeclaradas não são aceitas pelo Google).
  */
 import Icon from '@/components/ui/Icon.astro';
 import ReviewCard from '@/components/ui/ReviewCard.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { REVIEWS, REVIEW_SUMMARY, type Review } from '@/data/reviews';
+import { REVIEWS, REVIEW_SUMMARY } from '@/data/reviews';
 import { LINKS } from '@/config/site';
 import { loadGoogleReviews } from '@/lib/google-reviews';
 
@@ -22,33 +21,6 @@ const reviews = REVIEWS.length ? REVIEWS : (google?.reviews ?? []);
 const link = LINKS.googleReviews ?? google?.mapsUri ?? LINKS.googleBusiness;
 const show = Boolean(s || reviews.length);
 
-// Masonry: altura do card estimada pelo texto (medida no navegador: ~174px + 25px por linha de ~30 caracteres).
-// Cards altos ficam sozinhos na coluna; os curtos são pareados (o maior com o menor que couber em 500px).
-const estimate = (r: Review) => (r === reviews[0] ? 416 : 174 + 25 * Math.ceil(r.text.length / 30));
-const singles: Review[][] = [];
-const pairs: Review[][] = [];
-const small = reviews.slice(1).filter((r) => estimate(r) < 330).sort((x, y) => estimate(y) - estimate(x));
-reviews.slice(1).forEach((r) => estimate(r) >= 330 && singles.push([r]));
-while (small.length) {
-  const big = small.shift()!;
-  const fit = small.findLastIndex((r) => estimate(big) + 12 + estimate(r) <= 500);
-  if (fit === -1) singles.push([big]);
-  else pairs.push([big, ...small.splice(fit, 1)]);
-}
-// Ordem: o card escuro abre a faixa 1; depois blocos "2 colunas de um card + 2 colunas de dois cards",
-// para as duas faixas terem a mesma mistura (as colunas alternam entre as faixas)
-const byList = (list: Review[][]) => list.sort((x, y) => reviews.indexOf(x[0]) - reviews.indexOf(y[0]));
-byList(singles);
-byList(pairs);
-const columns: Review[][] = [[reviews[0]]];
-while (singles.length || pairs.length) {
-  columns.push(...singles.splice(0, 2), ...pairs.splice(0, 2));
-}
-
-// Duas faixas: colunas intercaladas para misturar cards longos e curtos
-const rows = [0, 1].map((n) => columns.filter((_, i) => i % 2 === n));
-// a faixa 2 começa com dois cards empilhados (a 1 abre com o card escuro)
-rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
 ---
 
 {
@@ -89,21 +61,14 @@ rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
 
       {reviews.length > 0 && (
         <div class="mt-12" data-reveal>
-          <div class="rc-rows">
-            {rows.map((row, r) => (
-              <div class="rc-row" data-dir={r ? 'rev' : 'fwd'} style={`--dur:${row.length * 9}s`} data-rc-row>
-                <ul class="rc-track" aria-label={r ? 'Avaliações de clientes, faixa 2' : 'Avaliações de clientes, faixa 1'} data-rc-track>
-                  {row.map((col) => (
-                    <li class="rc-col">
-                      {col.map((review) => {
-                        const index = reviews.indexOf(review);
-                        return <ReviewCard review={review} index={index} tone={index === 0 ? 'dark' : 'light'} reveal={false} />;
-                      })}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div class="rc-row" style={`--dur:${reviews.length * 7}s`} data-rc-row>
+            <ul class="rc-track" aria-label="Avaliações de clientes no Google" data-rc-track>
+              {reviews.map((review, i) => (
+                <li class="rc-item">
+                  <ReviewCard review={review} index={i} tone={i === 0 ? 'dark' : 'light'} reveal={false} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}
@@ -133,10 +98,6 @@ rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
 }
 
 <style>
-  .rc-rows {
-    display: grid;
-    gap: 0.75rem;
-  }
   /* Parado (reduzir movimento ou sem JS): faixa rolável, sem barra, alinhada ao conteúdo */
   .rc-row {
     position: relative; /* contém os textos .sr-only (absolutos) dos cards */
@@ -157,20 +118,21 @@ rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
   }
   .rc-track {
     display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+    gap: 1rem;
     width: max-content;
   }
-  .rc-col {
+  /* todos os cards com a mesma altura (a do maior texto) */
+  .rc-item {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 17.5rem;
+    width: 18rem;
     scroll-snap-align: start;
   }
+  .rc-item > :global(*) {
+    flex: 1;
+  }
   @media (width >= 40rem) {
-    .rc-col {
-      width: 20rem;
+    .rc-item {
+      width: 22rem;
     }
   }
 
@@ -182,11 +144,8 @@ rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
     mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   }
   .rc-row[data-loop] .rc-track {
-    padding-right: 0.75rem;
+    padding-right: 1rem;
     animation: rc-scroll var(--dur, 240s) linear infinite;
-  }
-  .rc-row[data-loop][data-dir='rev'] .rc-track {
-    animation-direction: reverse;
   }
   .rc-row[data-loop]:hover .rc-track,
   .rc-row[data-loop]:focus-within .rc-track,
@@ -222,7 +181,7 @@ rows[1].unshift(...rows[1].splice(rows[1].findIndex((c) => c.length === 2), 1));
   .rc-arrow {
     padding-inline: 0;
   }
-  /* setas só quando as faixas estão paradas */
+  /* setas só quando a faixa está parada */
   [data-rc][data-looping] .rc-arrow {
     display: none;
   }

@@ -21,7 +21,7 @@ const topics = topic && review.topics?.includes(topic) ? [topic, ...review.topic
 const tag = topics.map((t) => TOPIC_LABEL[t]).find(Boolean);
 ---
 
-<figure class:list={['review-card', className]} data-tone={tone} data-reveal={reveal ? '' : undefined} style={reveal ? `--i:${index % 3}` : undefined}>
+<figure class:list={['review-card', className]} data-tone={tone} data-short={review.text.length <= 120 ? '' : undefined} data-reveal={reveal ? '' : undefined} style={reveal ? `--i:${index % 3}` : undefined}>
   <div class="flex items-center justify-between gap-3">
     <p class="review-stars" aria-label={`Nota ${review.rating} de 5`}>
       {'★'.repeat(review.rating)}<span class="opacity-25">{'★'.repeat(5 - review.rating)}</span>
@@ -132,6 +132,12 @@ const tag = topics.map((t) => TOPIC_LABEL[t]).find(Boolean);
     color: var(--color-steel-600);
   }
 
+  /* Comentário curto: frase em destaque, maior */
+  .review-card[data-short] .review-quote {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
   /* Card em destaque: fundo escuro */
   .review-card[data-tone='dark'] {
     border-color: transparent;
