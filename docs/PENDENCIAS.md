@@ -7,8 +7,8 @@ Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 
 | Item | Situação | Onde ajustar |
 |---|---|---|
-| Nota 5,0 e 114 avaliações no Google | Informado pelo cliente, exibido como dado estático datado ("outubro de 2026"). **Conferir no Perfil da Empresa.** | `src/data/reviews.ts` → `REVIEW_SUMMARY` |
-| Cards de avaliações | **Integração oficial pronta** (Places API do Google, `src/lib/google-reviews.ts`): basta colocar `GOOGLE_PLACES_API_KEY` no `.env` e publicar (`npm run deploy`) — até 5 avaliações reais nota 5 aparecem com nome, link do autor e atribuição ao Google, e a nota/total passam a vir do Google. Alternativa sem chave: colar 3–6 avaliações reais (texto exato, autor, data) em `REVIEWS`. | `.env` ou `src/data/reviews.ts` |
+| Nota 5,0 e 116 avaliações no Google | **Conferido no perfil em 16/10/2026** (115 de 5 estrelas e 1 de 1 estrela). Exibido como dado estático datado ("outubro de 2026"); atualizar de tempos em tempos. | `src/data/reviews.ts` → `REVIEW_SUMMARY` |
+| Avaliações na página | **No ar:** faixa animada com 109 clientes que deram 5 estrelas (primeiro nome + inicial do sobrenome; ficaram de fora 6 apelidos/empresas). **Cards com comentário:** só com os textos enviados pela agência/cliente (copiar do perfil ou exportar pelo Google Takeout, sem as respostas do proprietário) em `REVIEWS`. A integração com a Places API (`src/lib/google-reviews.ts`) grava os textos no build, o que os termos do Google não permitem; não usar sem antes mudar para consulta em tempo real. | `src/data/reviews.ts` |
 | Link de avaliações | Usando o link enviado pelo cliente (`#lrd=0x94cf4d1b5045500b:0x45ff2e3644a586d5`). Validar que abre o perfil correto. | `LINKS.googleReviews` em `src/config/site.ts` |
 | Perfil no Google Maps (`sameAs` do Schema) | Derivado do mesmo link (CID 5043800918293055189). Validar. | `LINKS.googleBusiness` |
 | "Mais de 13 anos de experiência" | **Removido do site** até o proprietário confirmar. | `COMPANY.experience` |

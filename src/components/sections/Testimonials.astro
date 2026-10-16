@@ -1,13 +1,14 @@
 ---
 /**
  * Avaliações do Google.
- * - Resumo (nota e quantidade) informado pelo cliente, exibido como dado estático com data.
- * - Cards: SOMENTE avaliações reais copiadas do perfil (src/data/reviews.ts). Sem dados, os cards não aparecem.
+ * - Resumo (nota e quantidade) conferido no perfil, exibido como dado estático com data.
+ * - Faixa animada com os clientes que deram 5 estrelas (nome abreviado), em duas linhas em sentidos opostos.
+ * - Cards com comentário: SOMENTE textos fornecidos pelo cliente/agência (src/data/reviews.ts). Sem dados, não aparecem.
  * - Sem marcação de estrelas no Schema (avaliações autodeclaradas não são aceitas pelo Google).
  */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { REVIEWS, REVIEW_SUMMARY } from '@/data/reviews';
+import { FIVE_STAR_REVIEWERS, REVIEWS, REVIEW_SUMMARY } from '@/data/reviews';
 import { LINKS } from '@/config/site';
 import { loadGoogleReviews } from '@/lib/google-reviews';
 
@@ -17,6 +18,9 @@ const s = google ? { rating: google.rating, count: google.count, asOf: null } : 
 const reviews = google?.reviews.length ? google.reviews : REVIEWS;
 const link = LINKS.googleReviews ?? google?.mapsUri ?? LINKS.googleBusiness;
 const show = Boolean(s || reviews.length);
+
+// Faixa de nomes: duas linhas intercaladas; a cor do avatar varia pela posição
+const rows = [0, 1].map((r) => FIVE_STAR_REVIEWERS.filter((_, i) => i % 2 === r));
 ---
 
 {
@@ -54,6 +58,34 @@ const show = Boolean(s || reviews.length);
           )}
         </div>
 
+        {FIVE_STAR_REVIEWERS.length > 0 && (
+          <div class="mt-12" data-reveal>
+            <p class="text-[0.9375rem] text-steel-600">
+              Alguns dos clientes que avaliaram a Martinelli Chaves com <span class="font-semibold text-ink-900">5 estrelas</span> no Google:
+            </p>
+            <div class="reviewer-wall mt-5 grid gap-3">
+              {rows.map((row, r) => (
+                <div class="reviewer-row" data-dir={r ? 'rev' : 'fwd'} style={`--dur:${row.length * 4}s`}>
+                  <div class="reviewer-track">
+                    {[0, 1].map((copy) => (
+                      <ul class="reviewer-list" aria-hidden={copy ? 'true' : undefined} aria-label={copy ? undefined : 'Clientes que avaliaram com 5 estrelas'}>
+                        {row.map((name, i) => (
+                          <li class="reviewer-chip" data-tone={(i + r) % 3}>
+                            <span class="reviewer-avatar" aria-hidden="true">{name.charAt(0)}</span>
+                            <span class="font-semibold text-ink-900">{name}</span>
+                            <span class="text-[0.8125rem] tracking-[0.08em] text-[#e2a33a]" aria-hidden="true">★★★★★</span>
+                            <span class="sr-only">, 5 estrelas</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {reviews.length > 0 && (
           <ul class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {reviews.map((r, i) => (
@@ -90,3 +122,84 @@ const show = Boolean(s || reviews.length);
     </section>
   )
 }
+
+<style>
+  /* Faixa infinita: cada linha tem duas cópias iguais; a trilha anda metade da largura e recomeça */
+  .reviewer-row {
+    position: relative; /* contém os textos .sr-only (absolutos) quando a animação está desligada */
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .reviewer-track {
+    display: flex;
+    width: max-content;
+    animation: reviewer-scroll var(--dur, 180s) linear infinite;
+  }
+  .reviewer-row[data-dir='rev'] .reviewer-track {
+    animation-direction: reverse;
+  }
+  .reviewer-row:hover .reviewer-track {
+    animation-play-state: paused;
+  }
+  .reviewer-list {
+    display: flex;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .reviewer-chip {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.625rem;
+    border: 1px solid rgb(16 18 20 / 0.08);
+    border-radius: 999px;
+    background: var(--color-mist);
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+  .reviewer-avatar {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.875rem;
+  }
+  .reviewer-chip[data-tone='0'] .reviewer-avatar {
+    background: var(--color-ink-900);
+    color: var(--color-gold-light);
+  }
+  .reviewer-chip[data-tone='1'] .reviewer-avatar {
+    background: var(--color-gold);
+    color: var(--color-ink-950);
+  }
+  .reviewer-chip[data-tone='2'] .reviewer-avatar {
+    background: var(--color-paper);
+    color: var(--color-ink-900);
+    box-shadow: inset 0 0 0 1px rgb(16 18 20 / 0.12);
+  }
+  @keyframes reviewer-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  /* Sem animação: linhas roláveis na horizontal, sem a cópia duplicada */
+  @media (prefers-reduced-motion: reduce) {
+    .reviewer-row {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+      padding-bottom: 0.5rem;
+    }
+    .reviewer-track {
+      animation: none;
+    }
+    .reviewer-list[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>
