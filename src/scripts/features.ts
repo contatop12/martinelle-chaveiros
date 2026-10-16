@@ -337,27 +337,49 @@ export function initMoreToggles() {
   });
 }
 
-/* ---------------- Avaliações: demais cards sob demanda ---------------- */
+/* ---------------- Avaliações: duas faixas de carrossel ---------------- */
 
-export function initReviewsMore() {
-  document.querySelectorAll<HTMLButtonElement>('[data-reviews-more]').forEach((btn) => {
-    const section = btn.closest('section');
-    const tpl = section?.querySelector<HTMLTemplateElement>('template[data-reviews-extra]');
-    const target = section?.querySelector<HTMLElement>('[data-reviews-target]');
-    if (!tpl || !target) return;
-    const count = btn.querySelector<HTMLElement>('[data-count]');
-    // de 12 em 12: move os próximos cards do <template> para a grade
-    btn.addEventListener('click', () => {
-      target.append(...[...tpl.content.children].slice(0, 12));
-      target.hidden = false;
-      const left = tpl.content.children.length;
-      if (count) count.textContent = String(left);
-      if (!left) {
-        btn.hidden = true;
-        target.focus({ preventScroll: true });
-      }
+export function initReviewCarousels() {
+  const root = document.querySelector<HTMLElement>('[data-rc]');
+  if (!root) return;
+  const rows = [...root.querySelectorAll<HTMLElement>('[data-rc-row]')];
+  const pause = root.querySelector<HTMLButtonElement>('[data-rc-pause]');
+  const pauseLabel = root.querySelector<HTMLElement>('[data-rc-pause-label]');
+
+  if (!reduceMotion()) {
+    // loop infinito: duplica os cards de cada faixa (cópia escondida de leitores de tela e do teclado)
+    rows.forEach((row) => {
+      const track = row.querySelector<HTMLElement>('[data-rc-track]');
+      if (!track) return;
+      [...track.children].forEach((col) => {
+        const copy = col.cloneNode(true) as HTMLElement;
+        copy.setAttribute('aria-hidden', 'true');
+        copy.setAttribute('inert', '');
+        track.append(copy);
+      });
+      row.dataset.loop = '';
     });
-  });
+    root.dataset.looping = '';
+    if (pause && pauseLabel) {
+      pause.hidden = false;
+      pause.addEventListener('click', () => {
+        const paused = root.toggleAttribute('data-paused');
+        pause.setAttribute('aria-pressed', String(paused));
+        pauseLabel.textContent = paused ? 'Continuar' : 'Pausar';
+      });
+    }
+    // fora da tela, a animação para (economiza bateria)
+    new IntersectionObserver(([entry]) => root.toggleAttribute('data-offscreen', !entry.isIntersecting)).observe(root);
+    return;
+  }
+
+  // parado: as setas rolam as duas faixas juntas
+  root.querySelectorAll<HTMLButtonElement>('[data-rc-nav]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const dir = Number(btn.dataset.rcNav);
+      rows.forEach((row) => row.scrollBy({ left: dir * row.clientWidth * 0.8, behavior: 'smooth' }));
+    }),
+  );
 }
 
 /* ---------------- Um vídeo por vez ---------------- */
