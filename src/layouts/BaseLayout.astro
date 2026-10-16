@@ -13,7 +13,7 @@ import ConsentBanner from '@/components/layout/ConsentBanner.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import IconSprite from '@/components/ui/IconSprite.astro';
 import { SITE } from '@/config/site';
-import { TRACKING_ENABLED } from '@/config/tracking';
+import { TRACKING, TRACKING_ENABLED } from '@/config/tracking';
 import { localBusinessSchema } from '@/lib/schema';
 
 interface Props {
@@ -46,6 +46,7 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <Analytics />
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
@@ -81,11 +82,22 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
     <meta name="geo.region" content="BR-SP" />
     <meta name="geo.placename" content="Indaiatuba" />
 
-    <Analytics />
     <JsonLd data={[localBusinessSchema(), ...schema]} />
     <slot name="head" />
   </head>
   <body>
+    {
+      TRACKING.gtmId && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${TRACKING.gtmId}`}
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+          />
+        </noscript>
+      )
+    }
     <IconSprite />
     <Header isHome={isHome} />
     <main id="conteudo" tabindex="-1" class="outline-none">

@@ -1,13 +1,17 @@
 /**
  * Configuração de mensuração (Google Tag Manager, GA4, Google Ads).
  * Os IDs vêm de variáveis de ambiente (.env) — nenhum ID é inventado.
+ * Exceção: o contêiner GTM da Martinelli Chaves é o padrão (ID público). PUBLIC_GTM_ID o substitui;
+ * PUBLIC_GTM_ID vazio desativa o GTM.
  * Sem IDs, os eventos continuam sendo enviados ao dataLayer, mas nenhuma tag externa é carregada.
  */
 
 const clean = (v: string | undefined) => (v && v.trim() ? v.trim() : null);
 
+const DEFAULT_GTM_ID = 'GTM-T43MD2XP';
+
 export const TRACKING = {
-  gtmId: clean(import.meta.env.PUBLIC_GTM_ID),
+  gtmId: clean(import.meta.env.PUBLIC_GTM_ID ?? DEFAULT_GTM_ID),
   ga4Id: clean(import.meta.env.PUBLIC_GA4_ID),
   adsId: clean(import.meta.env.PUBLIC_GOOGLE_ADS_ID),
   adsLabels: {

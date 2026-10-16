@@ -2,12 +2,13 @@
 
 ## Como ativar
 
-1. Copie `.env.example` para `.env` e preencha **somente com IDs reais**:
-   - Recomendado: `PUBLIC_GTM_ID=GTM-XXXXXXX` (GA4 e Google Ads configurados dentro do GTM).
-   - Sem GTM: `PUBLIC_GA4_ID`, `PUBLIC_GOOGLE_ADS_ID` e os rótulos `PUBLIC_ADS_LABEL_*`.
-2. Rode `npm run build` e publique.
+**GTM ativo:** contêiner `GTM-T43MD2XP`, definido como padrão em `src/config/tracking.ts`. O script fica no topo do `<head>` (logo após o Consent Mode) e o `<noscript>` logo após a abertura do `<body>`, em todas as páginas (`src/layouts/BaseLayout.astro`). Configure GA4 e Google Ads dentro do GTM.
 
-Sem IDs, nenhuma tag externa é carregada — os eventos continuam indo para `window.dataLayer` (útil para testar).
+- Trocar o contêiner: `PUBLIC_GTM_ID=GTM-XXXXXXX` no `.env`. Desativar: `PUBLIC_GTM_ID=` (vazio).
+- Sem GTM: `PUBLIC_GA4_ID`, `PUBLIC_GOOGLE_ADS_ID` e os rótulos `PUBLIC_ADS_LABEL_*` (gtag.js direto).
+- Depois de alterar: `npm run build` e publique.
+
+Sem nenhum ID, nenhuma tag externa é carregada — os eventos continuam indo para `window.dataLayer` (útil para testar).
 
 ## Consentimento (LGPD)
 

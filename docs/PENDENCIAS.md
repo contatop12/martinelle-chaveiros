@@ -14,7 +14,7 @@ Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 | "Mais de 13 anos de experiência" | **Removido do site** até o proprietário confirmar. | `COMPANY.experience` |
 | Razão social e CNPJ | Pendente. Um diretório público lista "MARTINELLI CHAVES LTDA — 49.117.987/0001-18"; não publicado sem confirmação. | `COMPANY.legal` |
 | Nomes do proprietário e da esposa | Pendente (a foto recebida é de atendimento, sem nome confirmado). | `COMPANY.owners.names` |
-| IDs do GTM, GA4 e Google Ads | Nenhum ID foi inventado. Ver `docs/MENSURACAO.md`. | `.env` |
+| IDs do GTM, GA4 e Google Ads | **GTM instalado** (`GTM-T43MD2XP`, enviado em 16/10/2026). Falta configurar GA4 e Google Ads dentro do GTM. Ver `docs/MENSURACAO.md`. | GTM / `src/config/tracking.ts` |
 | Política de Privacidade | Revisar com o cliente/assessoria e completar razão social e CNPJ. | `src/pages/politica-de-privacidade.astro` |
 
 Confirmado e já aplicado: estacionamento gratuito no Sumerbol, horário do quiosque (seg a sex 10h–19h, sáb 10h–18h, domingos e feriados fechado) e atendimento externo emergencial 24h, todos os dias.
