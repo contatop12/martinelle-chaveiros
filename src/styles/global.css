@@ -89,14 +89,14 @@
 
 @layer base {
   :root {
-    /* altura do que fica fixo no topo após rolar: barra compacta (mobile) ou menu (desktop) */
+    /* altura do que fica fixo no topo após rolar: barra compacta (mobile) ou topo + seções (desktop: 77 + 49) */
     --header-h: 64px;
     --bar-h: 0px;
     color-scheme: dark;
   }
   @media (width >= 64rem) {
     :root {
-      --header-h: 48px;
+      --header-h: 126px;
     }
   }
   @media (width < 64rem) {

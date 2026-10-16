@@ -22,15 +22,10 @@ import Icon from '@/components/ui/Icon.astro';
       bottom: 1.5rem;
     }
   }
-  /* Com o aviso de cookies aberto (embaixo), o botão sobe para logo abaixo da barra do topo */
+  /* Com o aviso de cookies aberto (embaixo), o botão sobe para logo abaixo do topo fixo */
   :global(body:has(.consent:not([hidden]))) .return-pill {
-    top: calc(env(safe-area-inset-top) + 4.75rem);
+    top: calc(env(safe-area-inset-top) + var(--header-h) + 0.75rem);
     bottom: auto;
-  }
-  @media (width >= 64rem) {
-    :global(body:has(.consent:not([hidden]))) .return-pill {
-      top: 4.5rem;
-    }
   }
   @media (prefers-reduced-motion: no-preference) {
     .return-pill:not([hidden]) {

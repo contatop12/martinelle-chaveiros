@@ -17,7 +17,9 @@ const prefix = isHome ? '' : '/';
   Pular para o conteúdo
 </a>
 
-<!-- Linha 1: marca e contato (rola junto com a página) -->
+<!-- Computador: as duas linhas (marca/contato e seções) ficam fixas no topo juntas. Celular: rolam e dão lugar à barra compacta. -->
+<div class="site-header lg:sticky lg:top-0 lg:z-50">
+<!-- Linha 1: marca e contato -->
 <div class="site-top relative z-40 border-b border-white/[0.06] bg-ink-950">
   <div class="container-x flex h-16 items-center gap-4 lg:h-[76px]">
     <a href={isHome ? '#inicio' : '/'} class="shrink-0" aria-label="Martinelli Chaves — página inicial">
@@ -58,8 +60,8 @@ const prefix = isHome ? '' : '/';
   </div>
 </div>
 
-<!-- Linha 2: navegação por seções (fixa no topo) -->
-<header class="site-nav sticky top-0 z-50 hidden border-b border-white/[0.07] bg-ink-950/85 backdrop-blur-xl lg:block">
+<!-- Linha 2: navegação por seções -->
+<header class="site-nav hidden border-b border-white/[0.07] bg-ink-950/90 backdrop-blur-xl lg:block">
   <nav aria-label="Seções da página" class="container-x">
     <ul class="nav-scroll flex h-12 items-center justify-between gap-x-3 overflow-x-auto">
       {
@@ -74,6 +76,7 @@ const prefix = isHome ? '' : '/';
     </ul>
   </nav>
 </header>
+</div>
 
 <!-- Mobile: barra fixa compacta que aparece ao rolar -->
 <div class="mobile-sticky fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-ink-950/90 pt-[env(safe-area-inset-top)] backdrop-blur-xl lg:hidden" data-state="hidden">
