@@ -1,7 +1,9 @@
 /**
  * Gera public/images/brands/<marca>.svg a partir do pacote simple-icons (vetores oficiais monocromáticos).
  * Uso: node scripts/generate-brand-logos.mjs
- * Marcas sem ícone no simple-icons (ex.: Mercedes-Benz, Land Rover) devem ser adicionadas manualmente nesta pasta.
+ * Marcas sem ícone no simple-icons ficam fora desta lista:
+ * - mercedes-benz.svg: desenhado à mão (estrela de três pontas no anel, geometria simples);
+ * - Land Rover, Jaguar, Lexus, BYD, GWM, Caoa Chery, Alfa Romeo, Dodge: aguardando SVG oficial.
  */
 import { writeFileSync, mkdirSync } from 'node:fs';
 import * as icons from 'simple-icons';
@@ -24,6 +26,12 @@ const BRANDS = {
   ford: 'siFord',
   peugeot: 'siPeugeot',
   citroen: 'siCitroen',
+  renault: 'siRenault',
+  mitsubishi: 'siMitsubishi',
+  kia: 'siKia',
+  suzuki: 'siSuzuki',
+  subaru: 'siSubaru',
+  ferrari: 'siFerrari',
 };
 
 const out = new URL('../public/images/brands/', import.meta.url);

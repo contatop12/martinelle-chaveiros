@@ -6,6 +6,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import BrandGrid from '@/components/ui/BrandGrid.astro';
 import ProofVideo from '@/components/ui/ProofVideo.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import { WA_MESSAGES, waLink } from '@/lib/contact';
 import { GALLERY, PREMIUM_STRIP, VIDEOS } from '@/data/photos';
 
 const strip = PREMIUM_STRIP.map((id) => GALLERY.find((g) => g.id === id)!).filter(Boolean);
@@ -20,26 +21,23 @@ const specialties = [
 <section id="carros-importados" class="section surface-deep relative overflow-hidden" aria-labelledby="importados-titulo">
   <div class="lux-lines pointer-events-none absolute inset-0" aria-hidden="true"></div>
   <div class="container-x relative">
-    <SectionHeading id="importados-titulo" title="Chaves para Carros Importados e de Luxo">
-      Soluções em chaves codificadas, Smart Keys, chaves presenciais e controles para veículos importados e de alto padrão. Consulte a
-      compatibilidade com a marca, modelo e ano do seu veículo.
-    </SectionHeading>
+    <div class="imp-top grid gap-10 md:grid-cols-[1fr_auto] md:gap-x-12 md:gap-y-8 lg:gap-x-20">
+      <div class="imp-head">
+        <SectionHeading id="importados-titulo" title="Chaves para Carros Importados e de Luxo">
+          Soluções em chaves codificadas, Smart Keys, chaves presenciais e controles para veículos importados e de alto padrão. Consulte a
+          compatibilidade com a marca, modelo e ano do seu veículo.
+        </SectionHeading>
+      </div>
 
-    <div class="mt-12 grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-12 lg:gap-16">
       <ProofVideo
         video={VIDEOS.bmw}
         label="Vídeo: teste de chave presencial em um BMW, com abertura da porta e partida"
         caption="Teste real de chave presencial em BMW"
-        class="max-w-[12rem] lg:max-w-[12.5rem]"
+        class="imp-video max-w-[12rem] lg:max-w-[13rem]"
       />
 
-      <div>
-        <h3 class="h-card text-lg text-white">Marcas Atendidas</h3>
-        <div class="mt-5">
-          <BrandGrid />
-        </div>
-
-        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+      <div class="imp-rest">
+        <ul class="grid gap-3 sm:grid-cols-2">
           {
             specialties.map((s) => (
               <li class="flex items-center gap-3 text-[0.9375rem] text-steel-200">
@@ -56,6 +54,33 @@ const specialties = [
           <WhatsAppCta label="Consultar Chave para Meu Importado" messageKey="importados" service="carros_importados" location="secao_importados" />
         </div>
       </div>
+    </div>
+
+    <!-- Faixa de marcas: largura total, até 8 logotipos por linha -->
+    <div class="mt-16 border-t border-white/[0.08] pt-12 lg:mt-20 lg:pt-14">
+      <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+        <h3 class="h-card text-xl text-white sm:text-2xl">Trabalhamos com Chaves de Todas as Marcas</h3>
+        <p class="text-[0.9375rem] text-steel-300">
+          Não encontrou a sua?{' '}
+          <a
+            href={waLink(WA_MESSAGES.automotivo)}
+            target="_blank"
+            rel="noopener"
+            class="font-semibold text-gold-light underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold-light"
+            data-track="whatsapp_click"
+            data-service="chave_automotiva"
+            data-location="secao_marcas"
+          >
+            Consulte pelo WhatsApp
+          </a>
+        </p>
+      </div>
+      <div class="mt-10">
+        <BrandGrid />
+      </div>
+      <p class="mt-10 text-xs leading-relaxed text-steel-400">
+        As marcas mencionadas pertencem aos seus respectivos titulares e são utilizadas exclusivamente para identificar veículos atendidos.
+      </p>
     </div>
 
     <ul class="lux-strip mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:overflow-visible" aria-label="Trabalhos em veículos premium" tabindex="0">
@@ -83,6 +108,27 @@ const specialties = [
     background:
       radial-gradient(ellipse 60% 50% at 10% 20%, rgb(212 163 74 / 0.09), transparent 70%),
       repeating-linear-gradient(115deg, transparent 0 46px, rgb(255 255 255 / 0.018) 46px 47px);
+  }
+  .imp-top {
+    grid-template-areas: 'head' 'video' 'rest';
+  }
+  @media (width >= 48rem) {
+    .imp-top {
+      grid-template-areas: 'head video' 'rest video';
+      align-content: center;
+    }
+  }
+  .imp-head {
+    grid-area: head;
+    align-self: end;
+  }
+  .imp-top :global(.imp-video) {
+    grid-area: video;
+    align-self: center;
+  }
+  .imp-rest {
+    grid-area: rest;
+    align-self: start;
   }
   .lux-strip {
     scrollbar-width: thin;

@@ -1,43 +1,52 @@
 ---
 /**
- * Grade "Marcas Atendidas": somente marcas premium verificadas, na ordem de preferência do cliente.
+ * Grade "Trabalhamos com Chaves de Todas as Marcas": todas as marcas com logotipo, na ordem de src/data/brands.ts.
  * O logotipo já traz o nome — o nome fica apenas para leitores de tela.
+ * Colunas: 3 → 4 → 6 → 8 (com 24 marcas, todas as linhas ficam completas).
  */
-import { PREMIUM_BRANDS } from '@/data/brands';
+import { GRID_BRANDS } from '@/data/brands';
 ---
 
-<ul class="brand-grid" aria-label="Marcas atendidas" style={`--n:${PREMIUM_BRANDS.length}`}>
+<ul class="brand-grid" aria-label="Marcas atendidas">
   {
-    PREMIUM_BRANDS.map((b, i) => (
-      <li class="brand-tile" data-reveal style={`--i:${i % 4}`}>
+    GRID_BRANDS.map((b, i) => (
+      <li class="brand-tile" data-reveal style={`--i:${i % 8}`}>
         <span class="brand-logo" style={`--logo:url(${b.logo})`} role="img" aria-label={b.name} />
       </li>
     ))
   }
 </ul>
-<p class="mt-4 text-xs leading-relaxed text-steel-400">
-  As marcas mencionadas pertencem aos seus respectivos titulares e são utilizadas exclusivamente para identificar veículos atendidos.
-</p>
 
 <style>
   /* Logotipos grandes, sem caixas: a marca é o destaque */
   .brand-grid {
     display: grid;
-    grid-template-columns: repeat(min(var(--n), 3), minmax(0, 1fr));
-    gap: 1.5rem 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem 1rem;
     align-items: center;
   }
-  @media (width >= 64rem) {
+  @media (width >= 40rem) {
     .brand-grid {
-      grid-template-columns: repeat(min(var(--n), 4), minmax(0, 1fr));
-      gap: 2.5rem 2rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2.25rem 1.5rem;
+    }
+  }
+  @media (width >= 48rem) {
+    .brand-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  @media (width >= 80rem) {
+    .brand-grid {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 2.75rem 2rem;
     }
   }
   .brand-tile {
     position: relative;
     display: grid;
     place-items: center;
-    padding-block: 0.5rem;
+    padding-block: 0.25rem;
     color: var(--color-paper);
     transition: color 0.35s;
   }
@@ -61,8 +70,8 @@ import { PREMIUM_BRANDS } from '@/data/brands';
     position: relative;
     display: block;
     width: 100%;
-    max-width: 6.5rem;
-    height: 5.5rem;
+    max-width: 5.5rem;
+    height: 4.25rem;
     background: currentColor;
     -webkit-mask: var(--logo) center / contain no-repeat;
     mask: var(--logo) center / contain no-repeat;
@@ -73,8 +82,8 @@ import { PREMIUM_BRANDS } from '@/data/brands';
   }
   @media (width >= 40rem) {
     .brand-logo {
-      max-width: 9rem;
-      height: 7.5rem;
+      max-width: 7rem;
+      height: 5.5rem;
     }
   }
 </style>

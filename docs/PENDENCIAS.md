@@ -19,24 +19,13 @@ Atualizado em 15/10/2026, após o documento "Correções — Martinelli Chaves".
 
 Confirmado e já aplicado: estacionamento gratuito no Sumerbol, horário do quiosque (seg a sex 10h–19h, sáb 10h–18h, domingos e feriados fechado) e atendimento externo emergencial 24h, todos os dias.
 
-## Marcas premium aguardando confirmação
+## Marcas
 
-A grade "Marcas Atendidas" mostra apenas marcas com trabalho comprovado em foto/vídeo: **BMW, RAM e Jeep** (na ordem de preferência do cliente).
+Confirmado em 16/10/2026: a Martinelli faz chaves para **todas as marcas**. A grade "Trabalhamos com Chaves de Todas as Marcas" (seção de importados) mostra 24 logotipos: premium na ordem do cliente (BMW, MINI, Mercedes-Benz, Porsche, Volvo, Audi, RAM, Jeep) e depois VW, Chevrolet, Fiat, Ford, Toyota, Honda, Hyundai, Nissan, Renault, Peugeot, Citroën, Mitsubishi, Kia, Suzuki, Subaru e Ferrari. Ao lado do título, o link "Não encontrou a sua? Consulte pelo WhatsApp".
 
-Aguardando confirmação do proprietário (a lista enviada é preferência de apresentação, não comprovação):
+Ainda **sem logotipo** (aparecem só no formulário de orçamento): Land Rover, Jaguar, Lexus, BYD, GWM, Caoa Chery, Alfa Romeo, Dodge e Chrysler (o logo da Chrysler, de asas finas, fica ilegível no tamanho da grade).
 
-| Marca | Logotipo |
-|---|---|
-| MINI | pronto (`public/images/brands/mini.svg`) |
-| Mercedes-Benz | **falta SVG oficial** |
-| Land Rover | **falta SVG oficial** |
-| Jaguar | **falta SVG oficial** |
-| Porsche | pronto |
-| Volvo | pronto |
-| Audi | pronto |
-| Lexus | **falta SVG oficial** |
-
-Para exibir: em `src/data/brands.ts`, mudar `verified` para `true` (e preencher `logo` quando faltar o SVG). A grade se ajusta sozinha a 3 ou 4 colunas.
+Para incluir: salvar o SVG oficial monocromático em `public/images/brands/<marca>.svg` e preencher `logo` em `src/data/brands.ts`. A grade usa 3, 4, 6 ou 8 colunas conforme a tela; manter o total em múltiplo de 24 (ou de 12) deixa todas as linhas completas.
 
 A imagem de referência com os logotipos citada no documento de correções **não foi recebida**.
 

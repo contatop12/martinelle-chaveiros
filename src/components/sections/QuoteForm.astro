@@ -46,9 +46,7 @@ const presetMap: Record<string, string> = {
   chaveiro_automotivo: 'chave_automotiva',
 };
 const selected = presetMap[preset] ?? preset;
-const carBrands = BRANDS.filter((b) => b.name !== 'Triumph')
-  .map((b) => b.name)
-  .sort();
+const carBrands = BRANDS.map((b) => b.name).sort((a, b) => a.localeCompare(b, 'pt-BR'));
 const motoBrands = ['BMW', 'Ducati', 'Harley-Davidson', 'Honda', 'Kawasaki', 'Royal Enfield', 'Suzuki', 'Triumph', 'Yamaha'];
 const year = new Date().getFullYear();
 ---
