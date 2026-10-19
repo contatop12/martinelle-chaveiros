@@ -3,7 +3,7 @@
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { ELECTRONIC_SERVICES } from '@/data/services';
 import { FEATURE_PHOTOS } from '@/data/photos';
 
@@ -42,10 +42,10 @@ const confirmed = ELECTRONIC_SERVICES.filter((s) => s.confirmed);
         }
       </ul>
       <p class="mt-6 text-[0.9375rem] text-steel-400">
-        Outro problema na parte eletrônica da chave ou do travamento? Descreva pelo WhatsApp e confirmamos se é possível atender.
+        Outro problema na parte eletrônica da chave ou do travamento? Ligue, descreva o problema e confirmamos se é possível atender.
       </p>
       <div class="mt-8">
-        <WhatsAppCta label="Consultar Serviço Eletrônico" messageKey="eletronica" service="eletronica_automotiva" location="secao_eletronica" />
+        <PhoneCta service="eletronica_automotiva" location="secao_eletronica" />
       </div>
     </div>
   </div>

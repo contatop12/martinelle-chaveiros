@@ -3,7 +3,6 @@
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import BittingLine from '@/components/ui/BittingLine.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
 import type { ServicePage } from '@/data/pages';
 import { HOURS } from '@/config/site';
@@ -33,8 +32,7 @@ const { page } = Astro.props;
       <h1 id="page-title" class="h-display text-[clamp(2.1rem,1.1rem+4vw,4rem)]">{page.h1}</h1>
       <p class="lead mt-6 text-steel-300">{page.lead}</p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <WhatsAppCta label={page.waLabel} messageKey={page.waKey} service={page.service} location="hero_pagina" size="lg" />
-        <PhoneCta service={page.service} location="hero_pagina" size="lg" />
+        <PhoneCta service={page.service} location="hero_pagina" size="lg" showNumber />
       </div>
       <ul class="mt-9 grid gap-x-6 gap-y-3 text-[0.9375rem] text-steel-200 sm:grid-cols-2">
         {

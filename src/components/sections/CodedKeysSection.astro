@@ -3,7 +3,7 @@
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import KeyTypeArt from '@/components/ui/KeyTypeArt.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { KEY_TYPES } from '@/data/services';
 ---
 
@@ -38,8 +38,8 @@ import { KEY_TYPES } from '@/data/services';
     </ul>
 
     <div class="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-      <WhatsAppCta label="Consultar Chave para Meu Veículo" messageKey="codificadas" service="chaves_codificadas" location="secao_codificadas" />
-      <p class="text-sm text-steel-400">Envie marca, modelo e ano. Respondemos se é possível fazer.</p>
+      <PhoneCta service="chaves_codificadas" location="secao_codificadas" />
+      <p class="text-sm text-steel-400">Informe marca, modelo e ano. Respondemos se é possível fazer.</p>
     </div>
   </div>
 </section>

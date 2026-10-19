@@ -2,7 +2,7 @@
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import BittingLine from '@/components/ui/BittingLine.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
 import ReviewBadge from '@/components/ui/ReviewBadge.astro';
 import { FEATURE_PHOTOS } from '@/data/photos';
 
@@ -31,7 +31,7 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
       </p>
 
       <div class="hero-in mt-7 hidden flex-wrap gap-3 lg:flex" style="--d:2">
-        <WhatsAppCta label="Chamar no WhatsApp" service="geral" location="hero" size="lg" class="flex-auto !gap-2 !px-3 text-[0.9375rem] sm:flex-none sm:!gap-2.5 sm:!px-6 sm:text-[1.0625rem]" />
+        <PhoneCta service="geral" location="hero" size="lg" showNumber />
       </div>
 
       <ul class="mt-7 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[0.9375rem] text-steel-200 sm:gap-x-6" aria-label="Diferenciais">

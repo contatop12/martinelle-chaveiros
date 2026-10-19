@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BittingLine from '@/components/ui/BittingLine.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { SERVICE_PAGES } from '@/data/pages';
 ---
 
@@ -14,7 +14,7 @@ import { SERVICE_PAGES } from '@/data/pages';
         O endereço pode ter mudado. Escolha um serviço abaixo ou fale direto com a Martinelli Chaves.
       </p>
       <div class="mt-8">
-        <WhatsAppCta label="Falar pelo WhatsApp" service="geral" location="pagina_404" />
+        <PhoneCta service="geral" location="pagina_404" />
       </div>
       <ul class="mt-10 grid gap-3 sm:grid-cols-2">
         <li><a href="/" class="text-link text-white">Página inicial</a></li>

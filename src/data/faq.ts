@@ -14,13 +14,13 @@ export const FAQ: FaqItem[] = [
   {
     id: 'atende-24h',
     q: 'A Martinelli Chaves atende 24 horas?',
-    a: `Sim, para emergências. O atendimento externo emergencial funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: o atendimento presencial é de ${KIOSK}.`,
+    a: `Sim, para emergências. O atendimento externo emergencial funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: o atendimento presencial é de ${KIOSK}.`,
     tags: ['24h', 'geral'],
   },
   {
     id: 'chaves-codificadas',
     q: 'Vocês fazem chaves codificadas?',
-    a: 'Sim. Fazemos cópia, confecção e programação de chaves codificadas, chaves canivete, smart keys e chaves presenciais. A viabilidade depende da marca, do modelo, do ano e do sistema do veículo. Envie esses dados pelo WhatsApp para uma avaliação.',
+    a: 'Sim. Fazemos cópia, confecção e programação de chaves codificadas, chaves canivete, smart keys e chaves presenciais. A viabilidade depende da marca, do modelo, do ano e do sistema do veículo. Informe esses dados por telefone para uma avaliação.',
     tags: ['codificadas', 'automotivo'],
   },
   {
@@ -32,7 +32,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'bmw-mercedes',
     q: 'Vocês fazem chave para BMW e Mercedes-Benz?',
-    a: 'Atendemos BMW: você pode ver chaves presenciais de BMW entre os nossos trabalhos realizados. Para Mercedes-Benz e outras marcas premium, a possibilidade depende do modelo, do ano e do sistema de chave. Envie os dados do veículo pelo WhatsApp para confirmarmos antes do atendimento.',
+    a: 'Atendemos BMW: você pode ver chaves presenciais de BMW entre os nossos trabalhos realizados. Para Mercedes-Benz e outras marcas premium, a possibilidade depende do modelo, do ano e do sistema de chave. Informe os dados do veículo por telefone para confirmarmos antes do atendimento.',
     tags: ['importados'],
   },
   {
@@ -56,13 +56,13 @@ export const FAQ: FaqItem[] = [
   {
     id: 'atende-no-local',
     q: 'Vocês atendem no local onde o carro está?',
-    a: 'Sim. Fazemos atendimento externo em Indaiatuba e região, conforme disponibilidade. Informe pelo WhatsApp onde o veículo está para combinarmos o atendimento.',
+    a: 'Sim. Fazemos atendimento externo em Indaiatuba e região, conforme disponibilidade. Ligue e informe onde o veículo está para combinarmos o atendimento.',
     tags: ['24h', 'automotivo'],
   },
   {
     id: 'motos',
     q: 'Vocês fazem chave para motos?',
-    a: 'Sim. Fazemos cópia, confecção, programação e reparação de chaves de motos, conforme a compatibilidade de cada modelo. Envie marca, modelo e ano da moto pelo WhatsApp.',
+    a: 'Sim. Fazemos cópia, confecção, programação e reparação de chaves de motos, conforme a compatibilidade de cada modelo. Informe marca, modelo e ano da moto por telefone.',
     tags: ['motos'],
   },
   {
@@ -74,7 +74,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'controle-portao',
     q: 'Vocês fazem controle de portão?',
-    a: 'Sim. Fazemos cópia e programação de controles de portão compatíveis. Traga o controle atual ao quiosque ou envie uma foto dele pelo WhatsApp para verificarmos.',
+    a: 'Sim. Fazemos cópia e programação de controles de portão compatíveis. Traga o controle atual ao quiosque para verificarmos.',
     tags: ['residencial'],
   },
   {
@@ -86,7 +86,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'orcamento',
     q: 'Como solicitar orçamento?',
-    a: `Pelo WhatsApp ou pelo telefone ${CONTACT.phoneDisplay}, ou pelo formulário de orçamento rápido desta página. Para serviços automotivos, informe marca, modelo e ano do veículo e descreva o problema.`,
+    a: `Pelo telefone ${CONTACT.phoneDisplay}. Para serviços automotivos, informe marca, modelo e ano do veículo e descreva o problema.`,
     tags: ['geral', 'automotivo', 'residencial', 'motos', 'importados'],
   },
 ];

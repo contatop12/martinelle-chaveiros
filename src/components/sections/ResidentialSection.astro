@@ -2,7 +2,6 @@
 /** Bloco 10 — Chaveiro residencial e comercial: três grupos principais + comércio como complemento */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { RESIDENTIAL_CATEGORIES, COMMERCIAL_NOTE } from '@/data/services';
 ---
@@ -14,7 +13,6 @@ import { RESIDENTIAL_CATEGORIES, COMMERCIAL_NOTE } from '@/data/services';
         Para casas, apartamentos e comércios. Cópias no quiosque do Sumerbol e serviços no local, conforme disponibilidade.
       </SectionHeading>
       <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
-        <WhatsAppCta label="Solicitar Serviço de Chaveiro" messageKey="residencial" service="chaveiro_residencial" location="secao_residencial" />
         <PhoneCta service="chaveiro_residencial" location="secao_residencial" />
       </div>
     </div>

@@ -3,26 +3,12 @@
  * Barra inferior fixa (mobile). O <body> recebe padding-bottom igual à altura da barra (--bar-h),
  * para que nenhum conteúdo fique escondido. Some enquanto um campo do formulário está em foco.
  */
-import Icon from '@/components/ui/Icon.astro';
-import { waLinkFor, telLink } from '@/lib/contact';
+import PhoneCta from '@/components/ui/PhoneCta.astro';
 ---
 
 <div class="contact-bar fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden">
-  <div class="mx-auto grid max-w-xl grid-cols-[1.35fr_1fr] gap-2 px-3 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))]">
-    <a
-      href={waLinkFor('geral')}
-      target="_blank"
-      rel="noopener"
-      class="btn btn-wa !min-h-[3.25rem] !rounded-xl !px-3"
-      data-track="whatsapp_click"
-      data-service="geral"
-      data-location="barra_mobile"
-    >
-      <Icon brand="whatsapp" /> WhatsApp
-    </a>
-    <a href={telLink} class="btn btn-gold !min-h-[3.25rem] !rounded-xl !px-3" data-track="phone_click" data-service="geral" data-location="barra_mobile">
-      <Icon name="Phone" /> Ligar
-    </a>
+  <div class="mx-auto max-w-xl px-3 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))]">
+    <PhoneCta service="geral" location="barra_mobile" block showNumber class="!min-h-[3.25rem] !rounded-xl !px-3" />
   </div>
 </div>
 

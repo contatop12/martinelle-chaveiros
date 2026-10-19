@@ -1,13 +1,14 @@
 ---
 /**
  * Bloco 3 — "Qual problema você precisa resolver?"
- * Dois grupos (carro/moto e casa/empresa) em abas. Cada card abre o WhatsApp com a mensagem do problema.
+ * Dois grupos (carro/moto e casa/empresa) em abas. Cada card liga direto para a Martinelli.
  * Sem JavaScript, os dois grupos aparecem um abaixo do outro.
  */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import { PROBLEMS, type Problem } from '@/data/services';
-import { waLink } from '@/lib/contact';
+import { telLink } from '@/lib/contact';
+import { CONTACT } from '@/config/site';
 
 interface Props {
   ids?: string[];
@@ -32,8 +33,7 @@ const CardTitle = tabs ? 'h4' : 'h3';
 <section id="solucoes" class="section surface-light" aria-labelledby="solucoes-titulo">
   <div class="container-x">
     <SectionHeading id="solucoes-titulo" title="Qual problema você precisa resolver?">
-      {tabs ? 'Para o carro, a moto, a casa ou a empresa.' : ''} Escolha a situação e fale direto com a Martinelli: a mensagem já vai
-      pronta no WhatsApp.
+      {tabs ? 'Para o carro, a moto, a casa ou a empresa.' : ''} Escolha a situação e ligue direto para a Martinelli.
     </SectionHeading>
 
     <div data-tabs={tabs ? '' : undefined}>
@@ -74,11 +74,9 @@ const CardTitle = tabs ? 'h4' : 'h3';
               {g.items.map((p, i) => (
                 <li data-reveal style={`--i:${i % 4}`} data-extra={g.hasMore && !p.featured ? '' : undefined}>
                   <a
-                    href={waLink(p.message)}
-                    target="_blank"
-                    rel="noopener"
+                    href={telLink}
                     class="problem-card group"
-                    data-track="whatsapp_click"
+                    data-track="phone_click"
                     data-service={p.service}
                     data-location={`cards_problemas_${g.id}`}
                   >
@@ -89,8 +87,9 @@ const CardTitle = tabs ? 'h4' : 'h3';
                       <CardTitle class="h-card text-[1.0625rem] text-ink-900">{p.title}</CardTitle>
                       <span class="mt-1.5 block text-[0.9375rem] leading-relaxed text-steel-600">{p.text}</span>
                       <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-ink-900">
-                        <Icon brand="whatsapp" class="size-4 text-[#128c4a]" />
-                        Pedir ajuda pelo WhatsApp
+                        <Icon name="Phone" class="size-4 text-gold-ink" />
+                        <span class="lg:hidden">Ligar e pedir ajuda</span>
+                        <span class="hidden lg:inline">Ligar: {CONTACT.phoneDisplay}</span>
                         <Icon name="ChevronRight" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                       </span>
                     </span>

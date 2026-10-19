@@ -2,7 +2,6 @@
 /** Bloco 8 — Atendimento emergencial 24 horas (destaque máximo) */
 import Icon from '@/components/ui/Icon.astro';
 import BittingLine from '@/components/ui/BittingLine.astro';
-import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { EMERGENCY_POINTS } from '@/data/services';
 import { HOURS } from '@/config/site';
@@ -25,8 +24,7 @@ import { HOURS } from '@/config/site';
       </p>
 
       <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <WhatsAppCta label="Chamar Chaveiro 24h" messageKey="emergencia" service="emergencia_24h" location="secao_24h" size="lg" />
-        <PhoneCta label="Ligar para Emergência" service="emergencia_24h" location="secao_24h" variant="gold" size="lg" />
+        <PhoneCta label="Ligar para Emergência" service="emergencia_24h" location="secao_24h" size="lg" />
       </div>
 
       <ul class="mt-12 grid gap-x-8 gap-y-6 sm:grid-cols-2">
