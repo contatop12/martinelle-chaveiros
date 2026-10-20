@@ -18,6 +18,21 @@ export function localBusinessSchema() {
     image: `${SITE.url}${SITE.ogImage}`,
     logo: `${SITE.url}/images/brand/logo-martinelli-chaves.png`,
     telephone: CONTACT.phoneE164,
+    // Telefone atende emergências 24h (atendimento externo); o horário do quiosque fica em openingHoursSpecification
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: CONTACT.phoneE164,
+      contactType: 'customer service',
+      availableLanguage: 'pt-BR',
+      areaServed: SERVICE_AREA.cities.map((name) => ({ '@type': 'City', name })),
+      hoursAvailable: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    },
+    containedInPlace: { '@type': 'GroceryStore', name: ADDRESS.venue },
     address: {
       '@type': 'PostalAddress',
       streetAddress: `${ADDRESS.street}, ${ADDRESS.unit} (${ADDRESS.venue})`,
@@ -28,6 +43,7 @@ export function localBusinessSchema() {
     },
     areaServed: SERVICE_AREA.cities.map((name) => ({ '@type': 'City', name })),
     sameAs: [LINKS.instagram, LINKS.googleBusiness].filter(Boolean),
+    ...(LINKS.googleBusiness && { hasMap: LINKS.googleBusiness }),
     knowsAbout: [
       'Chaveiro automotivo',
       'Chaves codificadas',
@@ -62,7 +78,20 @@ export function localBusinessSchema() {
   return data;
 }
 
-export function serviceSchema(opts: { name: string; description: string; url: string; serviceType: string }) {
+/** Só na home: nome do site para o Google (site name) e entidade dona do site. */
+export function websiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#site`,
+    name: SITE.name,
+    url: `${SITE.url}/`,
+    inLanguage: SITE.lang,
+    publisher: { '@id': BUSINESS_ID },
+  };
+}
+
+export function serviceSchema(opts: { name: string; description: string; url: string; serviceType: string; allDay?: boolean }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -72,6 +101,14 @@ export function serviceSchema(opts: { name: string; description: string; url: st
     url: opts.url,
     provider: { '@id': BUSINESS_ID },
     areaServed: { '@type': 'City', name: ADDRESS.city },
+    ...(opts.allDay && {
+      hoursAvailable: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    }),
   };
 }
 

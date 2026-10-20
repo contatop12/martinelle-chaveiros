@@ -18,6 +18,8 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.includes('/404'),
       changefreq: 'monthly',
+      // Data do build: o site é publicado (npm run deploy) quando o conteúdo muda
+      lastmod: new Date(),
     }),
   ],
   image: {

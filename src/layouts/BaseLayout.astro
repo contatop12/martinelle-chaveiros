@@ -52,7 +52,7 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <meta name="theme-color" content="#080a0c" />
     <meta name="format-detection" content="telephone=no" />
 

@@ -55,7 +55,13 @@ const reviewTopic: Record<string, ReviewTopic | null> = {
 };
 
 const schema = [
-  serviceSchema({ name: page.h1, description: page.description, url, serviceType: page.h1.replace(' em Indaiatuba', '') }),
+  serviceSchema({
+    name: page.h1,
+    description: page.description,
+    url,
+    serviceType: page.h1.replace(' em Indaiatuba', ''),
+    allDay: page.body === '24h',
+  }),
   breadcrumbSchema([
     { name: 'Início', url: `${SITE.url}/` },
     { name: page.h1, url },

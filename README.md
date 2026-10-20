@@ -70,6 +70,9 @@ Páginas finais para anúncios e sitelinks (cada uma com H1, title, description,
 | Fotos e legendas da galeria | `src/data/photos.ts` + `src/assets/images/` |
 | Perguntas frequentes | `src/data/faq.ts` |
 | Avaliações do Google (reais) | `src/data/reviews.ts` |
+| robots.txt (buscadores e robôs de IA liberados) | `src/pages/robots.txt.ts` |
+| llms.txt (resumo para IA, gerado dos dados acima) | `src/pages/llms.txt.ts` |
+| Dados estruturados (Locksmith, WebSite, Service, FAQ) | `src/lib/schema.ts` |
 | Páginas de serviço | `src/data/pages.ts` |
 | Cores, tipografia, botões, animações | `src/styles/global.css` |
 
@@ -92,7 +95,7 @@ src/
   config/             site.ts (empresa) e tracking.ts (mensuração)
   data/               serviços, marcas, fotos, FAQ, páginas, avaliações, menu
   lib/                links de contato, ícones, dados estruturados
-  pages/              index, [slug] (páginas de serviço), política, 404, robots.txt
+  pages/              index, [slug] (páginas de serviço), política, 404, robots.txt, llms.txt
   scripts/            JS do cliente: menu, revelações, rastreamento, formulário, galeria, vídeo, mapa
 public/
   images/brands/      logotipos SVG das marcas (scripts/generate-brand-logos.mjs)

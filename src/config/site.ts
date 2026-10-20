@@ -14,7 +14,7 @@ export const SITE = {
   locale: 'pt_BR',
   lang: 'pt-BR',
   ogImage: '/images/og-martinelli-chaves.jpg',
-  defaultTitle: 'Chaveiro Automotivo e Residencial em Indaiatuba 24h | Martinelli Chaves',
+  defaultTitle: 'Chaveiro Automotivo 24h em Indaiatuba | Martinelli Chaves',
   defaultDescription:
     'Chaveiro 24h em Indaiatuba: chaves codificadas e smart keys para carros e motos, abertura de portas, fechaduras e cópias de chaves para casas e empresas.',
 } as const;

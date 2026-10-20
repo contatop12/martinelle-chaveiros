@@ -17,9 +17,10 @@ import FAQ from '@/components/sections/FAQ.astro';
 import LocationSection from '@/components/sections/LocationSection.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
 import { SITE } from '@/config/site';
+import { websiteSchema } from '@/lib/schema';
 ---
 
-<BaseLayout title={SITE.defaultTitle} description={SITE.defaultDescription} path="/" isHome>
+<BaseLayout title={SITE.defaultTitle} description={SITE.defaultDescription} path="/" isHome schema={[websiteSchema()]}>
   <Hero />
   <ServiceCards />
   <AutomotiveSection />

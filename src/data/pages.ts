@@ -39,9 +39,9 @@ export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: 'chaveiro-automotivo-indaiatuba',
     body: 'automotivo',
-    title: 'Chaveiro Automotivo em Indaiatuba | Cópia e Programação de Chaves',
+    title: 'Chaveiro Automotivo em Indaiatuba | Cópia e Programação',
     description:
-      'Chaveiro automotivo em Indaiatuba: cópia de chave de carro, chaves codificadas, canivete e presenciais, abertura de veículos e programação. Quiosque no Sumerbol.',
+      'Chaveiro automotivo em Indaiatuba: cópia de chave de carro, chaves codificadas, canivete e presenciais, abertura de veículos e programação. Quiosque Sumerbol.',
     h1: 'Chaveiro Automotivo em Indaiatuba',
     lead: 'Cópia de chave de carro, chave nova quando a original foi perdida, programação de chaves e controles e abertura técnica de veículos nacionais e importados. Quiosque no Sumerbol e atendimento externo em Indaiatuba e região.',
     highlights: ['Cópia de chave de carro', 'Chaves codificadas e canivete', 'Abertura técnica de veículos', 'Reparo de chaves e controles'],
@@ -57,9 +57,9 @@ export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: 'chaves-codificadas-indaiatuba',
     body: 'codificadas',
-    title: 'Chaves Codificadas em Indaiatuba | Smart Key e Chave Presencial',
+    title: 'Chaves Codificadas em Indaiatuba | Smart Key e Presencial',
     description:
-      'Chaves codificadas em Indaiatuba: transponder, chave canivete, smart key, chave presencial e reparação de chave eletrônica. Consulte a compatibilidade do seu veículo.',
+      'Chaves codificadas em Indaiatuba: transponder, canivete, smart key, chave presencial e reparo de chave eletrônica. Consulte a compatibilidade do seu veículo.',
     h1: 'Chaves Codificadas em Indaiatuba',
     lead: 'Programação de chave automotiva para transponder, chave canivete, smart key e chave presencial. A possibilidade de programar depende da marca, do modelo, do ano e do sistema do veículo — por isso avaliamos antes de confirmar o serviço.',
     highlights: ['Transponder e chave canivete', 'Smart Key e chave presencial', 'Chave reserva programada', 'Reparação de chave eletrônica'],
@@ -139,7 +139,7 @@ export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: 'chaveiro-residencial-indaiatuba',
     body: 'residencial',
-    title: 'Chaveiro Residencial e Comercial em Indaiatuba | Martinelli Chaves',
+    title: 'Chaveiro Residencial em Indaiatuba | Martinelli Chaves',
     description:
       'Chaveiro residencial em Indaiatuba: cópia de chaves, chave tetra, abertura de portas, troca de segredo, fechaduras eletrônicas e controles de portão.',
     h1: 'Chaveiro Residencial e Comercial em Indaiatuba',
