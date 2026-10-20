@@ -1,5 +1,5 @@
 ---
-/** Botão de ligação. No computador o número fica sempre visível: ligar pelo navegador nem sempre funciona, então a pessoa pode discar do celular. */
+/** Botão de ligação: só em celular e tablet (oculto a partir de 1024px, onde ligar pelo navegador não funciona bem). */
 import Icon from './Icon.astro';
 import { telLink } from '@/lib/contact';
 import { CONTACT } from '@/config/site';
@@ -8,7 +8,7 @@ interface Props {
   label?: string;
   service: string;
   location: string;
-  variant?: 'call' | 'line' | 'gold';
+  variant?: 'line' | 'gold';
   size?: 'md' | 'sm' | 'lg';
   class?: string;
   block?: boolean;
@@ -19,7 +19,7 @@ const {
   label = 'Ligar Agora',
   service,
   location,
-  variant = 'call',
+  variant = 'line',
   size = 'md',
   class: className = '',
   block = false,
@@ -31,10 +31,11 @@ const {
   href={telLink}
   class:list={[
     'btn',
-    { call: 'btn-call', line: 'btn-line', gold: 'btn-gold' }[variant],
+    variant === 'gold' ? 'btn-gold' : 'btn-line',
     size === 'sm' && 'btn-sm',
     size === 'lg' && 'min-h-14 px-6 text-[1.0625rem]',
     block && 'w-full',
+    'lg:hidden',
     className,
   ]}
   data-track="phone_click"
@@ -42,5 +43,5 @@ const {
   data-location={location}
 >
   <Icon name="Phone" />
-  <span>{label}<span class={showNumber ? 'font-semibold opacity-80' : 'sr-only lg:not-sr-only lg:font-semibold lg:opacity-80'}> {CONTACT.phoneDisplay}</span></span>
+  <span>{label}<span class={showNumber ? 'font-semibold opacity-80' : 'sr-only'}> {CONTACT.phoneDisplay}</span></span>
 </a>

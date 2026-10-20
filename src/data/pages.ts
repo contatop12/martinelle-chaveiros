@@ -29,7 +29,7 @@ export interface ServicePage {
 }
 
 const STEPS_VEHICLE = [
-  { title: 'Informe os dados do veículo', text: 'Marca, modelo, ano e o que aconteceu com a chave, por telefone.' },
+  { title: 'Envie os dados do veículo', text: 'Marca, modelo, ano e o que aconteceu com a chave, pelo WhatsApp ou telefone.' },
   { title: 'Avaliação de compatibilidade', text: 'Confirmamos se o serviço é possível para o sistema do seu veículo antes de combinar o atendimento.' },
   { title: 'Atendimento no quiosque ou no local', text: 'Você vem ao Sumerbol ou combinamos o atendimento externo, conforme disponibilidade.' },
   { title: 'Verificação e teste', text: 'Conferimos a documentação de propriedade e testamos a chave no veículo.' },
@@ -118,10 +118,10 @@ export const SERVICE_PAGES: ServicePage[] = [
     body: '24h',
     title: 'Chaveiro 24 Horas em Indaiatuba | Atendimento Emergencial',
     description:
-      'Chaveiro 24 horas em Indaiatuba: chave perdida, chave trancada no carro e atendimento emergencial todos os dias. Ligue (19) 99918-2277.',
+      'Chaveiro 24 horas em Indaiatuba: chave perdida, chave trancada no carro e atendimento emergencial todos os dias. WhatsApp e telefone (19) 99918-2277.',
     h1: 'Chaveiro 24 Horas em Indaiatuba',
     lead: 'Perdeu a chave, trancou a chave dentro do carro ou precisa de atendimento urgente? A Martinelli Chaves atende emergências 24 horas por dia, todos os dias da semana, em Indaiatuba e região.',
-    highlights: ['Emergência a qualquer hora', 'Atendimento externo', 'Orientação inicial por telefone', 'Indaiatuba e região'],
+    highlights: ['Emergência a qualquer hora', 'Atendimento externo', 'Orientação inicial pelo WhatsApp', 'Indaiatuba e região'],
     waKey: 'emergencia',
     waLabel: 'Chamar Chaveiro 24h',
     service: 'emergencia_24h',
@@ -129,7 +129,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqTag: '24h',
     gallery: null,
     steps: [
-      { title: 'Informe sua localização', text: 'Ligue e diga onde você está.' },
+      { title: 'Envie sua localização', text: 'Pelo WhatsApp, compartilhe onde você está. Se preferir, ligue.' },
       { title: 'Conte o que aconteceu', text: 'Chave perdida, trancada no carro, quebrada ou porta que não abre. Para veículos, informe marca, modelo e ano.' },
       { title: 'Combine o atendimento', text: 'Você recebe a orientação inicial e combinamos o deslocamento, conforme disponibilidade.' },
       { title: 'Tenha os documentos à mão', text: 'Para abrir ou fazer chave, verificamos a propriedade do veículo ou do imóvel.' },
@@ -152,7 +152,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqTag: 'residencial',
     gallery: null,
     steps: [
-      { title: 'Conte o que precisa', text: 'Cópia, abertura, fechadura ou controle de portão — por telefone.' },
+      { title: 'Conte o que precisa', text: 'Cópia, abertura, fechadura ou controle de portão — pelo WhatsApp ou telefone.' },
       { title: 'Cópias no quiosque', text: 'Cópias de chaves e controles compatíveis são feitas no quiosque do Sumerbol.' },
       { title: 'Serviços no local', text: 'Abertura de portas e instalação de fechaduras são combinadas para o endereço, conforme disponibilidade.' },
       { title: 'Verificação', text: 'Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.' },

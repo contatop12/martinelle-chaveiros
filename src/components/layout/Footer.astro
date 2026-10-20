@@ -4,7 +4,7 @@ import logo from '@/assets/images/brand/logo-martinelli-chaves.png';
 import Icon from '@/components/ui/Icon.astro';
 import { ADDRESS, CONTACT, COMPANY, HOURS, LINKS, SITE } from '@/config/site';
 import { SERVICE_PAGES } from '@/data/pages';
-import { telLink } from '@/lib/contact';
+import { waLinkFor, telLink } from '@/lib/contact';
 
 const year = new Date().getFullYear();
 ---
@@ -55,6 +55,17 @@ const year = new Date().getFullYear();
             {ADDRESS.district}, {ADDRESS.city}/{ADDRESS.state}, {ADDRESS.postalCode}
           </span>
         </p>
+        <a
+          href={waLinkFor('geral')}
+          target="_blank"
+          rel="noopener"
+          class="flex items-center gap-3 transition-colors hover:text-white"
+          data-track="whatsapp_click"
+          data-service="geral"
+          data-location="footer"
+        >
+          <Icon brand="whatsapp" class="size-4 text-wa" /> WhatsApp {CONTACT.phoneDisplay}
+        </a>
         <a href={telLink} class="flex items-center gap-3 transition-colors hover:text-white" data-track="phone_click" data-service="geral" data-location="footer">
           <Icon name="Phone" class="size-4 text-gold" /> Telefone {CONTACT.phoneDisplay}
         </a>

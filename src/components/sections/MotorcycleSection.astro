@@ -1,7 +1,7 @@
 ---
 /** Bloco 7 — Chaveiro para motos, com vídeos reais (Honda PCX 2023 e Triumph). */
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import PhoneCta from '@/components/ui/PhoneCta.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import ProofVideo from '@/components/ui/ProofVideo.astro';
 import { MOTORCYCLE_SERVICES } from '@/data/services';
 import { VIDEOS } from '@/data/photos';
@@ -26,7 +26,7 @@ import { VIDEOS } from '@/data/photos';
       </ul>
       <p class="mt-6 text-sm text-steel-600">Informe marca, modelo e ano da moto para confirmarmos se o serviço é possível.</p>
       <div class="mt-8">
-        <PhoneCta service="chaveiro_motos" location="secao_motos" />
+        <WhatsAppCta label="Consultar Serviço para Minha Moto" messageKey="motos" service="chaveiro_motos" location="secao_motos" />
       </div>
     </div>
 

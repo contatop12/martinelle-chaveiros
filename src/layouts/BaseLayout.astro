@@ -5,6 +5,7 @@ import manropeLatin from '@/assets/fonts/manrope-text.woff2?url';
 
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import WhatsAppButton from '@/components/layout/WhatsAppButton.astro';
 import MobileContactBar from '@/components/layout/MobileContactBar.astro';
 import ReturnButton from '@/components/layout/ReturnButton.astro';
 import Analytics from '@/components/layout/Analytics.astro';
@@ -103,6 +104,7 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
       <slot />
     </main>
     <Footer />
+    <WhatsAppButton />
     <MobileContactBar />
     <ReturnButton />
     {TRACKING_ENABLED && <ConsentBanner />}

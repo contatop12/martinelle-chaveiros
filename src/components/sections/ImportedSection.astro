@@ -5,9 +5,8 @@ import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import BrandGrid from '@/components/ui/BrandGrid.astro';
 import ProofVideo from '@/components/ui/ProofVideo.astro';
-import PhoneCta from '@/components/ui/PhoneCta.astro';
-import { telLink } from '@/lib/contact';
-import { CONTACT } from '@/config/site';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
+import { WA_MESSAGES, waLink } from '@/lib/contact';
 import { GALLERY, PREMIUM_STRIP, VIDEOS } from '@/data/photos';
 
 const strip = PREMIUM_STRIP.map((id) => GALLERY.find((g) => g.id === id)!).filter(Boolean);
@@ -52,7 +51,7 @@ const specialties = [
         </ul>
 
         <div class="mt-8">
-          <PhoneCta service="carros_importados" location="secao_importados" />
+          <WhatsAppCta label="Consultar Chave para Meu Importado" messageKey="importados" service="carros_importados" location="secao_importados" />
         </div>
       </div>
     </div>
@@ -64,13 +63,15 @@ const specialties = [
         <p class="text-[0.9375rem] text-steel-300">
           Não encontrou a sua?{' '}
           <a
-            href={telLink}
+            href={waLink(WA_MESSAGES.automotivo)}
+            target="_blank"
+            rel="noopener"
             class="font-semibold text-gold-light underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold-light"
-            data-track="phone_click"
+            data-track="whatsapp_click"
             data-service="chave_automotiva"
             data-location="secao_marcas"
           >
-            Ligue e consulte: {CONTACT.phoneDisplay}
+            Consulte pelo WhatsApp
           </a>
         </p>
       </div>

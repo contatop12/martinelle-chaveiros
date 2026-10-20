@@ -2,7 +2,7 @@
 /** Bloco 15 — Perguntas frequentes. <details> nativo (acessível por teclado) + JSON-LD FAQPage com o mesmo texto visível. */
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import PhoneCta from '@/components/ui/PhoneCta.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import { FAQ, type FaqItem } from '@/data/faq';
 import { faqSchema } from '@/lib/schema';
@@ -17,11 +17,11 @@ const { items = FAQ } = Astro.props;
   <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
     <div class="lg:sticky lg:top-36 lg:self-start">
       <SectionHeading id="faq-titulo" title="Perguntas Frequentes">
-        Respostas diretas sobre chaves, atendimento 24 horas e como funciona cada serviço. Não achou sua dúvida? Ligue para
-        a gente.
+        Respostas diretas sobre chaves, atendimento 24 horas e como funciona cada serviço. Não achou sua dúvida? Pergunte no
+        WhatsApp.
       </SectionHeading>
       <div class="mt-8">
-        <PhoneCta label="Tirar Dúvida por Telefone" service="duvida_faq" location="faq" />
+        <WhatsAppCta label="Tirar Dúvida no WhatsApp" service="duvida_faq" location="faq" />
       </div>
     </div>
 

@@ -3,6 +3,7 @@
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { ADDRESS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA } from '@/config/site';
 import { STORE_PHOTOS } from '@/data/photos';
@@ -34,7 +35,7 @@ import { STORE_PHOTOS } from '@/data/photos';
             <p class="mt-5 flex gap-4">
               <Icon name="Phone" class="mt-1 size-5 shrink-0 text-gold" />
               <span class="text-[1.0625rem]">
-                <span class="block text-sm text-steel-400">Telefone</span>
+                <span class="block text-sm text-steel-400">Telefone e WhatsApp</span>
                 <a href={`tel:${CONTACT.phoneE164}`} class="font-semibold text-white" data-track="phone_click" data-service="geral" data-location="localizacao_numero">{CONTACT.phoneDisplay}</a>
               </span>
             </p>
@@ -57,13 +58,14 @@ import { STORE_PHOTOS } from '@/data/photos';
             <div class="rounded-2xl border border-gold/35 bg-gold/[0.07] p-4">
               <h3 class="flex items-center gap-2 text-sm font-bold text-gold-light"><span class="live-dot"></span> Emergências 24h</h3>
               <p class="mt-2.5 text-[0.9375rem] text-white">
-                Atendimento externo 24 horas, todos os dias, inclusive domingos e feriados, mediante contato por telefone.
+                Atendimento externo 24 horas, todos os dias, inclusive domingos e feriados, mediante contato pelo WhatsApp ou telefone.
               </p>
             </div>
           </div>
           <p class="mt-4 text-sm text-steel-400">Atendimento externo em {SERVICE_AREA.label}, {SERVICE_AREA.note.toLowerCase()}.</p>
 
-          <div class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          <div class="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2">
+            <WhatsAppCta label="WhatsApp" service="geral" location="localizacao" size="sm" block />
             <PhoneCta label="Ligar" service="geral" location="localizacao" size="sm" block />
             <a
               href={LINKS.directions}

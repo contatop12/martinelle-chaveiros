@@ -1,15 +1,19 @@
 ---
 /** Bloco 17 — CTA final */
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
+import type { WaMessageKey } from '@/lib/contact';
 
 interface Props {
   title?: string;
   text?: string;
+  messageKey?: WaMessageKey;
   service?: string;
 }
 const {
   title = 'Precisa de uma Chave? Fale com a Martinelli Chaves.',
   text = 'Atendimento para carros nacionais e importados, motos, residências e comércios em Indaiatuba e região.',
+  messageKey = 'geral',
   service = 'geral',
 } = Astro.props;
 ---
@@ -27,6 +31,7 @@ const {
     <h2 id="cta-final-titulo" class="h-display mx-auto max-w-4xl text-[clamp(2rem,1.1rem+3.4vw,3.6rem)]">{title}</h2>
     <p class="lead mx-auto mt-6 text-steel-300">{text}</p>
     <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+      <WhatsAppCta label="Chamar no WhatsApp" messageKey={messageKey} service={service} location="cta_final" size="lg" />
       <PhoneCta service={service} location="cta_final" size="lg" showNumber />
     </div>
   </div>

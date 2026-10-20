@@ -18,6 +18,7 @@ import PortfolioGallery from '@/components/sections/PortfolioGallery.astro';
 import Steps from '@/components/sections/Steps.astro';
 import ReviewsHighlight from '@/components/sections/ReviewsHighlight.astro';
 import FAQ from '@/components/sections/FAQ.astro';
+import QuoteForm from '@/components/sections/QuoteForm.astro';
 import LocationSection from '@/components/sections/LocationSection.astro';
 import RelatedServices from '@/components/sections/RelatedServices.astro';
 import FinalCta from '@/components/sections/FinalCta.astro';
@@ -95,7 +96,8 @@ const schema = [
 
   <ReviewsHighlight topic={reviewTopic[page.body] ?? null} />
   <FAQ items={faqFor(page.faqTag)} />
+  <QuoteForm preset={page.service} />
   <LocationSection />
   <RelatedServices slugs={page.related} />
-  <FinalCta service={page.service} />
+  <FinalCta messageKey={page.waKey} service={page.service} />
 </BaseLayout>

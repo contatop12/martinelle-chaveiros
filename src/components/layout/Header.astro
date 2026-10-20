@@ -4,7 +4,7 @@ import logo from '@/assets/images/brand/logo-martinelli-chaves.png';
 import Icon from '@/components/ui/Icon.astro';
 import { NAV } from '@/data/nav';
 import { CONTACT, HOURS } from '@/config/site';
-import { telLink } from '@/lib/contact';
+import { waLinkFor, telLink } from '@/lib/contact';
 
 interface Props {
   isHome?: boolean;
@@ -29,22 +29,23 @@ const prefix = isHome ? '' : '/';
     <div class="ml-6 hidden flex-col gap-0.5 text-sm lg:flex">
       <p class="flex items-center gap-2.5 text-steel-200">
         <span class="live-dot"></span>
-        <span>{HOURS.emergencyShort} pelo telefone</span>
+        <span>{HOURS.emergencyShort} pelo WhatsApp e telefone</span>
       </p>
       <p class="hidden pl-[1.15rem] text-xs text-steel-400 xl:block">{HOURS.kioskShort}</p>
     </div>
 
     <div class="ml-auto flex items-center gap-2 lg:gap-3">
       <a
-        href={telLink}
-        class="btn btn-call btn-sm !min-h-11 !px-3.5 lg:!px-4"
-        data-track="phone_click"
+        href={waLinkFor('geral')}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-wa btn-sm !min-h-11 !px-3.5 lg:!px-4"
+        data-track="whatsapp_click"
         data-service="geral"
         data-location="header"
       >
-        <Icon name="Phone" />
-        <span class="lg:hidden">Ligar <span class="hidden xs:inline">24h</span></span>
-        <span class="hidden lg:inline">{CONTACT.phoneDisplay}</span>
+        <Icon brand="whatsapp" />
+        <span>WhatsApp <span class="hidden xs:inline">24h</span></span>
       </a>
       <button
         type="button"
@@ -140,7 +141,18 @@ const prefix = isHome ? '' : '/';
         </ul>
       </nav>
       <div class="mt-6 grid gap-3">
-        <a href={telLink} class="btn btn-call w-full" data-track="phone_click" data-service="geral" data-location="menu_mobile">
+        <a
+          href={waLinkFor('geral')}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-wa w-full"
+          data-track="whatsapp_click"
+          data-service="geral"
+          data-location="menu_mobile"
+        >
+          <Icon brand="whatsapp" /> WhatsApp 24h
+        </a>
+        <a href={telLink} class="btn btn-line w-full" data-track="phone_click" data-service="geral" data-location="menu_mobile">
           <Icon name="Phone" /> Ligar: {CONTACT.phoneDisplay}
         </a>
       </div>

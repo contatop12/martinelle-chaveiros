@@ -3,6 +3,7 @@
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
+import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
 import { AUTOMOTIVE_SERVICES } from '@/data/services';
 import { FEATURE_PHOTOS } from '@/data/photos';
@@ -35,6 +36,7 @@ import { FEATURE_PHOTOS } from '@/data/photos';
       </p>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <WhatsAppCta label="Solicitar Chaveiro Automotivo" messageKey="automotivo" service="chaveiro_automotivo" location="secao_automotivo" />
         <PhoneCta service="chaveiro_automotivo" location="secao_automotivo" />
       </div>
     </div>
