@@ -137,22 +137,15 @@ export function initTracking() {
     { capture: true },
   );
 
-  // Consentimento (banner só existe quando há tags configuradas)
+  // Aviso de cookies, só informativo (banner só existe quando há tags configuradas).
+  // As tags já rodam com consentimento "granted"; "Entendi" apenas esconde o aviso nas próximas visitas.
   const banner = document.querySelector<HTMLElement>('.consent');
   if (banner) {
     const saved = safeSession(() => localStorage.getItem('mc_consent'), null);
     if (!saved) banner.hidden = false;
     banner.addEventListener('click', (e) => {
-      const btn = (e.target as Element).closest<HTMLButtonElement>('[data-consent]');
-      if (!btn) return;
-      const state = btn.dataset.consent === 'granted' ? 'granted' : 'denied';
-      safeSession(() => localStorage.setItem('mc_consent', state), undefined);
-      window.gtag?.('consent', 'update', {
-        ad_storage: state,
-        ad_user_data: state,
-        ad_personalization: state,
-        analytics_storage: state,
-      });
+      if (!(e.target as Element).closest('[data-consent-ok]')) return;
+      safeSession(() => localStorage.setItem('mc_consent', 'notice_ok'), undefined);
       banner.hidden = true;
     });
   }

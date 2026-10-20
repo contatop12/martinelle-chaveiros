@@ -12,9 +12,9 @@ Sem nenhum ID, nenhuma tag externa é carregada — os eventos continuam indo pa
 
 ## Consentimento (LGPD)
 
-- Consent Mode v2 com tudo `denied` por padrão. O aviso de cookies só aparece quando há alguma tag configurada.
-- "Aceitar" → `gtag('consent','update', granted)`; a escolha fica em `localStorage` (`mc_consent`).
-- `url_passthrough` e `ads_data_redaction` ativos enquanto não houver consentimento.
+- **Desde 20/10/2026: tags ativas desde a entrada.** Decisão da agência para esta landing page temporária: Consent Mode v2 com tudo `granted` por padrão, sem esperar o aviso. O aviso de cookies é só informativo ("Ao continuar navegando, você concorda…" + botão "Entendi", guardado em `localStorage` como `mc_consent`) e não bloqueia nada. A Política de Privacidade usa legítimo interesse (art. 7º, IX) como base legal dos cookies de medição.
+- **No site institucional, seguir a regra à risca:** `denied` por padrão, aviso com "Aceitar"/"Recusar" e `gtag('consent','update')` só após o aceite (como estava no commit `0c66186`).
+- O aviso de cookies só aparece quando há alguma tag configurada.
 - **Enhanced Conversions: NÃO ativado.** O site não coleta e-mail/telefone (o contato acontece no WhatsApp), então não há dado de primeira parte para enviar. Reavaliar apenas com dados e consentimento adequados.
 
 ## Eventos enviados ao dataLayer

@@ -1,7 +1,8 @@
 ---
 /**
  * Mensuração. Carregado no <head>.
- * - Consent Mode v2: tudo "denied" por padrão até o visitante aceitar (LGPD).
+ * - Consent Mode v2: tudo "granted" desde a entrada (decisão da agência para esta landing page temporária).
+ *   O aviso de cookies é só informativo e não bloqueia as tags. No site institucional, voltar a "denied" até o aceite.
  * - GTM é carregado somente se PUBLIC_GTM_ID existir; sem GTM, gtag.js direto para GA4/Ads (se houver IDs).
  * - Sem nenhum ID configurado: nenhum script externo é carregado.
  */
@@ -23,22 +24,14 @@ const gtagId = !cfg.gtmId ? (cfg.ga4Id ?? cfg.adsId) : null;
   window.gtag = function () {
     window.dataLayer.push(arguments);
   };
-  var consent = null;
-  try {
-    consent = localStorage.getItem('mc_consent');
-  } catch (e) {}
-  var state = consent === 'granted' ? 'granted' : 'denied';
   window.gtag('consent', 'default', {
-    ad_storage: state,
-    ad_user_data: state,
-    ad_personalization: state,
-    analytics_storage: state,
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted',
     functionality_storage: 'granted',
     security_storage: 'granted',
-    wait_for_update: 500,
   });
-  window.gtag('set', 'ads_data_redaction', state === 'denied');
-  window.gtag('set', 'url_passthrough', true);
 </script>
 
 {
