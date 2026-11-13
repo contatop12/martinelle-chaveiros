@@ -12,7 +12,7 @@ import Analytics from '@/components/layout/Analytics.astro';
 import ConsentBanner from '@/components/layout/ConsentBanner.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import IconSprite from '@/components/ui/IconSprite.astro';
-import { SITE } from '@/config/site';
+import { SITE, CALL_HOURS } from '@/config/site';
 import { TRACKING, TRACKING_ENABLED } from '@/config/tracking';
 import { localBusinessSchema } from '@/lib/schema';
 
@@ -49,6 +49,26 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
     <Analytics />
     <script is:inline>
       document.documentElement.classList.add('js');
+    </script>
+    <!-- Ligação só no horário definido em CALL_HOURS (Brasília). Roda antes da pintura: o botão nunca pisca. -->
+    <script is:inline define:vars={{ callHours: CALL_HOURS }}>
+      (function () {
+        var root = document.documentElement;
+        function hourInBrazil() {
+          try {
+            var h = new Intl.DateTimeFormat('en-US', { timeZone: callHours.timeZone, hour: 'numeric', hourCycle: 'h23' }).format(new Date());
+            return parseInt(h, 10) % 24;
+          } catch (e) {
+            return (new Date().getUTCHours() + 21) % 24; // UTC-3, sem horário de verão
+          }
+        }
+        function update() {
+          var h = hourInBrazil();
+          root.setAttribute('data-call', h >= callHours.from && h < callHours.to ? 'on' : 'off');
+        }
+        update();
+        setInterval(update, 60000);
+      })();
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />

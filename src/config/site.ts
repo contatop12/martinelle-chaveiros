@@ -81,6 +81,13 @@ export const HOURS = {
   kioskShort: 'Quiosque: seg a sex 10h–19h, sáb 10h–18h',
 } as const;
 
+/**
+ * Botões de ligação só aparecem nesse intervalo, no horário de Brasília (pedido do cliente em 13/11/2026).
+ * Fora dele, o site mostra só o WhatsApp. `to` é exclusivo: 21 = some às 21h00.
+ * Quem aplica é o script no <head> do BaseLayout (atributo data-call no <html>).
+ */
+export const CALL_HOURS = { from: 8, to: 21, timeZone: 'America/Sao_Paulo' } as const;
+
 export const SERVICE_AREA = {
   label: 'Indaiatuba e região',
   note: 'Atendimento externo conforme disponibilidade',

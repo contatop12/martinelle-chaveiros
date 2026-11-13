@@ -29,7 +29,7 @@ const prefix = isHome ? '' : '/';
     <div class="ml-6 hidden flex-col gap-0.5 text-sm lg:flex">
       <p class="flex items-center gap-2.5 text-steel-200">
         <span class="live-dot"></span>
-        <span>{HOURS.emergencyShort} pelo WhatsApp e telefone</span>
+        <span>{HOURS.emergencyShort} pelo WhatsApp<span data-call-only> e telefone</span></span>
       </p>
       <p class="hidden pl-[1.15rem] text-xs text-steel-400 xl:block">{HOURS.kioskShort}</p>
     </div>
@@ -46,6 +46,18 @@ const prefix = isHome ? '' : '/';
       >
         <Icon brand="whatsapp" />
         <span>WhatsApp <span class="hidden xs:inline">24h</span></span>
+      </a>
+      <!-- Ligação no topo só no computador (no celular, a barra inferior já tem o botão) -->
+      <a
+        href={telLink}
+        class="btn btn-gold btn-sm hidden !min-h-11 !px-4 lg:inline-flex"
+        data-call-only
+        data-track="phone_click"
+        data-service="geral"
+        data-location="header"
+      >
+        <Icon name="Phone" />
+        <span>Ligar agora<span class="sr-only"> {CONTACT.phoneDisplay}</span></span>
       </a>
       <button
         type="button"
@@ -152,7 +164,7 @@ const prefix = isHome ? '' : '/';
         >
           <Icon brand="whatsapp" /> WhatsApp 24h
         </a>
-        <a href={telLink} class="btn btn-line w-full" data-track="phone_click" data-service="geral" data-location="menu_mobile">
+        <a href={telLink} class="btn btn-line w-full" data-call-only data-track="phone_click" data-service="geral" data-location="menu_mobile">
           <Icon name="Phone" /> Ligar: {CONTACT.phoneDisplay}
         </a>
       </div>

@@ -1,36 +1,64 @@
 ---
-/** Botão flutuante de WhatsApp (desktop/tablet). No mobile, a MobileContactBar assume essa função. */
+/**
+ * Botões flutuantes (desktop): "Ligar agora" em cima do WhatsApp. No mobile, a MobileContactBar assume essa função.
+ * A ligação só aparece no horário de CALL_HOURS (data-call-only); fora dele, fica só o WhatsApp.
+ */
 import Icon from '@/components/ui/Icon.astro';
-import { waLinkFor } from '@/lib/contact';
+import { waLinkFor, telLink } from '@/lib/contact';
+import { CONTACT } from '@/config/site';
 ---
 
-<a
-  href={waLinkFor('geral')}
-  target="_blank"
-  rel="noopener"
-  class="wa-float fixed bottom-6 right-6 z-40 hidden items-center rounded-full bg-wa text-wa-ink shadow-[0_18px_40px_-12px_rgb(37_211_102/0.7)] lg:flex"
-  aria-label="WhatsApp 24h: falar com a Martinelli Chaves"
-  data-track="whatsapp_click"
-  data-service="geral"
-  data-location="botao_flutuante"
->
-  <span class="grid size-15 place-items-center">
-    <Icon brand="whatsapp" class="size-7" />
-  </span>
-  <span class="wa-float-label overflow-hidden whitespace-nowrap font-bold">WhatsApp 24h</span>
-</a>
+<div class="float-stack fixed bottom-6 right-6 z-40 hidden flex-col items-end gap-3 lg:flex">
+  <a
+    href={telLink}
+    class="float-btn flex items-center rounded-full bg-gold text-ink-950 shadow-[0_18px_40px_-12px_rgb(212_163_74/0.7)]"
+    aria-label={`Ligar agora: ${CONTACT.phoneDisplay}`}
+    data-call-only
+    data-track="phone_click"
+    data-service="geral"
+    data-location="botao_flutuante"
+  >
+    <span class="grid size-15 place-items-center">
+      <Icon name="Phone" class="size-6" />
+    </span>
+    <span class="float-label overflow-hidden whitespace-nowrap font-bold" aria-hidden="true">
+      Ligar agora <span class="font-semibold opacity-75">{CONTACT.phoneDisplay}</span>
+    </span>
+  </a>
+  <a
+    href={waLinkFor('geral')}
+    target="_blank"
+    rel="noopener"
+    class="float-btn flex items-center rounded-full bg-wa text-wa-ink shadow-[0_18px_40px_-12px_rgb(37_211_102/0.7)]"
+    aria-label="WhatsApp 24h: falar com a Martinelli Chaves"
+    data-track="whatsapp_click"
+    data-service="geral"
+    data-location="botao_flutuante"
+  >
+    <span class="grid size-15 place-items-center">
+      <Icon brand="whatsapp" class="size-7" />
+    </span>
+    <span class="float-label overflow-hidden whitespace-nowrap font-bold" aria-hidden="true">WhatsApp 24h</span>
+  </a>
+</div>
 
 <style>
   .size-15 {
     width: 3.75rem;
     height: 3.75rem;
   }
-  .wa-float {
+  /* só os botões recebem clique; o vão entre eles não bloqueia a página */
+  .float-stack {
+    pointer-events: none;
     transition:
       transform 0.3s var(--ease-out-quart),
       opacity 0.3s;
   }
-  .wa-float-label {
+  .float-btn {
+    pointer-events: auto;
+    transition: transform 0.3s var(--ease-out-quart);
+  }
+  .float-label {
     max-width: 0;
     opacity: 0;
     transition:
@@ -38,18 +66,20 @@ import { waLinkFor } from '@/lib/contact';
       opacity 0.3s,
       padding 0.45s var(--ease-out-quart);
   }
-  .wa-float:hover .wa-float-label,
-  .wa-float:focus-visible .wa-float-label {
-    max-width: 10rem;
+  .float-btn:hover .float-label,
+  .float-btn:focus-visible .float-label {
+    max-width: 18rem;
     opacity: 1;
     padding-right: 1.4rem;
   }
-  .wa-float:hover {
+  .float-btn:hover {
     transform: translateY(-2px);
   }
-  :global(body.near-footer) .wa-float {
+  :global(body.near-footer) .float-stack {
     transform: translateY(8px);
     opacity: 0;
+  }
+  :global(body.near-footer) .float-btn {
     pointer-events: none;
   }
 </style>

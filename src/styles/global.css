@@ -518,3 +518,9 @@
     display: none;
   }
 }
+
+/* Ligação fora do horário (CALL_HOURS): o script do <head> marca <html data-call="off"> e todo [data-call-only] some.
+   Fora de @layer e com !important para vencer utilitários como lg:inline-flex. Sem JS, os botões continuam visíveis. */
+html[data-call='off'] [data-call-only] {
+  display: none !important;
+}

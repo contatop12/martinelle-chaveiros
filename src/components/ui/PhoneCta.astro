@@ -1,5 +1,8 @@
 ---
-/** Botão de ligação: só em celular e tablet (oculto a partir de 1024px, onde ligar pelo navegador não funciona bem). */
+/**
+ * Botão de ligação. Aparece só no horário de CALL_HOURS (data-call-only).
+ * No computador o número fica visível quando showNumber: ligar pelo navegador nem sempre funciona, então a pessoa disca do celular.
+ */
 import Icon from './Icon.astro';
 import { telLink } from '@/lib/contact';
 import { CONTACT } from '@/config/site';
@@ -16,7 +19,7 @@ interface Props {
 }
 
 const {
-  label = 'Ligar Agora',
+  label = 'Ligar agora',
   service,
   location,
   variant = 'line',
@@ -35,9 +38,9 @@ const {
     size === 'sm' && 'btn-sm',
     size === 'lg' && 'min-h-14 px-6 text-[1.0625rem]',
     block && 'w-full',
-    'lg:hidden',
     className,
   ]}
+  data-call-only
   data-track="phone_click"
   data-service={service}
   data-location={location}
