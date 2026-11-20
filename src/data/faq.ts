@@ -1,4 +1,4 @@
-import { ADDRESS, CONTACT } from '@/config/site';
+import { ADDRESS, CALL_HOURS, CONTACT } from '@/config/site';
 
 const KIOSK = 'segunda a sexta, das 10h às 19h, e sábado, das 10h às 18h (fechado aos domingos e feriados)';
 
@@ -14,7 +14,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'atende-24h',
     q: 'A Martinelli Chaves atende 24 horas?',
-    a: `Sim, para emergências com veículos. O plantão automotivo funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, e vai até onde o carro ou a moto está em Indaiatuba e região. O contato é pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: chaves residenciais, controles de portão e outros serviços são atendidos presencialmente de ${KIOSK}.`,
+    a: `Sim, para emergências com veículos. O plantão automotivo funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, e vai até onde o carro ou a moto está em Indaiatuba e região. O contato é pelo WhatsApp, a qualquer hora, ou por ligação para ${CONTACT.phoneDisplay}, ${CALL_HOURS.label}. O quiosque no Sumerbol não fica aberto 24 horas: chaves residenciais, controles de portão e outros serviços são atendidos presencialmente de ${KIOSK}.`,
     tags: ['24h', 'geral'],
   },
   {
@@ -86,7 +86,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'orcamento',
     q: 'Como solicitar orçamento?',
-    a: `Pelo WhatsApp ou pelo telefone ${CONTACT.phoneDisplay}, ou pelo formulário de orçamento rápido desta página. Para serviços automotivos, informe marca, modelo e ano do veículo e descreva o problema.`,
+    a: `Pelo WhatsApp, por ligação para ${CONTACT.phoneDisplay} (${CALL_HOURS.label}) ou pelo formulário de orçamento rápido desta página. Para serviços automotivos, informe marca, modelo e ano do veículo e descreva o problema.`,
     tags: ['geral', 'automotivo', 'residencial', 'motos', 'importados'],
   },
 ];

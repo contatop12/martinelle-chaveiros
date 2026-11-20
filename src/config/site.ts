@@ -92,8 +92,9 @@ export const HOURS = {
  * Botões de ligação só aparecem nesse intervalo, no horário de Brasília (pedido do cliente em 13/11/2026).
  * Fora dele, o site mostra só o WhatsApp. `to` é exclusivo: 21 = some às 21h00.
  * Quem aplica é o script no <head> do BaseLayout (atributo data-call no <html>).
+ * `label` é o trecho usado nos textos (FAQ, seções, llms.txt): o WhatsApp é 24h, a ligação é só nesse horário.
  */
-export const CALL_HOURS = { from: 8, to: 21, timeZone: 'America/Sao_Paulo' } as const;
+export const CALL_HOURS = { from: 8, to: 21, timeZone: 'America/Sao_Paulo', label: 'das 8h às 21h' } as const;
 
 export const SERVICE_AREA = {
   label: 'Indaiatuba e região',

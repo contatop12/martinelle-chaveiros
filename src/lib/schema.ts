@@ -2,7 +2,7 @@
  * Dados estruturados (schema.org).
  * Sem avaliações, horários ou coordenadas não confirmados — esses campos só entram quando preenchidos em config/site.ts.
  */
-import { ADDRESS, CONTACT, HOURS, LINKS, SITE, SERVICE_AREA } from '@/config/site';
+import { ADDRESS, CALL_HOURS, CONTACT, HOURS, LINKS, SITE, SERVICE_AREA } from '@/config/site';
 import type { FaqItem } from '@/data/faq';
 
 export const BUSINESS_ID = `${SITE.url}/#empresa`;
@@ -18,7 +18,7 @@ export function localBusinessSchema() {
     image: `${SITE.url}${SITE.ogImage}`,
     logo: `${SITE.url}/images/brand/logo-martinelli-chaves.png`,
     telephone: CONTACT.phoneE164,
-    // Telefone atende emergências 24h (atendimento externo); o horário do quiosque fica em openingHoursSpecification
+    // Ligações só no horário de CALL_HOURS (o WhatsApp atende 24h); o horário do quiosque fica em openingHoursSpecification
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: CONTACT.phoneE164,
@@ -28,8 +28,8 @@ export function localBusinessSchema() {
       hoursAvailable: {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: '00:00',
-        closes: '23:59',
+        opens: `${String(CALL_HOURS.from).padStart(2, '0')}:00`,
+        closes: `${String(CALL_HOURS.to).padStart(2, '0')}:00`,
       },
     },
     containedInPlace: { '@type': 'GroceryStore', name: ADDRESS.venue },

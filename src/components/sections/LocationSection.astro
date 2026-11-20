@@ -5,7 +5,7 @@ import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
 import PhoneCta from '@/components/ui/PhoneCta.astro';
-import { ADDRESS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA } from '@/config/site';
+import { ADDRESS, CALL_HOURS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA } from '@/config/site';
 import { STORE_PHOTOS } from '@/data/photos';
 ---
 
@@ -59,8 +59,8 @@ import { STORE_PHOTOS } from '@/data/photos';
             <div class="rounded-2xl border border-gold/35 bg-gold/[0.07] p-4">
               <h3 class="flex items-center gap-2 text-sm font-bold text-gold-light"><span class="live-dot"></span> Plantão automotivo 24h</h3>
               <p class="mt-2.5 text-[0.9375rem] text-white">
-                Atendimento externo para veículos, 24 horas, todos os dias, inclusive domingos e feriados, mediante contato pelo WhatsApp
-                ou telefone.
+                Atendimento externo para veículos, 24 horas, todos os dias, inclusive domingos e feriados, mediante contato pelo WhatsApp.
+                Ligações {CALL_HOURS.label}.
               </p>
             </div>
           </div>

@@ -4,7 +4,7 @@
  * Ajuda a IA a entender o site; não garante citação.
  */
 import type { APIRoute } from 'astro';
-import { ADDRESS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA, SITE } from '@/config/site';
+import { ADDRESS, CALL_HOURS, CONTACT, HOURS, LINKS, PARKING, SERVICE_AREA, SITE } from '@/config/site';
 import { SERVICE_PAGES } from '@/data/pages';
 import { FAQ } from '@/data/faq';
 import { BRANDS } from '@/data/brands';
@@ -30,7 +30,7 @@ export const GET: APIRoute = () => {
     '',
     `- Nome: ${SITE.name}`,
     '- Categoria: chaveiro (automotivo, motos, residencial e comercial)',
-    `- Telefone e WhatsApp (também para o plantão automotivo 24h): ${CONTACT.phoneDisplay} (${CONTACT.phoneE164})`,
+    `- WhatsApp (24 horas, também para o plantão automotivo) e telefone (ligações ${CALL_HOURS.label}): ${CONTACT.phoneDisplay} (${CONTACT.phoneE164})`,
     `- WhatsApp: https://wa.me/${CONTACT.whatsappNumber}`,
     `- Endereço: ${ADDRESS.venue}, ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}, CEP ${ADDRESS.postalCode}`,
     `- Horário do quiosque: ${kiosk}`,

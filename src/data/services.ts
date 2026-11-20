@@ -3,6 +3,7 @@
  * `confirmed: false` = serviço citado no briefing como "a validar". Não é exibido até a confirmação do cliente.
  */
 import type { IconName } from '@/lib/icons';
+import { CALL_HOURS } from '@/config/site';
 
 export interface Problem {
   id: string;
@@ -53,7 +54,7 @@ export const PROBLEMS: Problem[] = [
     group: 'veiculo',
     featured: true,
     title: 'Preciso de atendimento emergencial',
-    text: 'Plantão automotivo a qualquer hora, pelo WhatsApp ou telefone: vamos até onde o veículo está em Indaiatuba e região.',
+    text: `Plantão automotivo a qualquer hora pelo WhatsApp (ligações ${CALL_HOURS.label}): vamos até onde o veículo está em Indaiatuba e região.`,
     icon: 'Siren',
     service: 'emergencia_24h',
     message: 'Olá! Preciso de atendimento emergencial de chaveiro. Estou em [localização].',
@@ -218,10 +219,10 @@ export const MOTORCYCLE_SERVICES: { title: string; text: string }[] = [
 /** Bloco 8 — Emergência 24h */
 export const EMERGENCY_POINTS: { title: string; text: string; icon: IconName }[] = [
   { title: 'Atendimento de emergência', text: 'Chave perdida, chave quebrada ou veículo trancado.', icon: 'Siren' },
-  { title: 'Contato rápido', text: 'Fale direto com a Martinelli pelo WhatsApp ou telefone.', icon: 'PhoneCall' },
+  { title: 'Contato rápido', text: `Fale direto com a Martinelli pelo WhatsApp, 24h, ou por ligação, ${CALL_HOURS.label}.`, icon: 'PhoneCall' },
   { title: 'Atendimento externo', text: 'Vamos até onde o veículo está, conforme disponibilidade.', icon: 'Route' },
   { title: 'Indaiatuba e região', text: 'Informe sua localização para combinarmos o atendimento.', icon: 'MapPin' },
-  { title: 'Orientação inicial', text: 'Antes de sair de casa, você já recebe orientação pelo WhatsApp ou telefone.', icon: 'MessageCircle' },
+  { title: 'Orientação inicial', text: 'Antes de sair de casa, você já recebe orientação pelo WhatsApp.', icon: 'MessageCircle' },
 ];
 
 /** Bloco 9 — Eletrônica automotiva */

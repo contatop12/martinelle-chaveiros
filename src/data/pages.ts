@@ -6,6 +6,7 @@ import type { WaMessageKey } from '@/lib/contact';
 import type { FaqItem } from '@/data/faq';
 import type { GalleryCategory, Photo } from '@/data/photos';
 import { FEATURE_PHOTOS, STORE_PHOTOS, MOTO_PHOTOS } from '@/data/photos';
+import { CALL_HOURS, CONTACT } from '@/config/site';
 
 export type PageBody = 'automotivo' | 'codificadas' | 'importados' | 'motos' | '24h' | 'residencial';
 
@@ -118,7 +119,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     body: '24h',
     title: 'Chaveiro 24 Horas em Indaiatuba | Atendimento Emergencial',
     description:
-      'Chaveiro 24 horas em Indaiatuba: chave perdida, chave trancada no carro e plantão automotivo todos os dias. WhatsApp e telefone (19) 99918-2277.',
+      `Chaveiro 24 horas em Indaiatuba: chave perdida ou trancada no carro, plantão automotivo todos os dias. WhatsApp 24h, ligação ${CALL_HOURS.label}: ${CONTACT.phoneDisplay}.`,
     h1: 'Chaveiro 24 Horas em Indaiatuba',
     lead: 'Perdeu a chave, trancou a chave dentro do carro ou a chave quebrou? O plantão automotivo da Martinelli Chaves atende 24 horas por dia, todos os dias da semana, e vai até onde o veículo está em Indaiatuba e região.',
     highlights: ['Emergência a qualquer hora', 'Atendimento externo', 'Orientação inicial pelo WhatsApp', 'Indaiatuba e região'],
@@ -129,7 +130,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqTag: '24h',
     gallery: null,
     steps: [
-      { title: 'Envie sua localização', text: 'Pelo WhatsApp, compartilhe onde você está. Se preferir, ligue.' },
+      { title: 'Envie sua localização', text: `Pelo WhatsApp, compartilhe onde você está. Se preferir, ligue ${CALL_HOURS.label}.` },
       { title: 'Conte o que aconteceu', text: 'Chave perdida, trancada no carro ou quebrada. Informe marca, modelo e ano do veículo.' },
       { title: 'Combine o atendimento', text: 'Você recebe a orientação inicial e combinamos o deslocamento, conforme disponibilidade.' },
       { title: 'Tenha os documentos à mão', text: 'Para abrir o veículo ou fazer a chave, verificamos a propriedade do veículo.' },
