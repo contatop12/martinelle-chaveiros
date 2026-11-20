@@ -316,6 +316,17 @@
     transform: translateX(120%);
   }
 
+  /* WhatsApp do cabeçalho: contorno e texto verdes sobre fundo escuro (o verde cheio fica para o CTA principal) */
+  .btn-wa-line {
+    border: 1.5px solid var(--color-wa);
+    --btn-bg: rgb(37 211 102 / 0.09);
+    --btn-fg: #3ddc7a;
+  }
+  .btn-wa-line:hover {
+    background: var(--color-wa);
+    color: var(--color-wa-ink);
+  }
+
   .btn-line {
     border: 1px solid rgb(255 255 255 / 0.22);
     --btn-fg: var(--color-paper);

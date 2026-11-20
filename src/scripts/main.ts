@@ -1,11 +1,12 @@
 import { initTracking } from './tracking';
-import { initMenu, initStickyBar, initScrollSpy, initReveal, initLiveRegions, initTypingState, initFooterWatch, initYear, initReturnButton } from './ui';
+import { initMenu, initStickyBar, initContactBar, initScrollSpy, initReveal, initLiveRegions, initTypingState, initFooterWatch, initYear, initReturnButton } from './ui';
 import { initQuoteForms, initGalleries, initProofVideos, initMapFacades, initTabs, initMoreToggles, initReviewCarousels, initSingleVideoPlayback } from './features';
 
 initTracking();
 initMenu();
 initReturnButton();
 initStickyBar();
+initContactBar();
 initReveal();
 initScrollSpy();
 initLiveRegions();

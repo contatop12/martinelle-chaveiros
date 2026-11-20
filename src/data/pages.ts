@@ -118,9 +118,9 @@ export const SERVICE_PAGES: ServicePage[] = [
     body: '24h',
     title: 'Chaveiro 24 Horas em Indaiatuba | Atendimento Emergencial',
     description:
-      'Chaveiro 24 horas em Indaiatuba: chave perdida, chave trancada no carro e atendimento emergencial todos os dias. WhatsApp e telefone (19) 99918-2277.',
+      'Chaveiro 24 horas em Indaiatuba: chave perdida, chave trancada no carro e plantão automotivo todos os dias. WhatsApp e telefone (19) 99918-2277.',
     h1: 'Chaveiro 24 Horas em Indaiatuba',
-    lead: 'Perdeu a chave, trancou a chave dentro do carro ou precisa de atendimento urgente? A Martinelli Chaves atende emergências 24 horas por dia, todos os dias da semana, em Indaiatuba e região.',
+    lead: 'Perdeu a chave, trancou a chave dentro do carro ou a chave quebrou? O plantão automotivo da Martinelli Chaves atende 24 horas por dia, todos os dias da semana, e vai até onde o veículo está em Indaiatuba e região.',
     highlights: ['Emergência a qualquer hora', 'Atendimento externo', 'Orientação inicial pelo WhatsApp', 'Indaiatuba e região'],
     waKey: 'emergencia',
     waLabel: 'Chamar Chaveiro 24h',
@@ -130,9 +130,9 @@ export const SERVICE_PAGES: ServicePage[] = [
     gallery: null,
     steps: [
       { title: 'Envie sua localização', text: 'Pelo WhatsApp, compartilhe onde você está. Se preferir, ligue.' },
-      { title: 'Conte o que aconteceu', text: 'Chave perdida, trancada no carro, quebrada ou porta que não abre. Para veículos, informe marca, modelo e ano.' },
+      { title: 'Conte o que aconteceu', text: 'Chave perdida, trancada no carro ou quebrada. Informe marca, modelo e ano do veículo.' },
       { title: 'Combine o atendimento', text: 'Você recebe a orientação inicial e combinamos o deslocamento, conforme disponibilidade.' },
-      { title: 'Tenha os documentos à mão', text: 'Para abrir ou fazer chave, verificamos a propriedade do veículo ou do imóvel.' },
+      { title: 'Tenha os documentos à mão', text: 'Para abrir o veículo ou fazer a chave, verificamos a propriedade do veículo.' },
     ],
     related: ['chaveiro-automotivo-indaiatuba', 'chaveiro-residencial-indaiatuba', 'chaves-codificadas-indaiatuba'],
   },

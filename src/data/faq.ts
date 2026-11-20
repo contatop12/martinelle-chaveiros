@@ -14,7 +14,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'atende-24h',
     q: 'A Martinelli Chaves atende 24 horas?',
-    a: `Sim, para emergências. O atendimento externo emergencial funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: o atendimento presencial é de ${KIOSK}.`,
+    a: `Sim, para emergências com veículos. O plantão automotivo funciona 24 horas por dia, todos os dias, inclusive domingos e feriados, e vai até onde o carro ou a moto está em Indaiatuba e região. O contato é pelo WhatsApp e pelo telefone ${CONTACT.phoneDisplay}. O quiosque no Sumerbol não fica aberto 24 horas: chaves residenciais, controles de portão e outros serviços são atendidos presencialmente de ${KIOSK}.`,
     tags: ['24h', 'geral'],
   },
   {
@@ -68,8 +68,8 @@ export const FAQ: FaqItem[] = [
   {
     id: 'residencial',
     q: 'Vocês fazem serviços de chaveiro residencial?',
-    a: 'Sim. Atendemos casas, apartamentos e comércios: abertura de portas, cópias de chaves e chaves tetra, instalação e reparo de fechaduras, troca de segredo, fechaduras eletrônicas e controles de portão. Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.',
-    tags: ['residencial', '24h', 'geral'],
+    a: `Sim. Atendemos casas, apartamentos e comércios: abertura de portas, cópias de chaves e chaves tetra, instalação e reparo de fechaduras, troca de segredo, fechaduras eletrônicas e controles de portão. O atendimento residencial é feito no horário do quiosque no Sumerbol (${KIOSK}); o plantão 24 horas é só para veículos. Para abertura de portas, confirmamos que você é morador ou responsável pelo imóvel.`,
+    tags: ['residencial', 'geral'],
   },
   {
     id: 'controle-portao',
@@ -80,7 +80,7 @@ export const FAQ: FaqItem[] = [
   {
     id: 'onde-fica',
     q: 'Onde fica a Martinelli Chaves e qual o horário do quiosque?',
-    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. O Sumerbol tem estacionamento gratuito. O quiosque atende ${KIOSK}. Emergências são atendidas 24 horas, com atendimento externo em Indaiatuba e região.`,
+    a: `No ${ADDRESS.venue}: ${ADDRESS.street}, ${ADDRESS.unit}, ${ADDRESS.district}, ${ADDRESS.city}/${ADDRESS.state}. O Sumerbol tem estacionamento gratuito. O quiosque atende ${KIOSK}. Emergências com veículos são atendidas 24 horas pelo plantão automotivo, que vai até onde o carro ou a moto está em Indaiatuba e região.`,
     tags: ['geral', 'residencial', 'motos'],
   },
   {

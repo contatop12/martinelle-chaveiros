@@ -25,10 +25,19 @@ const { page } = Astro.props;
           <li aria-current="page" class="text-steel-200">{page.h1.replace(' em Indaiatuba', '')}</li>
         </ol>
       </nav>
-      <p class="chip mt-6 text-steel-200">
-        <span class="live-dot"></span>
-        {HOURS.emergency}
-      </p>
+      {
+        page.body === 'residencial' ? (
+          <p class="chip mt-6 text-steel-200">
+            <Icon name="Clock" class="size-4 text-gold" />
+            Quiosque no Sumerbol · {HOURS.kioskLine}
+          </p>
+        ) : (
+          <p class="chip mt-6 text-steel-200">
+            <span class="live-dot" />
+            {HOURS.emergency}
+          </p>
+        )
+      }
       <BittingLine class="mt-7 mb-4" />
       <h1 id="page-title" class="h-display text-[clamp(2.1rem,1.1rem+4vw,4rem)]">{page.h1}</h1>
       <p class="lead mt-6 text-steel-300">{page.lead}</p>

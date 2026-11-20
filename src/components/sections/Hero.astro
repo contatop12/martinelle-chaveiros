@@ -1,80 +1,87 @@
 ---
+/**
+ * Primeira dobra (home). Quem chega pelo Google Ads precisa entender em segundos:
+ * plantão automotivo 24h que vai até o veículo, WhatsApp como caminho principal e,
+ * para chaves residenciais e controles, atendimento presencial no quiosque em horário de loja.
+ *
+ * Ordem no celular: sinalização, H1, texto, WhatsApp, "Prefiro ligar", foto, avaliações, bloco do quiosque.
+ * No computador: duas colunas (texto, CTAs e avaliações à esquerda; foto à direita) e o bloco do quiosque embaixo.
+ */
 import { Picture } from 'astro:assets';
 import Icon from '@/components/ui/Icon.astro';
-import BittingLine from '@/components/ui/BittingLine.astro';
 import WhatsAppCta from '@/components/ui/WhatsAppCta.astro';
-import PhoneCta from '@/components/ui/PhoneCta.astro';
 import ReviewBadge from '@/components/ui/ReviewBadge.astro';
 import { FEATURE_PHOTOS } from '@/data/photos';
-
-const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codificadas e Smart Keys', 'Quiosque no Sumerbol'];
+import { HOURS } from '@/config/site';
+import { telLink } from '@/lib/contact';
 ---
 
 <section id="inicio" class="hero surface-deep relative overflow-hidden" aria-labelledby="hero-title">
   <div class="hero-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
   <div class="hero-glow pointer-events-none absolute" aria-hidden="true"></div>
 
-  <div class="container-x relative grid items-center gap-8 pt-6 pb-12 md:pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14 lg:pt-16 lg:pb-24">
-    <div>
-      <p class="chip hero-in text-steel-200" style="--d:0">
-        <span class="live-dot"></span>
-        Atendimento emergencial 24h, todos os dias
-      </p>
+  <div class="container-x relative pt-5 pb-10 md:pt-9 lg:pt-11 lg:pb-12">
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <p class="hero-sign hero-in" style="--d:0">
+          <span class="live-dot"></span>
+          {HOURS.emergencyShort}
+        </p>
 
-      <BittingLine class="mt-6 mb-4 is-in-load hidden sm:block" />
-      <h1 id="hero-title" class="h-display mt-5 text-[clamp(2.25rem,1.1rem+4.6vw,4.5rem)] sm:mt-0">
-        Chaveiro Automotivo 24h em Indaiatuba
-      </h1>
+        <h1 id="hero-title" class="h-display hero-title mt-3 lg:mt-4">Chaveiro Automotivo 24h em Indaiatuba</h1>
 
-      <p class="lead mt-5 text-steel-300 sm:mt-6">
-        Chaves codificadas, Smart Keys e serviços para carros nacionais, importados e motos. Atendimento emergencial 24 horas em
-        Indaiatuba e região.
-      </p>
+        <p class="hero-text mt-3.5 text-steel-300 lg:mt-5">
+          <span>Perdeu a chave ou trancou o carro?</span>
+          <span>Fazemos chaves e abrimos veículos.</span>
+          <span>Vamos até você em Indaiatuba, 24h.</span>
+        </p>
 
-      <div class="hero-in mt-7 hidden flex-wrap gap-3 lg:flex" style="--d:2">
-        <WhatsAppCta label="Chamar no WhatsApp" service="geral" location="hero" size="lg" class="flex-auto !gap-2 !px-3 text-[0.9375rem] sm:flex-none sm:!gap-2.5 sm:!px-6 sm:text-[1.0625rem]" />
-        <PhoneCta service="geral" location="hero" variant="gold" size="lg" />
+        <!-- data-hero-ctas: enquanto estes botões estão na tela, a barra inferior do celular fica recolhida (ui.ts) -->
+        <div class="hero-ctas hero-in mt-5 lg:mt-7" style="--d:2" data-hero-ctas>
+          <WhatsAppCta label="Chamar no WhatsApp" service="geral" location="hero" size="lg" class="w-full sm:w-auto" />
+          <!-- O número fica só no destino do link (tel:). Aparece no horário de CALL_HOURS. -->
+          <a href={telLink} class="hero-call" data-call-only data-track="phone_click" data-service="geral" data-location="hero">Prefiro ligar</a>
+        </div>
       </div>
 
-      <ul class="mt-7 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[0.9375rem] text-steel-200 sm:gap-x-6" aria-label="Diferenciais">
-        {
-          trust.map((t, i) => (
-            <li class="hero-in flex items-start gap-2.5" style={`--d:${3 + i * 0.5}`}>
-              <span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold/15 text-gold-light">
-                <Icon name="Check" class="size-3.5" strokeWidth={2.5} />
-              </span>
-              {t}
-            </li>
-          ))
-        }
-      </ul>
+      <figure class="hero-photo relative">
+        <div class="scan-frame relative overflow-hidden rounded-[18px] border border-white/10 bg-ink-800 lg:rounded-[22px]">
+          <Picture
+            src={FEATURE_PHOTOS.hero.src}
+            alt={FEATURE_PHOTOS.hero.alt}
+            formats={['avif', 'webp']}
+            widths={[400, 560, 720, 960, 1297]}
+            sizes="(min-width: 1024px) 44vw, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
+            loading="eager"
+            fetchpriority="high"
+            class="hero-img w-full object-cover"
+          />
+          <span class="scan-line" aria-hidden="true"></span>
+          <span class="corner tr" aria-hidden="true"></span>
+          <span class="corner br" aria-hidden="true"></span>
+        </div>
+        <figcaption class="hero-caption hero-in" style="--d:5">Trabalho real · Chaves presenciais BMW</figcaption>
+      </figure>
 
-      <ReviewBadge class="hero-in mt-7" location="hero" />
+      <div class="hero-reviews hero-in" style="--d:4">
+        <ReviewBadge location="hero" />
+      </div>
     </div>
 
-    <figure class="hero-photo relative mx-auto w-full max-w-[34rem] lg:max-w-none">
-      <div class="scan-frame relative overflow-hidden rounded-[22px] border border-white/10 bg-ink-800">
-        <Picture
-          src={FEATURE_PHOTOS.hero.src}
-          alt={FEATURE_PHOTOS.hero.alt}
-          formats={['avif', 'webp']}
-          widths={[400, 560, 720, 960, 1297]}
-          sizes="(min-width: 1024px) 40vw, (min-width: 640px) 34rem, calc(100vw - 40px)"
-          loading="eager"
-          fetchpriority="high"
-          class="aspect-[16/10] w-full object-cover object-[50%_74%] sm:aspect-square lg:aspect-[4/5]"
-        />
-        <span class="scan-line" aria-hidden="true"></span>
-        <span class="corner tl" aria-hidden="true"></span>
-        <span class="corner tr" aria-hidden="true"></span>
-        <span class="corner bl" aria-hidden="true"></span>
-        <span class="corner br" aria-hidden="true"></span>
+    <!-- Bloco do quiosque: residencial, controles e demais serviços são presenciais, no horário da loja -->
+    <aside class="kiosk-card mt-6 lg:mt-9" aria-labelledby="kiosk-title">
+      <div>
+        <h2 id="kiosk-title" class="text-base font-bold text-white lg:text-[1.0625rem]">Chaves residenciais, controles e outros serviços?</h2>
+        <p class="mt-1 text-sm text-steel-300">
+          Atendimento presencial no quiosque do Sumerbol.
+          <span class="block text-steel-400 lg:ml-2 lg:inline">{HOURS.kioskLine}</span>
+        </p>
       </div>
-      <figcaption class="hero-in absolute bottom-3 left-3 right-3 flex items-center gap-3 rounded-2xl border border-white/10 bg-ink-950/80 px-4 py-2.5 text-sm backdrop-blur-md sm:bottom-4 sm:left-4 sm:right-auto sm:py-3" style="--d:5">
-        <Icon name="Car" class="size-5 shrink-0 text-gold" />
-        <span><strong class="font-semibold text-white">Trabalho real:</strong> <span class="text-steel-300">chaves presenciais para BMW</span></span>
-      </figcaption>
-    </figure>
+      <a href="#localizacao" class="kiosk-link">
+        Ver localização e horários
+        <Icon name="ChevronRight" class="size-4" strokeWidth={2.25} />
+      </a>
+    </aside>
   </div>
 </section>
 
@@ -94,6 +101,221 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
     background: radial-gradient(circle, rgb(212 163 74 / 0.16), transparent 62%);
   }
 
+  /* ---------- Estrutura ---------- */
+  .hero-layout {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (width >= 64rem) {
+    /* Linhas 1fr nas pontas: texto + avaliações ficam centralizados na altura da foto, sem abrir vão entre eles */
+    .hero-layout {
+      grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+      grid-template-rows: 1fr auto auto 1fr;
+      column-gap: 3.5rem;
+      row-gap: 0;
+    }
+    .hero-copy {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .hero-reviews {
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: 1.5rem;
+    }
+    .hero-photo {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-self: center;
+    }
+  }
+
+  /* ---------- Texto ---------- */
+  .hero-sign {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-wa);
+  }
+  .hero-title {
+    /* 360px: "Chaveiro Automotivo" cabe em uma linha (H1 em duas linhas) */
+    font-size: clamp(1.5rem, 0.42rem + 5.4vw, 3.25rem);
+    text-wrap: balance;
+  }
+  .hero-text {
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 34rem;
+  }
+  /* Uma frase por linha quando a largura comporta (a partir de 360px) */
+  @media (width >= 22.5rem) {
+    .hero-text span {
+      display: block;
+    }
+  }
+  @media (width >= 48rem) {
+    .hero-text {
+      font-size: 1.125rem;
+    }
+  }
+  @media (width >= 64rem) {
+    .hero-title {
+      font-size: clamp(2.6rem, 4.15vw, 3.75rem);
+    }
+    .hero-text {
+      font-size: 1.1875rem;
+    }
+  }
+
+  /* ---------- CTAs ---------- */
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  /* Celular: link de texto com área de toque de 44px. A partir de 640px: botão ao lado do WhatsApp. */
+  .hero-call {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.2;
+    color: var(--color-paper);
+    text-decoration: underline;
+    text-decoration-color: rgb(232 196 122 / 0.75);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.4em;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero-call:hover {
+    color: var(--color-gold-light);
+  }
+  @media (width >= 40rem) {
+    .hero-ctas {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-call {
+      min-height: 3.5rem;
+      padding-inline: 1.5rem;
+      font-size: 1.0625rem;
+      text-decoration: none;
+      border: 1px solid rgb(255 255 255 / 0.2);
+      background: rgb(255 255 255 / 0.04);
+    }
+    .hero-call:hover {
+      border-color: var(--color-gold);
+    }
+  }
+
+  /* ---------- Foto: recorte por largura, sempre com a frente do carro e as duas chaves ---------- */
+  .hero-photo :global(.hero-img) {
+    aspect-ratio: 3 / 2;
+    object-position: 50% 80%;
+  }
+  @media (width >= 40rem) {
+    .hero-photo :global(.hero-img) {
+      aspect-ratio: 16 / 9;
+      object-position: 50% 90%;
+    }
+  }
+  @media (width >= 64rem) {
+    .hero-photo :global(.hero-img) {
+      aspect-ratio: 6 / 5;
+      object-position: 50% 88%;
+    }
+  }
+  /* Legenda: em cima no celular (embaixo ficam as chaves); embaixo no computador */
+  .hero-caption {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    max-width: calc(100% - 1.5rem);
+    border-radius: 10px;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    background: rgb(8 10 12 / 0.82);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-steel-200);
+    backdrop-filter: blur(8px);
+  }
+  @media (width >= 64rem) {
+    .hero-caption {
+      top: auto;
+      bottom: 1rem;
+      left: 1rem;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.85rem;
+    }
+  }
+
+  /* ---------- Bloco do quiosque ---------- */
+  .kiosk-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 16px;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background: rgb(255 255 255 / 0.035);
+    padding: 1rem 1.125rem 0.5rem;
+  }
+  .kiosk-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    min-height: 2.75rem;
+    font-size: 0.9375rem;
+    font-weight: 750;
+    color: var(--color-gold-light);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .kiosk-link:hover {
+    color: var(--color-paper);
+  }
+  .kiosk-link :global(svg) {
+    transition: transform 0.2s var(--ease-out-quart);
+  }
+  .kiosk-link:hover :global(svg) {
+    transform: translateX(3px);
+  }
+  /* Entre 1024 e ~1420px a página encosta na borda: reserva espaço para os botões flutuantes não cobrirem o link */
+  @media (64rem <= width < 89rem) {
+    .kiosk-card {
+      padding-right: 4.75rem !important;
+    }
+  }
+  @media (width >= 48rem) {
+    .kiosk-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+    .kiosk-link {
+      align-self: center;
+    }
+  }
+
+  /* ---------- Detalhes da moldura (identidade) ---------- */
   .corner {
     position: absolute;
     width: 26px;
@@ -101,26 +323,12 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
     border: 0 solid var(--color-gold-light);
     filter: drop-shadow(0 0 6px rgb(8 10 12 / 0.6));
   }
-  .corner.tl {
-    top: 14px;
-    left: 14px;
-    border-top-width: 2px;
-    border-left-width: 2px;
-    border-top-left-radius: 8px;
-  }
   .corner.tr {
     top: 14px;
     right: 14px;
     border-top-width: 2px;
     border-right-width: 2px;
     border-top-right-radius: 8px;
-  }
-  .corner.bl {
-    bottom: 14px;
-    left: 14px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-bottom-left-radius: 8px;
   }
   .corner.br {
     bottom: 14px;
@@ -152,9 +360,6 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
     .scan-line {
       animation: scan 1.6s var(--ease-in-out-quart) 0.3s 1 both;
     }
-    .is-in-load :global(path) {
-      animation: draw 1.4s var(--ease-in-out-quart) 0.2s both;
-    }
   }
 
   @keyframes hero-in {
@@ -183,14 +388,6 @@ const trust = ['Emergências 24h', 'Carros nacionais e importados', 'Chaves codi
     100% {
       opacity: 0;
       transform: translateY(265%);
-    }
-  }
-  @keyframes draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
     }
   }
 </style>

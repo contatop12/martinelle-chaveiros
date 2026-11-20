@@ -152,6 +152,23 @@ export function initStickyBar() {
   }).observe(top);
 }
 
+/**
+ * Home (mobile): a barra inferior de contato fica recolhida enquanto os CTAs da primeira dobra estão na tela
+ * (evita dois botões de WhatsApp juntos e libera a primeira tela para a foto). Depois que eles saem, ela aparece.
+ */
+export function initContactBar() {
+  const bar = document.querySelector<HTMLElement>('.contact-bar[data-state]');
+  if (!bar) return;
+  const ctas = document.querySelector('[data-hero-ctas]');
+  if (!ctas || !('IntersectionObserver' in window)) {
+    bar.dataset.state = 'shown';
+    return;
+  }
+  new IntersectionObserver(([entry]) => {
+    bar.dataset.state = entry.isIntersecting ? 'hidden' : 'shown';
+  }).observe(ctas);
+}
+
 /** Destaca no menu a seção visível (sem reescrever a URL durante a rolagem). */
 export function initScrollSpy() {
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');

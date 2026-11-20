@@ -125,7 +125,7 @@ const ogImageUrl = new URL(ogImage, SITE.url + '/').toString();
     </main>
     <Footer />
     <WhatsAppButton />
-    <MobileContactBar />
+    <MobileContactBar hideAtTop={isHome} />
     <ReturnButton />
     {TRACKING_ENABLED && <ConsentBanner />}
 

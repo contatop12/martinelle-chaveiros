@@ -53,7 +53,7 @@ export const PROBLEMS: Problem[] = [
     group: 'veiculo',
     featured: true,
     title: 'Preciso de atendimento emergencial',
-    text: 'Atendimento emergencial a qualquer hora, pelo WhatsApp ou telefone, em Indaiatuba e região.',
+    text: 'Plantão automotivo a qualquer hora, pelo WhatsApp ou telefone: vamos até onde o veículo está em Indaiatuba e região.',
     icon: 'Siren',
     service: 'emergencia_24h',
     message: 'Olá! Preciso de atendimento emergencial de chaveiro. Estou em [localização].',
@@ -217,7 +217,7 @@ export const MOTORCYCLE_SERVICES: { title: string; text: string }[] = [
 
 /** Bloco 8 — Emergência 24h */
 export const EMERGENCY_POINTS: { title: string; text: string; icon: IconName }[] = [
-  { title: 'Atendimento de emergência', text: 'Chave perdida, veículo trancado ou porta que não abre.', icon: 'Siren' },
+  { title: 'Atendimento de emergência', text: 'Chave perdida, chave quebrada ou veículo trancado.', icon: 'Siren' },
   { title: 'Contato rápido', text: 'Fale direto com a Martinelli pelo WhatsApp ou telefone.', icon: 'PhoneCall' },
   { title: 'Atendimento externo', text: 'Vamos até onde o veículo está, conforme disponibilidade.', icon: 'Route' },
   { title: 'Indaiatuba e região', text: 'Informe sua localização para combinarmos o atendimento.', icon: 'MapPin' },

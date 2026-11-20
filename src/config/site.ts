@@ -16,7 +16,7 @@ export const SITE = {
   ogImage: '/images/og-martinelli-chaves.jpg',
   defaultTitle: 'Chaveiro Automotivo 24h em Indaiatuba | Martinelli Chaves',
   defaultDescription:
-    'Chaveiro 24h em Indaiatuba: chaves codificadas e smart keys para carros e motos, abertura de portas, fechaduras e cópias de chaves para casas e empresas.',
+    'Chaveiro automotivo 24h em Indaiatuba: chave perdida, carro trancado, chaves codificadas e smart keys. Chaves residenciais e controles no quiosque do Sumerbol.',
 } as const;
 
 export const CONTACT = {
@@ -69,9 +69,12 @@ export interface KioskHours {
 }
 
 export const HOURS = {
-  /** Atendimento externo emergencial — NÃO é o horário do quiosque. */
-  emergency: 'Atendimento externo emergencial 24 horas, todos os dias, inclusive domingos e feriados',
-  emergencyShort: 'Emergências 24h',
+  /**
+   * Plantão 24h: só automotivo e externo (vai até o veículo). NÃO é o horário do quiosque
+   * e NÃO cobre serviços residenciais, que são atendidos no horário da loja.
+   */
+  emergency: 'Plantão automotivo 24 horas, todos os dias, inclusive domingos e feriados',
+  emergencyShort: 'Plantão automotivo 24h',
   /** Horário presencial do quiosque no Sumerbol (informado pelo cliente em 15/10/2026). */
   kiosk: [
     { days: 'Segunda a sexta', hours: '10h às 19h', spec: { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' } },
@@ -79,6 +82,10 @@ export const HOURS = {
     { days: 'Domingos e feriados', hours: 'Fechado', spec: null },
   ] as KioskHours[],
   kioskShort: 'Quiosque: seg a sex 10h–19h, sáb 10h–18h',
+  /** Linha curta do cabeçalho (desktop) e do menu mobile */
+  storeShort: 'Loja no Sumerbol · Seg a sex 10h–19h / Sáb 10h–18h',
+  /** Linha do bloco do quiosque na primeira dobra */
+  kioskLine: 'Seg a sex, 10h às 19h · Sáb, 10h às 18h',
 } as const;
 
 /**

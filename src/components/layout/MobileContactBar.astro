@@ -3,12 +3,18 @@
  * Barra inferior fixa (mobile). O <body> recebe padding-bottom igual à altura da barra (--bar-h),
  * para que nenhum conteúdo fique escondido. Some enquanto um campo do formulário está em foco.
  * Fora do horário de ligação (CALL_HOURS), o botão "Ligar agora" some e o WhatsApp ocupa a barra inteira.
+ * Na home (hideAtTop), fica recolhida enquanto os CTAs da primeira dobra estão na tela: ui.ts alterna data-state.
  */
 import Icon from '@/components/ui/Icon.astro';
 import { waLinkFor, telLink } from '@/lib/contact';
+
+interface Props {
+  hideAtTop?: boolean;
+}
+const { hideAtTop = false } = Astro.props;
 ---
 
-<div class="contact-bar fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden">
+<div class="contact-bar fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden" data-state={hideAtTop ? 'hidden' : 'shown'}>
   <div class="contact-bar-grid mx-auto grid max-w-xl grid-cols-[1.2fr_1fr] gap-2 px-3 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))]">
     <a
       href={waLinkFor('geral')}
@@ -30,6 +36,14 @@ import { waLinkFor, telLink } from '@/lib/contact';
 <style>
   .contact-bar {
     transition: transform 0.3s var(--ease-out-quart);
+  }
+  /* Só com JS (html.js): sem JS a barra fica sempre visível */
+  :global(html.js) .contact-bar[data-state='hidden'] {
+    transform: translateY(110%);
+    visibility: hidden;
+    transition:
+      transform 0.3s var(--ease-out-quart),
+      visibility 0s 0.3s;
   }
   :global(body.typing) .contact-bar,
   :global(body.menu-open) .contact-bar {

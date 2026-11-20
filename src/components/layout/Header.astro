@@ -29,35 +29,24 @@ const prefix = isHome ? '' : '/';
     <div class="ml-6 hidden flex-col gap-0.5 text-sm lg:flex">
       <p class="flex items-center gap-2.5 text-steel-200">
         <span class="live-dot"></span>
-        <span>{HOURS.emergencyShort} pelo WhatsApp<span data-call-only> e telefone</span></span>
+        <span class="font-semibold">{HOURS.emergencyShort}</span>
       </p>
-      <p class="hidden pl-[1.15rem] text-xs text-steel-400 xl:block">{HOURS.kioskShort}</p>
+      <p class="pl-[1.15rem] text-xs text-steel-400">{HOURS.storeShort}</p>
     </div>
 
+    <!-- Topo: só o WhatsApp (contorno verde). A ligação fica na primeira dobra ("Prefiro ligar") e no menu. -->
     <div class="ml-auto flex items-center gap-2 lg:gap-3">
       <a
         href={waLinkFor('geral')}
         target="_blank"
         rel="noopener"
-        class="btn btn-wa btn-sm !min-h-11 !px-3.5 lg:!px-4"
+        class="btn btn-wa-line btn-sm !min-h-11 !px-3.5 lg:!px-5"
         data-track="whatsapp_click"
         data-service="geral"
         data-location="header"
       >
         <Icon brand="whatsapp" />
-        <span>WhatsApp <span class="hidden xs:inline">24h</span></span>
-      </a>
-      <!-- Ligação no topo só no computador (no celular, a barra inferior já tem o botão) -->
-      <a
-        href={telLink}
-        class="btn btn-gold btn-sm hidden !min-h-11 !px-4 lg:inline-flex"
-        data-call-only
-        data-track="phone_click"
-        data-service="geral"
-        data-location="header"
-      >
-        <Icon name="Phone" />
-        <span>Ligar agora<span class="sr-only"> {CONTACT.phoneDisplay}</span></span>
+        <span>WhatsApp</span>
       </a>
       <button
         type="button"
@@ -75,7 +64,7 @@ const prefix = isHome ? '' : '/';
 <!-- Linha 2: navegação por seções -->
 <header class="site-nav hidden border-b border-white/[0.07] bg-ink-950/90 backdrop-blur-xl lg:block">
   <nav aria-label="Seções da página" class="container-x">
-    <ul class="nav-scroll flex h-12 items-center justify-between gap-x-3 overflow-x-auto">
+    <ul class="nav-scroll flex h-12 items-center justify-between gap-x-2 overflow-x-auto xl:gap-x-3">
       {
         NAV.map((item) => (
           <li class="shrink-0">
@@ -152,7 +141,12 @@ const prefix = isHome ? '' : '/';
           }
         </ul>
       </nav>
-      <div class="mt-6 grid gap-3">
+      <!-- Horário da loja: fica só aqui no celular (o cabeçalho fechado mostra apenas logo, WhatsApp e menu) -->
+      <p class="mt-4 flex items-start gap-2.5 text-sm text-steel-300">
+        <Icon name="Clock" class="mt-0.5 size-4 shrink-0 text-gold" />
+        {HOURS.storeShort}
+      </p>
+      <div class="mt-5 grid gap-3">
         <a
           href={waLinkFor('geral')}
           target="_blank"
@@ -169,7 +163,6 @@ const prefix = isHome ? '' : '/';
         </a>
       </div>
       <p class="mt-5 text-sm text-steel-400">{HOURS.emergency}.</p>
-      <p class="mt-1 text-sm text-steel-400">{HOURS.kioskShort}.</p>
     </div>
   </div>
 </div>
@@ -187,7 +180,7 @@ const prefix = isHome ? '' : '/';
     align-items: center;
     height: 3rem;
     padding-inline: 0.15rem;
-    font-size: 0.8125rem;
+    font-size: 0.78125rem;
     font-weight: 650;
     color: var(--color-steel-300);
     white-space: nowrap;
